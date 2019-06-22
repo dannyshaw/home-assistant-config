@@ -11,12 +11,12 @@ default_config:
 # Sensors
 sensor:
   # Weather prediction
-  
+
   - platform: yr
-  
+
   - platform: plex
     host: mediaserver
-  
+
   - platform: bom
     monitored_conditions:
       - apparent_t
@@ -31,10 +31,10 @@ sensor:
       - weather
       - wind_dir
       - wind_spd_kmh
-  
+
   - platform: worldclock
     time_zone: Europe/London
-  
+
   - platform: template
     sensors:
       bedroom_heater_amps:
@@ -57,7 +57,7 @@ sensor:
         friendly_name_template: "{{ states.switch.bedroom_heater.name}} Today's Consumption"
         value_template: '{{ states.switch.bedroom_heater.attributes["today_energy_kwh"] | float }}'
         unit_of_measurement: 'kWh'
-  
+
   - platform: bom_forecast
     product_id: IDV10450
     name: Melbourne
@@ -71,8 +71,8 @@ sensor:
       - 'chance_of_rain'
       - 'possible_rainfall'
       - 'summary'
-      - 'detailed_summary
-  
+      - 'detailed_summary'
+
 
 # Device tracking via router
 device_tracker:
@@ -108,18 +108,18 @@ media_player:
     host: !secret samsung_tv_ip
     mac: !secret samsung_tv_mac
     name: Living Room TV
-  
+
   - platform: plex
 
 camera:
   - platform: bom
     location: Melbourne
-    
+
 
 weather:
   - platform: bom
     station: IDV60901.95936
-    
+
 wunderlist:
   client_id: !secret wunderlist_client_id
   access_token: !secret wunderlist_access_token
