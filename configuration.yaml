@@ -34,6 +34,21 @@ sensor:
 
   - platform: worldclock
     time_zone: Europe/London
+    
+  - platform: bom_forecast
+    product_id: IDV10450
+    name: Melbourne
+    forecast_days: 4
+    rest_of_today: True
+    friendly: True
+    friendly_state_format: '{max}, {summary}'
+    monitored_conditions:
+      - 'max'
+      - 'min'
+      - 'chance_of_rain'
+      - 'possible_rainfall'
+      - 'summary'
+      - 'detailed_summary'
 
   - platform: template
     sensors:
@@ -58,21 +73,16 @@ sensor:
         value_template: '{{ states.switch.bedroom_heater.attributes["today_energy_kwh"] | float }}'
         unit_of_measurement: 'kWh'
 
-  - platform: bom_forecast
-    product_id: IDV10450
-    name: Melbourne
-    forecast_days: 3
-    rest_of_today: True
-    friendly: True
-    friendly_state_format: '{max}, {summary}'
-    monitored_conditions:
-      - 'max'
-      - 'min'
-      - 'chance_of_rain'
-      - 'possible_rainfall'
-      - 'summary'
-      - 'detailed_summary'
-
+  - platform: template
+    sensors:
+      livingroom_air_purifier_speed:
+        value_template: "{{ states.fan.xiaomi_miio_device.attributes.speed }}"
+      livingroom_temperature:
+        value_template: "{{ states.fan.xiaomi_miio_device.attributes.temperature }}"
+      livingroom_humidity:
+        value_template: "{{ states.fan.xiaomi_miio_device.attributes.humidity }}"
+      livingroom_aqi:
+        value_template: "{{ states.fan.xiaomi_miio_device.attributes.aqi }}"
 
 # Device tracking via router
 device_tracker:
@@ -119,7 +129,7 @@ camera:
 weather:
   - platform: bom
     station: IDV60901.95936
-
+    
 wunderlist:
   client_id: !secret wunderlist_client_id
   access_token: !secret wunderlist_access_token
@@ -133,7 +143,44 @@ climate:
     target_sensor: sensor.bedroom_temperature
     target_temp: 18
 
+  - platform: generic_thermostat
+    name: Adas Room
+    heater: switch.adas_room_heater
+    target_sensor: sensor.adas_room_temperature
+    target_temp: 18
 
+  - platform: mqtt
+    name: "Living Room"
+    initial: 20
+    modes:
+      - "off"
+      - "cool"
+      - "heat"
+      - "fan_only"
+    swing_modes:
+      - "both_on"
+      - "vertical_on"
+      - "horizonal_on"
+      - "off"
+    fan_modes:
+      - "high"
+      - "medium"
+      - "low"
+    power_command_topic: "livingroom/ac/power/set"
+    mode_command_topic: "livingroom/ac/mode/set"
+    temperature_command_topic: "livingroom/ac/temperature/set"
+    fan_mode_command_topic: "livingroom/ac/fan/set"
+    swing_mode_command_topic: "livingroom/ac/swing/set"
+    max_temp: 30
+    min_temp: 18
+
+http:
+  api_password: !secret api_password
+  # CORS access is optional
+  cors_allowed_origins:
+    - https://reformedreality.com
+    - http://reformedreality.com
+    
 homeassistant:
   customize:
     # Hide gem and my phones from UI
@@ -141,3 +188,14 @@ homeassistant:
       hidden: true
     device_tracker.android_5:
       hidden: true
+      
+fan:
+# Example configuration.yaml entry
+  - platform: xiaomi_miio
+    host: !secret livingroom_air_purifier_ip
+    token: !secret livingroom_air_purifier_token
+
+mqtt:
+  discovery: true
+  discovery_prefix: homeassistant
+    
