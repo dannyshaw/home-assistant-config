@@ -1,0 +1,61 @@
+title: Cameras
+path: cameras
+cards:
+  - type: vertical-stack
+    title: Mouse Cam 1
+    cards:
+      - type: picture-entity
+        entity: camera.moto_cam_1
+        show_header_toggle: true
+      - type: entities
+        entities:
+          - sensor.moto_cam_1_audio_connections
+          - sensor.moto_cam_1_battery_level
+          - sensor.moto_cam_1_battery_temperature
+          - sensor.moto_cam_1_battery_voltage
+          # - sensor.moto_cam_1_light
+          - sensor.moto_cam_1_motion
+          - sensor.moto_cam_1_pressure
+          - sensor.moto_cam_1_proximity
+          - sensor.moto_cam_1_sound
+          - sensor.moto_cam_1_video_connections
+          - switch.moto_cam_1_exposure_lock
+          # - switch.moto_cam_1_ffc
+          - switch.moto_cam_1_focus
+          - switch.moto_cam_1_gps_active
+          - switch.moto_cam_1_night_vision
+          - switch.moto_cam_1_overlay
+          - switch.moto_cam_1_torch
+          # - switch.moto_cam_1_whitebalance_lock
+          - switch.moto_cam_1_video_recording
+
+
+  - type: vertical-stack
+    title: Mouse Cam 2
+    cards:
+      - type: picture-entity
+        entity: camera.moto_cam_2
+        show_header_toggle: true
+      - type: entities
+        entities:
+          - sensor.moto_cam_2_audio_connections
+          - sensor.moto_cam_2_battery_level
+          - sensor.moto_cam_2_battery_temperature
+          - sensor.moto_cam_2_battery_voltage
+          # - sensor.moto_cam_2_light
+          - sensor.moto_cam_2_motion
+          - sensor.moto_cam_2_pressure
+          - sensor.moto_cam_2_proximity
+          - sensor.moto_cam_2_sound
+          - sensor.moto_cam_2_video_connections
+          - switch.moto_cam_2_exposure_lock
+          # - switch.moto_cam_2_ffc
+          - switch.moto_cam_2_focus
+          - switch.moto_cam_2_gps_active
+          - switch.moto_cam_2_night_vision
+          - switch.moto_cam_2_overlay
+          - switch.moto_cam_2_torch
+          # - switch.moto_cam_2_whitebalance_lock
+          - switch.moto_cam_2_video_recording
+
+

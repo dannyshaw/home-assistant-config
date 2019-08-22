@@ -1,0 +1,24 @@
+title: Badges
+badges:
+  - binary_sensor.remote_ui
+  - person.danny
+  - person.gemma
+  - device_tracker.danny_dannysphone
+  - sensor.bedroom_heater_amps
+  - sensor.bedroom_heater_watts
+  - sensor.bedroom_heater_total_kwh
+  - sensor.bedroom_heater_volts
+  - sensor.bedroom_heater_today_kwh
+  - sensor.yr_symbol
+  - sensor.worldclock_sensor
+  - sensor.livingroom_temperature
+  - sensor.livingroom_aqi
+  - sensor.livingroom_air_purifier_speed
+  - sensor.livingroom_humidity
+  - sensor.bom_forecast_melbourne_0
+  - sensor.bom_forecast_melbourne_1
+  - sensor.bom_forecast_melbourne_2
+  - sensor.bom_forecast_melbourne_3
+  - sensor.bom_forecast_melbourne_4
+  - sensor.sonoff_status
+  - sun.sun

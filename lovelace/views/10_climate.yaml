@@ -1,0 +1,196 @@
+title: Climate
+path: climate
+cards:
+  - type: custom:vertical-stack-in-card
+    title: Master Bedroom
+    cards:
+
+      - type: thermostat
+        entity: climate.bedroom
+        name: ' '
+
+      - type: glance
+        entities:
+          - entity: switch.bedroom_heater
+            name: Heater
+            tap_action:
+                action: toggle
+          - entity: sensor.bedroom_temperature
+            name: Temperature
+          - entity: sensor.bedroom_humidity
+            name: Humidity
+
+      - type: custom:mini-graph-card
+        entities:
+          - sensor.bedroom_temperature
+        height: 75
+        line_color:
+          - '#ad5031'
+        hours_to_show: 24
+        more_info: false
+        points_per_hour: 1
+        align_state: center
+        show:
+          extrema: true
+          fill: fade
+          points: true
+          state: false
+          icon: false
+
+      - type: custom:mini-graph-card
+        entities:
+          - sensor.bedroom_humidity
+        height: 75
+        line_color: '#3171ad'
+        hours_to_show: 24
+        more_info: false
+        points_per_hour: 1
+        align_state: center
+        show:
+          extrema: true
+          fill: fade
+          points: true
+          state: false
+          icon: false
+
+  - type: custom:vertical-stack-in-card
+    title: Ada's Room
+    cards:
+
+      - type: thermostat
+        entity: climate.adas_room
+        name: ' '
+
+      - type: glance
+        entities:
+          - entity: switch.adas_room_heater
+            name: 'Heater'
+            tap_action:
+                action: toggle
+          - entity: sensor.adas_room_temperature
+            name: Temperature
+          - entity: sensor.adas_room_humidity
+            name: Humidity
+      - type: custom:mini-graph-card
+        entities:
+          - sensor.adas_room_temperature
+        height: 75
+        line_color:
+          - '#ad5031'
+        hours_to_show: 24
+        more_info: false
+        points_per_hour: 1
+        align_state: center
+        show:
+          extrema: true
+          fill: fade
+          points: true
+          state: false
+          icon: false
+
+      - type: custom:mini-graph-card
+        entities:
+          - sensor.adas_room_humidity
+        height: 75
+        line_color: '#3171ad'
+        hours_to_show: 24
+        more_info: false
+        points_per_hour: 1
+        align_state: center
+        show:
+          extrema: true
+          fill: fade
+          points: true
+          state: false
+          icon: false
+
+  - type: custom:vertical-stack-in-card
+    title: Office
+    cards:
+
+      - entity: climate.office
+        name: ' '
+        type: thermostat
+
+      - type: glance
+        entities:
+          - entity: switch.office_heater
+            name: Heater
+            tap_action:
+                action: toggle
+          - entity: sensor.office_temperature
+            name: Temperature
+
+      - type: custom:mini-graph-card
+        entities:
+          - sensor.office_temperature
+        height: 75
+        line_color:
+          - '#ad5031'
+        hours_to_show: 24
+        more_info: false
+        points_per_hour: 1
+        align_state: center
+        show:
+          extrema: true
+          fill: fade
+          points: true
+          state: false
+          icon: false
+
+  - type: custom:vertical-stack-in-card
+    title: Living Room
+    cards:
+      - entity: climate.living_room
+        name: ' '
+        type: thermostat
+
+      - type: glance
+        entities:
+          - entity: sensor.livingroom_temperature
+            name: Temperature
+          - entity: sensor.livingroom_humidity
+            name: Humidity
+          - entity: sensor.livingroom_aqi
+            name: Air Quality
+            tap_action:
+                action: call_service
+                service: fan.turn_on
+                service_data:
+                  entity: fan.xiaomi_miio_device
+
+      - type: custom:mini-graph-card
+        entities:
+          - sensor.livingroom_temperature
+        height: 75
+        line_color:
+          - '#ad5031'
+        hours_to_show: 24
+        more_info: false
+        points_per_hour: 1
+        align_state: center
+        show:
+          extrema: true
+          fill: fade
+          points: true
+          state: false
+          icon: false
+
+      - type: custom:mini-graph-card
+        entities:
+          - sensor.livingroom_humidity
+        height: 75
+        line_color: '#3171ad'
+        hours_to_show: 24
+        more_info: false
+        points_per_hour: 1
+        align_state: center
+        show:
+          extrema: true
+          fill: fade
+          points: true
+          state: false
+          icon: false
+
+      - type: custom:air-purifier-card
+        entity: fan.xiaomi_miio_device

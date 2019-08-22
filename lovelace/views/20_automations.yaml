@@ -1,0 +1,12 @@
+title: Automations
+cards:
+  - type: entities
+    entities:
+      - automation.ada_room_welcome
+      - automation.ada_s_room_heating_early_on
+      - automation.ada_s_room_heating_early_off
+      - automation.ada_s_room_heating_evening_on
+      - automation.ada_s_room_heating_evening_off
+      - automation.bedroom_heating_morning_warmth
+      - automation.bedroom_heating_night_mode
+      - automation.bedroom_heating_off

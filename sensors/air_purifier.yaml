@@ -1,0 +1,15 @@
+- platform: template
+  sensors:
+    livingroom_air_purifier_speed:
+      value_template: "{{ states.fan.xiaomi_miio_device.attributes.speed }}"
+    livingroom_temperature:
+      value_template: "{{ states.fan.xiaomi_miio_device.attributes.temperature }}"
+      unit_of_measurement: '°C'
+      icon_template: mdi:thermometer
+    livingroom_humidity:
+      value_template: "{{ states.fan.xiaomi_miio_device.attributes.humidity }}"
+      unit_of_measurement: '%'
+      icon_template: mdi:water-percent
+    livingroom_aqi:
+      value_template: "{{ states.fan.xiaomi_miio_device.attributes.aqi }}"
+      icon_template: mdi:air-filter

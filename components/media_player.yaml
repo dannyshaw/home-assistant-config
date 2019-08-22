@@ -1,0 +1,6 @@
+- platform: samsungtv
+  host: !secret samsung_tv_ip
+  mac: !secret samsung_tv_mac
+  name: Living Room TV
+
+- platform: plex

@@ -1,0 +1,50 @@
+- platform: yr
+
+- platform: darksky
+  api_key: !secret dark_sky_api_key
+  monitored_conditions:
+    - temperature
+    - precip_probability
+    - apparent_temperature
+    - wind_speed
+    - wind_gust
+    - humidity
+    - pressure
+    - ozone
+    - uv_index
+    - nearest_storm_distance
+
+
+# - platform: it_will_rain
+#   name: It will rain
+#   entity_id: weather.dark_sky
+
+- platform: bom
+  monitored_conditions:
+    - apparent_t
+    - cloud
+    - gust_kmh
+    - air_temp
+    - delta_t
+    - rain_trace
+    - dewpt
+    - rel_hum
+    - vis_km
+    - weather
+    - wind_dir
+    - wind_spd_kmh
+
+- platform: bom_forecast
+  product_id: IDV10450
+  name: Melbourne
+  forecast_days: 4
+  rest_of_today: True
+  friendly: True
+  friendly_state_format: '{max}, {summary}'
+  monitored_conditions:
+    - 'max'
+    - 'min'
+    - 'chance_of_rain'
+    - 'possible_rainfall'
+    - 'summary'
+    - 'detailed_summary'

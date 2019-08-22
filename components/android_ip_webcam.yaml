@@ -1,0 +1,49 @@
+- host: !secret moto_cam_1_ip
+  name: moto_cam_1
+  port: 8080
+  sensors:
+    - audio_connections
+    - battery_level
+    - battery_temp
+    - battery_voltage
+    - light
+    - motion
+    - pressure
+    - proximity
+    - sound
+    - video_connections
+  switches:
+    - exposure_lock
+    - ffc
+    - focus
+    - gps_active
+    - night_vision
+    - overlay
+    - torch
+    - whitebalance_lock
+    - video_recording
+
+- host: !secret moto_cam_2_ip
+  name: moto_cam_2
+  port: 8080
+  sensors:
+    - audio_connections
+    - battery_level
+    - battery_temp
+    - battery_voltage
+    - light
+    - motion
+    - pressure
+    - proximity
+    - sound
+    - video_connections
+  switches:
+    - exposure_lock
+    - ffc
+    - focus
+    - gps_active
+    - night_vision
+    - overlay
+    - torch
+    - whitebalance_lock
+    - video_recording

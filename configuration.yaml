@@ -1,201 +1,49 @@
-
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
-
-# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
-# http:
-#   base_url: https://shawtribe.duckdns.org:8123
-#   ssl_certificate: /ssl/fullchain.pem
-#   ssl_key: /ssl/privkey.pem
-
-# Sensors
-sensor:
-  # Weather prediction
-
-  - platform: yr
-
-  - platform: plex
-    host: mediaserver
-
-  - platform: bom
-    monitored_conditions:
-      - apparent_t
-      - cloud
-      - gust_kmh
-      - air_temp
-      - delta_t
-      - rain_trace
-      - dewpt
-      - rel_hum
-      - vis_km
-      - weather
-      - wind_dir
-      - wind_spd_kmh
-
-  - platform: worldclock
-    time_zone: Europe/London
-    
-  - platform: bom_forecast
-    product_id: IDV10450
-    name: Melbourne
-    forecast_days: 4
-    rest_of_today: True
-    friendly: True
-    friendly_state_format: '{max}, {summary}'
-    monitored_conditions:
-      - 'max'
-      - 'min'
-      - 'chance_of_rain'
-      - 'possible_rainfall'
-      - 'summary'
-      - 'detailed_summary'
-
-  - platform: template
-    sensors:
-      bedroom_heater_amps:
-        friendly_name_template: "{{ states.switch.bedroom_heater.name}} Current"
-        value_template: '{{ states.switch.bedroom_heater.attributes["current_a"] | float }}'
-        unit_of_measurement: 'A'
-      bedroom_heater_watts:
-        friendly_name_template: "{{ states.switch.bedroom_heater.name}} Current Consumption"
-        value_template: '{{ states.switch.bedroom_heater.attributes["current_power_w"] | float }}'
-        unit_of_measurement: 'W'
-      bedroom_heater_total_kwh:
-        friendly_name_template: "{{ states.switch.bedroom_heater.name}} Total Consumption"
-        value_template: '{{ states.switch.bedroom_heater.attributes["total_energy_kwh"] | float }}'
-        unit_of_measurement: 'kWh'
-      bedroom_heater_volts:
-        friendly_name_template: "{{ states.switch.bedroom_heater.name}} Voltage"
-        value_template: '{{ states.switch.bedroom_heater.attributes["voltage"] | float }}'
-        unit_of_measurement: 'V'
-      bedroom_heater_today_kwh:
-        friendly_name_template: "{{ states.switch.bedroom_heater.name}} Today's Consumption"
-        value_template: '{{ states.switch.bedroom_heater.attributes["today_energy_kwh"] | float }}'
-        unit_of_measurement: 'kWh'
-
-  - platform: template
-    sensors:
-      livingroom_air_purifier_speed:
-        value_template: "{{ states.fan.xiaomi_miio_device.attributes.speed }}"
-      livingroom_temperature:
-        value_template: "{{ states.fan.xiaomi_miio_device.attributes.temperature }}"
-      livingroom_humidity:
-        value_template: "{{ states.fan.xiaomi_miio_device.attributes.humidity }}"
-      livingroom_aqi:
-        value_template: "{{ states.fan.xiaomi_miio_device.attributes.aqi }}"
-
-# Device tracking via router
-device_tracker:
-  - platform: linksys_smart
-    host: 10.245.52.190
-    new_device_defaults:
-      track_new_devices: false
-
-# Text to speech
-tts:
-  - platform: google_translate
-
+lovelace:
+  mode: yaml
+discovery:
+http:
+  api_password: !secret api_password
+stream:
+android_ip_webcam: !include components/android_ip_webcam.yaml
+sensor: !include_dir_merge_list sensors/
+binary_sensor: !include components/binary_sensor.yaml
+device_tracker: !include components/device_tracker.yaml
 group: !include groups.yaml
 automation: !include automations.yaml
 script: !include scripts.yaml
+fan: !include components/fan.yaml
+frontend: !include components/frontend.yaml
+light: !include components/light.yaml
+climate: !include components/climate.yaml
+switch: !include components/switch.yaml
+camera: !include components/camera.yaml
+media_player: !include components/media_player.yaml
+weather: !include components/weather.yaml
+
+speedtestdotnet: !include components/speedtestdotnet.yaml
+
+
+system_health:
+# Text to speech
+tts:
+  - platform: google_translate
 
 tuya:
   username: !secret email
   password: !secret tuya_password
   country_code: 61
 
-discovery:
-
+tplink:
+ffmpeg:
 upnp:
   port_mapping: true
-  ports:
-    hass: 8000
-    8080: 8080
   sensors: false
-
-media_player:
-  - platform: samsungtv
-    host: !secret samsung_tv_ip
-    mac: !secret samsung_tv_mac
-    name: Living Room TV
-
-  - platform: plex
-
-camera:
-  - platform: bom
-    location: Melbourne
-
-
-weather:
-  - platform: bom
-    station: IDV60901.95936
-    
 wunderlist:
   client_id: !secret wunderlist_client_id
   access_token: !secret wunderlist_access_token
 
-tplink:
-
-climate:
-  - platform: generic_thermostat
-    name: Bedroom
-    heater: switch.bedroom_heater
-    target_sensor: sensor.bedroom_temperature
-    target_temp: 18
-
-  - platform: generic_thermostat
-    name: Adas Room
-    heater: switch.adas_room_heater
-    target_sensor: sensor.adas_room_temperature
-    target_temp: 18
-
-  - platform: mqtt
-    name: "Living Room"
-    initial: 20
-    modes:
-      - "off"
-      - "cool"
-      - "heat"
-      - "fan_only"
-    swing_modes:
-      - "both_on"
-      - "vertical_on"
-      - "horizonal_on"
-      - "off"
-    fan_modes:
-      - "high"
-      - "medium"
-      - "low"
-    power_command_topic: "livingroom/ac/power/set"
-    mode_command_topic: "livingroom/ac/mode/set"
-    temperature_command_topic: "livingroom/ac/temperature/set"
-    fan_mode_command_topic: "livingroom/ac/fan/set"
-    swing_mode_command_topic: "livingroom/ac/swing/set"
-    max_temp: 30
-    min_temp: 18
-
-http:
-  api_password: !secret api_password
-  # CORS access is optional
-  cors_allowed_origins:
-    - https://reformedreality.com
-    - http://reformedreality.com
-    
-homeassistant:
-  customize:
-    # Hide gem and my phones from UI
-    device_tracker.android_3:
-      hidden: true
-    device_tracker.android_5:
-      hidden: true
-      
-fan:
-# Example configuration.yaml entry
-  - platform: xiaomi_miio
-    host: !secret livingroom_air_purifier_ip
-    token: !secret livingroom_air_purifier_token
-
-mqtt:
-  discovery: true
-  discovery_prefix: homeassistant
-    
+spotcast:
+  username: !secret spotify_username
+  password: !secret spotify_password

@@ -1,0 +1,20 @@
+title: Media Players
+path: media
+cards:
+  - type: 'custom:spotify-card'
+    client_id: 2c489ec783c54640b3246cd424bc1580
+    limit: 20
+  - entity: media_player.living_room_tv
+    type: media-control
+  - entity: media_player.googlehome4323
+    type: media-control
+  - entity: media_player.googlehome3485
+    type: media-control
+  - entity: media_player.googlehome6866
+    type: media-control
+  - entity: media_player.family_area
+    type: media-control
+  - entity: media_player.everywhere
+    type: media-control
+  - entity: media_player.googlehome2113
+    type: media-control
