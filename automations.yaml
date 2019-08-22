@@ -1,5 +1,4 @@
-
-- alias: Bedroom Heating On
+- alias: Bedroom Heating Night Mode
   trigger:
     platform: time
     at: "19:00:00"
@@ -12,6 +11,18 @@
       entity_id: climate.bedroom
       temperature: 18
       operation_mode: Heat
+
+- alias: Bedroom Heating Morning Warmth
+  trigger:
+    platform: time
+    at: "05:30"
+  action:
+  - service: climate.set_temperature
+    data:
+      entity_id: climate.bedroom
+      temperature: 18.5
+      operation_mode: Heat
+
 - alias: Bedroom Heating Off
   trigger:
     platform: time
@@ -20,4 +31,68 @@
   - service: climate.turn_off
     data:
       entity_id: climate.bedroom
-   
+
+
+- alias: Ada's Room Heating Evening On
+  trigger:
+    platform: time
+    at: "17:00:00"
+  action:
+  - service: climate.turn_on
+    data:
+      entity_id: climate.adas_room
+  - service: climate.set_temperature
+    data:
+      entity_id: climate.adas_room
+      temperature: 19
+      operation_mode: Heat
+
+- alias: Ada's Room Heating Evening Off
+  trigger:
+    platform: time
+    at: "20:00:00"
+  action:
+  - service: climate.turn_off
+    data:
+      entity_id: climate.adas_room
+
+- alias: Ada's Room Heating Early On
+  initial_state: 'off'
+  trigger:
+    platform: time
+    at: "06:00"
+  action:
+  - service: climate.turn_on
+    data:
+      entity_id: climate.adas_room
+  - service: climate.set_temperature
+    data:
+      entity_id: climate.adas_room
+      temperature: 18
+      operation_mode: Heat
+
+- alias: Ada's Room Heating Early Off
+  initial_state: 'off'
+  trigger:
+    platform: time
+    at: "08:00:00"
+  action:
+  - service: climate.turn_off
+    data:
+      entity_id: climate.adas_room
+
+
+- alias: Ada Room Welcome
+  initial_state: 'off'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.adas_room_motion_sensor
+    to: 'on'
+  condition:
+    condition: template
+    value_template: '{{ as_timestamp(now()) - as_timestamp(states.automation.ada_room_welcome.attributes.last_triggered) | int > 60 }}'
+  action:
+    service: tts.google_translate_say
+    entity_id: media_player.googlehome3485
+    data:
+      message: "Hi, Welcome to Ada's Room. You look beautiful today. What are you grateful for today?"

@@ -1,0 +1,10 @@
+- platform: bom
+  location: Melbourne
+
+- platform: mjpeg
+  name: moto_cam_1
+  mjpeg_url: !secret moto_cam_1_mjpeg_stream
+
+- platform: mjpeg
+  name: moto_cam_2
+  mjpeg_url: !secret moto_cam_2_mjpeg_stream

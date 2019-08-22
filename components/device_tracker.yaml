@@ -1,0 +1,5 @@
+# Device tracking via router
+- platform: linksys_smart
+  host: !secret linksys_router_ip
+  new_device_defaults:
+    track_new_devices: false

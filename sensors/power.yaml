@@ -1,0 +1,22 @@
+- platform: template
+  sensors:
+    bedroom_heater_amps:
+      friendly_name_template: "{{ states.switch.bedroom_heater.name}} Current"
+      value_template: '{{ states.switch.bedroom_heater.attributes["current_a"] | float }}'
+      unit_of_measurement: 'A'
+    bedroom_heater_watts:
+      friendly_name_template: "{{ states.switch.bedroom_heater.name}} Current Consumption"
+      value_template: '{{ states.switch.bedroom_heater.attributes["current_power_w"] | float }}'
+      unit_of_measurement: 'W'
+    bedroom_heater_total_kwh:
+      friendly_name_template: "{{ states.switch.bedroom_heater.name}} Total Consumption"
+      value_template: '{{ states.switch.bedroom_heater.attributes["total_energy_kwh"] | float }}'
+      unit_of_measurement: 'kWh'
+    bedroom_heater_volts:
+      friendly_name_template: "{{ states.switch.bedroom_heater.name}} Voltage"
+      value_template: '{{ states.switch.bedroom_heater.attributes["voltage"] | float }}'
+      unit_of_measurement: 'V'
+    bedroom_heater_today_kwh:
+      friendly_name_template: "{{ states.switch.bedroom_heater.name}} Today's Consumption"
+      value_template: '{{ states.switch.bedroom_heater.attributes["today_energy_kwh"] | float }}'
+      unit_of_measurement: 'kWh'

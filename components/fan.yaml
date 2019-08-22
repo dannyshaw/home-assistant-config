@@ -1,0 +1,4 @@
+- platform: xiaomi_miio
+  host: !secret livingroom_air_purifier_ip
+  token: !secret livingroom_air_purifier_token
+
