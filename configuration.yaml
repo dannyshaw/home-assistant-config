@@ -3,8 +3,12 @@ default_config:
 lovelace:
   mode: yaml
 discovery:
+homeassistant:
+  auth_providers:
+    - type: homeassistant
+    - type: legacy_api_password
+      api_password: !secret api_password
 http:
-  api_password: !secret api_password
 stream:
 android_ip_webcam: !include components/android_ip_webcam.yaml
 sensor: !include_dir_merge_list sensors/
@@ -21,20 +25,17 @@ switch: !include components/switch.yaml
 camera: !include components/camera.yaml
 media_player: !include components/media_player.yaml
 weather: !include components/weather.yaml
-
+input_select: !include components/input_select.yaml
+input_boolean: !include components/input_boolean.yaml
 speedtestdotnet: !include components/speedtestdotnet.yaml
-
-
 system_health:
-# Text to speech
 tts:
   - platform: google_translate
-
 tuya:
   username: !secret email
   password: !secret tuya_password
   country_code: 61
-
+  platform: 'tuya'
 tplink:
 ffmpeg:
 upnp:
@@ -43,7 +44,25 @@ upnp:
 wunderlist:
   client_id: !secret wunderlist_client_id
   access_token: !secret wunderlist_access_token
-
 spotcast:
   username: !secret spotify_username
   password: !secret spotify_password
+
+panel_iframe:
+  router:
+    title: 'Router'
+    url: !secret router_homepage
+  fridge:
+    title: 'Ferm Fridge'
+    url: !secret ferm_fridge_homepage
+
+history_graph:
+  aqi:
+    name: AQI Graph
+    entities:
+      - sensor.livingroom_aqi
+    hours_to_show: 72
+    refresh: 60
+
+python_script:
+

@@ -1,6 +1,10 @@
 title: Home
 views: !include_dir_list lovelace/views
 resources:
+  - url: /local/community/lovelace-card-mod/card-mod.js
+    type: module
+  - url: /local/community/config-template-card/config-template-card.js
+    type: module
   - url: /local/custom-lovelace/lovelace-fullykiosk.js
     type: js
   - url: /local/custom-lovelace/kiosk-config.js
@@ -9,11 +13,10 @@ resources:
     type: js
   - url: /local/custom-lovelace/air-purifier/card.js
     type: module
-  - url: /local/custom-lovelace/mini-graph-card-bundle.js
+  - url: /local/custom-lovelace/mini-graph-card-bundle.js?v=0.9.4
     type: module
   - url: /local/custom-lovelace/dark-sky-weather-card.js?v=7.1
     type: module
-  - url: >-
-      https://cdn.jsdelivr.net/gh/custom-cards/spotify-card@1.6/dist/spotify-card.umd.js
+  - url: /local/community/canvas-gauge-card/canvas-gauge-card.js
     type: module
 

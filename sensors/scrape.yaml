@@ -1,0 +1,25 @@
+- platform: scrape
+  name: ferm_fridge_beer_temp
+  resource: !secret ferm_fridge_homepage
+  select: "#dashBeerTemp"
+  # value_template: '{{ value | replace("° C", "") }}'
+- platform: scrape
+  name: ferm_fridge_chamber_temp
+  resource: !secret ferm_fridge_homepage
+  select: "#dashFridgeTemp"
+  # value_template: '{{ value | replace("° C", "") }}'
+- platform: scrape
+  name: ferm_fridge_shed_temp
+  resource: !secret ferm_fridge_homepage
+  select: "#dashRoomTemp"
+  # value_template: '{{ value | replace("° C", "") }}'
+- platform: scrape
+  name: ferm_fridge_cooling_cycle_perc
+  resource: !secret ferm_fridge_homepage
+  select: "#coolingDutyCycle"
+  # value_template: '{{ value | replace("%", "") }}'
+- platform: scrape
+  name: ferm_fridge_heating_cycle_perc
+  resource: !secret ferm_fridge_homepage
+  select: "#heatingDutyCycle"
+  # value_template: '{{ value | replace("%", "") }}'

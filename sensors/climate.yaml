@@ -2,3 +2,8 @@
   name: "Office Temperature"
   state_topic: "office/temperature"
   unit_of_measurement: '°C'
+
+- platform: mqtt
+  name: "Homebrew Temperature"
+  state_topic: "brewpi/temperature"
+  unit_of_measurement: '°C'

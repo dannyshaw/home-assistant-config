@@ -1,0 +1,8 @@
+{
+  "domain": "ptv_departures",
+  "name": "PTV Departures",
+  "documentation": "https://github.com/dannyshaw/ptv_departures/",
+  "dependencies": [],
+  "codeowners": [],
+  "requirements": []
+}

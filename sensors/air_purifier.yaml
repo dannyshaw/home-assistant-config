@@ -13,3 +13,4 @@
     livingroom_aqi:
       value_template: "{{ states.fan.xiaomi_miio_device.attributes.aqi }}"
       icon_template: mdi:air-filter
+      unit_of_measurement: 'aqi'

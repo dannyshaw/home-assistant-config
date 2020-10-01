@@ -1,20 +1,20 @@
 - platform: generic_thermostat
   name: Bedroom
   heater: switch.bedroom_heater
-  target_sensor: sensor.bedroom_temperature
-  target_temp: 18
+  target_sensor: sensor.livingroom_temperature
+  target_temp: 17
 
 - platform: generic_thermostat
   name: Office
   heater: switch.office_heater
-  target_sensor: sensor.office_temperature
-  target_temp: 18
+  target_sensor: sensor.bedroom_temperature
+  target_temp: 19.5
 
 - platform: generic_thermostat
   name: Adas Room
   heater: switch.adas_room_heater
   target_sensor: sensor.adas_room_temperature
-  target_temp: 18
+  target_temp: 22
 
 - platform: mqtt
   name: "Living Room"

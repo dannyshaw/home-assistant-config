@@ -15,6 +15,20 @@
           entity_id: climate.bedroom
           hvac_mode: "off"
 
+    office_heating:
+      friendly_name: Office Heating
+      value_template: "{{ is_state('climate.office', 'heat') }}"
+      turn_on:
+        service: climate.set_hvac_mode
+        data:
+          entity_id: climate.office
+          hvac_mode: heat
+      turn_off:
+        service: climate.set_hvac_mode
+        data:
+          entity_id: climate.office
+          hvac_mode: "off"
+
     adas_room_heating:
       friendly_name: Ada's Room Heating
       value_template: "{{ is_state('climate.adas_room', 'heat') }}"
