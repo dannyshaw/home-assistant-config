@@ -44,9 +44,9 @@ upnp:
 wunderlist:
   client_id: !secret wunderlist_client_id
   access_token: !secret wunderlist_access_token
-spotcast:
-  username: !secret spotify_username
-  password: !secret spotify_password
+# spotcast:
+#   username: !secret spotify_username
+#   password: !secret spotify_password
 
 panel_iframe:
   router:
