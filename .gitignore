@@ -10,3 +10,5 @@ home-assistant_v2.db
 __pycache__
 .ps4-games.json
 appdaemon/appdaemon.yaml
+appdaemon/*.log*
+plex.conf
