@@ -38,3 +38,23 @@ cast_security_cam_to_tv:
         entity_id: media_player.bedroom_tv
         media_content_id: !secret moto_cam_1_mjpeg_stream
         media_content_type: image/jpeg
+
+spotify_lullaby:
+  alias: 'Play Classical Lullaby'
+  sequence:
+    - service: media_player.play_media
+      data_template:
+        entity_id: media_player.googlehome6866
+        media_content_id: 'spotify:user:spotify:playlist:37i9dQZF1DX8Sz1gsYZdwj'
+        media_content_type: playlist
+
+
+adas_red_button:
+  alias: Ada's Red Button
+  sequence:
+    - service: media_player.play_media
+      data_template:
+        entity_id: media_player.googlehome6866
+        media_content_id: 'spotify:user:spotify:playlist:37i9dQZF1DX8Sz1gsYZdwj'
+        media_content_type: playlist
+

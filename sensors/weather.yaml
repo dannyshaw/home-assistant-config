@@ -33,11 +33,6 @@
     - pressure
     - visibility
 
-
-# - platform: it_will_rain
-#   name: It will rain
-#   entity_id: weather.dark_sky
-
 - platform: bom
   monitored_conditions:
     - apparent_t

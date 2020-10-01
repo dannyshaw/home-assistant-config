@@ -2,6 +2,28 @@ title: External
 path: external
 cards:
 
+  - type: markdown
+    style: |
+      ha-card {
+        font-size: 18px;
+      }
+    content: |
+        ### City
+
+        {% for departure in state_attr('sensor.city_bus', 'departures') %}
+         * {{ as_timestamp(departure["departing"]) | timestamp_custom('%T') }} ({{departure["arriving_str"]}}) {{departure["direction"]}}{% if departure["is_realtime"] %} *{% endif %}{% endfor %}
+
+        ### Northland
+
+        {% for departure in state_attr('sensor.northland_bus', 'departures') %}
+         * {{ as_timestamp(departure["departing"]) | timestamp_custom('%T') }} ({{departure["arriving_str"]}}) {{departure["direction"]}}{% if departure["is_realtime"] %} *{% endif %}{% endfor %}
+
+        ### Separation Street
+
+        {% for departure in state_attr('sensor.separation_street_bus', 'departures') %}
+         * {{ as_timestamp(departure["departing"]) | timestamp_custom('%T') }} ({{departure["arriving_str"]}}) {{departure["direction"]}}{% if departure["is_realtime"] %} *{% endif %}{% endfor %}
+
+
   - type: 'custom:dark-sky-weather-card'
     #required
     entity_current_conditions: sensor.dark_sky_icon
@@ -49,3 +71,10 @@ cards:
 
   - entity: camera.bom_radar_loop_melbourne
     type: picture-entity
+
+  - type: custom:mini-graph-card
+    entities:
+    - sensor.speedtest_download
+    - sensor.speedtest_upload
+    show:
+      labels_secondary: true

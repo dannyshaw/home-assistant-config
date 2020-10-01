@@ -1,0 +1,5 @@
+heating_mode:
+  name: Heating Mode
+  options:
+  - Normal
+  - Working From Home

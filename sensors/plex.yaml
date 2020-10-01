@@ -1,2 +1,2 @@
 - platform: plex
-  host: mediaserver
+  host: !secret plex_server_host

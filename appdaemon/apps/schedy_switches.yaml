@@ -1,0 +1,30 @@
+schedy_switches:  # This is our app instance name.
+  module: hass_apps_loader
+  class: SchedyApp
+
+  actor_type: switch
+
+  expression_environment: |
+    def automations_global():
+      return state("input_boolean.automations_global")
+
+  rooms:
+
+    outside:
+      actors:
+        switch.mosquito_killer:
+      schedule:
+      - value: "on"
+        rules:
+          #- x: "Next() if living_room_morning_heating() == 'on' else Break()"
+          - { start: "16:30", end: "23:00" }
+
+  schedule_append:
+  - v: "off"
+
+  schedule_prepend:
+  - x: Next() if automations_global() == 'on' else "off"
+
+
+  watched_entities:
+  - input_boolean.automations_global

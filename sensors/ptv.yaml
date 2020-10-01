@@ -1,0 +1,38 @@
+- platform: ptv_departures
+  scan_interval: 15
+  name: "City Bus"
+  route_type: 2 # BUS
+  stop_id: 20727
+  route_ids:
+    - 8139  # City_Northland
+    - 8135  # City_Latrobe
+  direction_ids:
+    - 6
+    - 13
+
+- platform: ptv_departures
+  scan_interval: 15
+  name: "Northland Bus"
+  route_type: 2 # BUS
+  stop_id: 20727
+  route_ids:
+    - 8139  # City_Northland
+    - 8135  # City_Latrobe
+  direction_ids:
+    - 24
+    - 23
+
+- platform: ptv_departures
+  scan_interval: 15
+  name: "Separation Street Bus"
+  route_type: 2 # BUS
+  stop_id: 11088
+  max_results: 6
+
+- platform: ptv_departures
+  scan_interval: 15
+  name: "Bastings Street Bus"
+  route_type: 2 # BUS
+  stop_id: 10420
+  max_results: 6
+
