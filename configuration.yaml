@@ -10,9 +10,9 @@ homeassistant:
       api_password: !secret api_password
 http:
 stream:
-android_ip_webcam: !include components/android_ip_webcam.yaml
+# android_ip_webcam: !include components/android_ip_webcam.yaml
 sensor: !include_dir_merge_list sensors/
-binary_sensor: !include components/binary_sensor.yaml
+# binary_sensor: !include components/binary_sensor.yaml
 device_tracker: !include components/device_tracker.yaml
 group: !include groups.yaml
 automation: !include automations.yaml
