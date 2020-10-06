@@ -1,0 +1,6 @@
+- platform: template
+  sensors:
+    distance_danny_gem:
+      friendly_name: "Distance - Danny to Gem"
+      unit_of_measurement: 'km'
+      value_template: {{ distance('device_tracker.dannys_pixel', 'device_tracker.gemmas_pixel') }}
