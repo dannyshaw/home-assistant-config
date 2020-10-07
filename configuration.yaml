@@ -38,9 +38,6 @@ tuya:
   platform: 'tuya'
 tplink:
 ffmpeg:
-upnp:
-  port_mapping: true
-  sensors: false
 
 # spotcast:
 #   username: !secret spotify_username
