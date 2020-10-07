@@ -9,3 +9,6 @@
 
 - platform: worldclock
   time_zone: Europe/London
+
+- platform: worldclock
+  time_zone: Pacific/Auckland
