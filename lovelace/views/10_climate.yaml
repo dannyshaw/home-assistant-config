@@ -63,3 +63,15 @@ cards:
         name: ' '
         type: thermostat
 
+  - type: custom:vertical-stack-in-card
+    title: Shed
+    cards:
+      - entity: sensor.ferm_fridge_shed_temp
+        name: Shed
+        type: sensor
+      - entity: sensor.ferm_fridge_chamber_temp
+        name: Fridge
+        type: sensor
+      - entity: sensor.ferm_fridge_beer_temp
+        name: Beer
+        type: sensor
