@@ -41,9 +41,7 @@ ffmpeg:
 upnp:
   port_mapping: true
   sensors: false
-wunderlist:
-  client_id: !secret wunderlist_client_id
-  access_token: !secret wunderlist_access_token
+
 # spotcast:
 #   username: !secret spotify_username
 #   password: !secret spotify_password
@@ -55,14 +53,6 @@ panel_iframe:
   fridge:
     title: 'Ferm Fridge'
     url: !secret ferm_fridge_homepage
-
-history_graph:
-  aqi:
-    name: AQI Graph
-    entities:
-      - sensor.livingroom_aqi
-    hours_to_show: 72
-    refresh: 60
 
 python_script:
 
