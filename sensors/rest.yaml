@@ -1,0 +1,14 @@
+- platform: rest
+  name: ferm_fridge_beer_temp
+  resource: !secret ferm_fridge_api
+  value_template: '{{ value_json.beer_temp | replace("&deg; C", "") }}'
+
+- platform: rest
+  name: ferm_fridge_chamber_temp
+  resource: !secret ferm_fridge_api
+  value_template: '{{ value_json.chamber_temp | replace("&deg; C", "") }}'
+
+- platform: rest
+  name: ferm_fridge_shed_temp
+  resource: !secret ferm_fridge_api
+  value_template: '{{ value_json.room_temp | replace("&deg; C", "") }}'
