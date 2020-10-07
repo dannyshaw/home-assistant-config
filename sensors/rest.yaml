@@ -7,7 +7,7 @@
 - platform: rest
   name: ferm_fridge_chamber_temp
   resource: !secret ferm_fridge_api
-  value_template: '{{ value_json[0].chamber_temp | replace("&deg; C", "") }}'
+  value_template: '{{ value_json[0].fridge_temp | replace("&deg; C", "") }}'
 
 - platform: rest
   name: ferm_fridge_shed_temp
