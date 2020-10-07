@@ -8,9 +8,7 @@
     - 'beat'
 
 - platform: worldclock
-  friendly_name: london_time
   time_zone: Europe/London
 
 - platform: worldclock
-  friendly_name: nz_time
   time_zone: Pacific/Auckland
