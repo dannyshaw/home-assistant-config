@@ -1,0 +1,4 @@
+- name: Home Assistant
+  platform: slack
+  api_key: !secret slack_api_key
+  default_channel: '#home-assistant'
