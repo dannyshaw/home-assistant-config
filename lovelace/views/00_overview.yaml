@@ -4,10 +4,17 @@ cards:
   - type: sensor
     name: "Ada Screen Time"
     entity: sensor.ada_s_screen_time
+    attribute: value
 
-  - type: sensor
+  - type: entity
+    name: "Dannys Mobile Time"
+    entity: sensor.dannys_mobile_time
+    attribute: value
+
+  - type: entity
     name: "Ada Heater Time On"
     entity: sensor.adas_heater_time
+    attribute: value
 
   - entity: weather.bom_melbourne_olympic_park
     type: weather-forecast
