@@ -1,14 +1,11 @@
 title: Home
-views: !include_dir_list lovelace/views
+views:
+  - !include lovelace/views/10_climate.yaml
 resources:
   - url: /local/community/lovelace-card-mod/card-mod.js
     type: module
   - url: /local/community/config-template-card/config-template-card.js
     type: module
-  - url: /local/custom-lovelace/lovelace-fullykiosk.js
-    type: js
-  - url: /local/custom-lovelace/kiosk-config.js
-    type: js
   - url: /local/custom-lovelace/vertical-stack-in-card.js?v=0.1.3.1
     type: js
   - url: /local/custom-lovelace/air-purifier/card.js
