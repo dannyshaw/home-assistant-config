@@ -5,6 +5,10 @@ cards:
     name: "Ada Screen Time"
     entity: sensor.ada_s_screen_time
 
+  - type: sensor
+    name: "Ada Heater Time On"
+    entity: sensor.adas_heater_time
+
   - entity: weather.bom_melbourne_olympic_park
     type: weather-forecast
 
