@@ -1,6 +1,10 @@
 title: Home
 views:
+  - !include lovelace/views/00_overview.yaml
   - !include lovelace/views/10_climate.yaml
+  - !include lovelace/views/30_automations.yaml
+  - !include lovelace/views/60_external.yaml
+  - !include lovelace/views/70_map.yaml
 resources:
   - url: /local/community/lovelace-card-mod/card-mod.js
     type: module

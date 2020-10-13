@@ -1,0 +1,12 @@
+title: Overview
+path: overview
+cards:
+  - type: sensor
+    name: "Ada Screen Time"
+    entity: sensor.ada_s_screen_time
+
+  - entity: weather.bom_melbourne_olympic_park
+    type: weather-forecast
+
+  - entity: camera.bom_radar_loop_melbourne
+    type: picture-entity
