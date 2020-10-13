@@ -4,3 +4,12 @@
       friendly_name: "Distance - Danny to Gem"
       unit_of_measurement: "km"
       value_template: "{{ distance('device_tracker.dannys_pixel', 'device_tracker.gemmas_pixel') }}"
+
+
+- platform: history_stats
+  name: Ada's screen time
+  entity_id: media_player.living_room_tv
+  state: 'playing'
+  type: time
+  start: '{{ now().replace(hour=9, minute=0, second=0) }}'
+  end: '{{ now().replace(hour=19, minute=0, second=0) }}'
