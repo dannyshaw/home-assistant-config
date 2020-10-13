@@ -21,3 +21,12 @@
   type: time
   start: '{{ now().replace(hour=0, minute=0, second=0) }}'
   end: '{{ now() }}'
+
+
+- platform: history_stats
+  name: Dannys Mobile Time
+  entity_id: binary_sensor.danny_s_phone_interactive
+  state: 'on'
+  type: time
+  start: '{{ now().replace(hour=0, minute=0, second=0) }}'
+  end: '{{ now() }}'
