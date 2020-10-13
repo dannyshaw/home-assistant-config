@@ -1,7 +1,7 @@
 title: Overview
 path: overview
 cards:
-  - type: sensor
+  - type: entity
     name: "Ada Screen Time"
     entity: sensor.ada_s_screen_time
     attribute: value
