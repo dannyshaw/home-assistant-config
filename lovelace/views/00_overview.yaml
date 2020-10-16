@@ -1,10 +1,34 @@
 title: Overview
 path: overview
 cards:
-  - type: entity
-    name: "Ada Screen Time"
-    entity: sensor.ada_s_screen_time
-    attribute: value
+  - type: custom:vertical-stack-in-card
+    title: Ada's Screen Time
+    cards:
+    - type: entity
+      name: Today
+      entity: sensor.ada_s_screen_time
+      attribute: value
+
+    - type: 'custom:mini-graph-card'
+      name: Daily
+      bar_spacing: 2
+      decimals: 2
+      group_by: date
+      height: 200
+      hours_to_show: 168
+      icon: 'mdi:television'
+      unit: Hours
+      entities:
+        - entity: sensor.ada_s_screen_time
+          name: Screen Time
+          aggregate_func: max
+          color: orange
+      show:
+        labels: false
+        graph: bar
+        hour24: true
+        extrema: false
+        average: false
 
   - type: entity
     name: "Dannys Mobile Time"
