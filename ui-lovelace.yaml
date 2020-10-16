@@ -1,6 +1,6 @@
 title: Home
 views:
-  - !include lovelace/views/10_climate.yaml
+  - !include lovelace/views/10_climate.yaml #
   - !include lovelace/views/20_switches.yaml
   - !include lovelace/views/00_overview.yaml
   - !include lovelace/views/30_automations.yaml
