@@ -34,7 +34,7 @@ cards:
             name: Heater
             tap_action:
                 action: toggle
-          - entity: sensor.bedroom_temperature
+          - entity: sensor.office_temperature
             name: Temperature
 
   - type: custom:vertical-stack-in-card
@@ -51,9 +51,9 @@ cards:
             name: Heater
             tap_action:
                 action: toggle
-          - entity: sensor.livingroom_temperature
+          - entity: sensor.air_purifier_temperature
             name: Temperature
-          - entity: sensor.livingroom_humidity
+          - entity: sensor.air_purifier_humidity
             name: Humidity
 
   - type: custom:vertical-stack-in-card
