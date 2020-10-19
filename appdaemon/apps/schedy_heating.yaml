@@ -80,4 +80,3 @@ schedy_heating:  # This is our app instance name.
   - input_boolean.heating_schedule_enabled
   - input_boolean.automations_global
   - input_boolean.danny_working_from_home
-  - sensor.livingroom_temperature

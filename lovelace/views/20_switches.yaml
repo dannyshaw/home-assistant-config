@@ -53,5 +53,5 @@ cards:
     - type: history-graph
       title: 'Air Quality'
       entities:
-        - sensor.livingroom_aqi
+        - sensor.air_purifier_air_quality
       hours_to_show: 80
