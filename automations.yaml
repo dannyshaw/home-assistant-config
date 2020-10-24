@@ -1,14 +1,15 @@
-- alias: Ada Room Welcome
-  initial_state: 'off'
-  trigger:
-    platform: state
-    entity_id: binary_sensor.adas_room_motion_sensor
-    to: 'on'
-  condition:
-    condition: template
-    value_template: '{{ as_timestamp(now()) - as_timestamp(states.automation.ada_room_welcome.attributes.last_triggered) | int > 60 }}'
-  action:
-    service: tts.google_translate_say
-    entity_id: media_player.googlehome3485
-    data:
-      message: "Hi, Welcome to Ada's Room. You look beautiful today. What are you grateful for today?"
+# - alias: Ada Room Welcome
+#   initial_state: 'off'
+#   trigger:
+#     platform: state
+#     entity_id: binary_sensor.adas_room_motion_sensor
+#     to: 'on'
+#   condition:
+#     condition: template
+#     value_template: '{{ as_timestamp(now()) - as_timestamp(states.automation.ada_room_welcome.attributes.last_triggered) | int > 60 }}'
+#   action:
+#     service: tts.google_translate_say
+#     entity_id: media_player.googlehome3485
+#     data:
+#       message: "Hi, Welcome to Ada's Room. You look beautiful today. What are you grateful for today?"
+
