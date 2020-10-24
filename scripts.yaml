@@ -54,7 +54,7 @@ adas_red_button:
   sequence:
     - service: media_player.play_media
       data_template:
-        entity_id: media_player.googlehome6866
+        entity_id: media_player.livingroom_mini
         media_content_id: 'spotify:user:spotify:playlist:37i9dQZF1DX8Sz1gsYZdwj'
         media_content_type: playlist
 
