@@ -49,7 +49,7 @@ spotify_lullaby:
         media_content_type: playlist
 
 
-adas_red_button:
+classical_sleep:
   alias: Ada's Red Button
   sequence:
     - service: media_player.play_media
@@ -58,3 +58,16 @@ adas_red_button:
         media_content_id: 'spotify:user:spotify:playlist:37i9dQZF1DX8Sz1gsYZdwj'
         media_content_type: playlist
 
+adas_toy_red_button:
+  alias: Ada's Toy Red Button
+  sequence:
+    - service: script.turn_on
+      data_template:
+        entity_id: scripts.classical_sleep
+
+adas_toy_blue_button:
+  alias: Ada's Toy Blue Button
+  sequence:
+    - service: script.turn_on
+      data_template:
+        entity_id: scripts.spotify_lullaby
