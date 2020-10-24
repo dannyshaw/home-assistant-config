@@ -6,7 +6,7 @@ cards:
     cards:
     - type: entity
       name: Today
-      entity: sensor.ada_s_screen_time
+      entity: sensor.adas_screen_time
       attribute: value
 
     - type: 'custom:mini-graph-card'
@@ -19,7 +19,7 @@ cards:
       icon: 'mdi:television'
       unit: Hours
       entities:
-        - entity: sensor.ada_s_screen_time
+        - entity: sensor.adas_screen_time
           name: Screen Time
           aggregate_func: max
           color: orange
