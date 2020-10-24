@@ -24,7 +24,6 @@ cards:
           aggregate_func: max
           color: orange
       show:
-        labels: false
         graph: bar
         hour24: true
         extrema: false
