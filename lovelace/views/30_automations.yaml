@@ -15,6 +15,10 @@ cards:
     name: Heating Schedule
     tap_action:
       action: toggle
+  - entity: input_boolean.override_adas_screen_time_limit
+    name: Ada's screen time override
+    tap_action:
+      action: toggle
   - entity: input_boolean.living_room_morning_heating
     name: Living Room Morning
     tap_action:
