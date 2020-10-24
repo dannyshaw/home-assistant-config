@@ -1,0 +1,112 @@
+
+- cal_id: cvg67f9s7124db5rgmqnk1ks0k@group.calendar.google.com
+  entities:
+  - device_id: moon_time
+    ignore_availability: true
+    name: Moon Time
+    track: true
+
+- cal_id: p#weather@group.v.calendar.google.com
+  entities:
+  - device_id: weather
+    ignore_availability: true
+    name: Weather
+    track: true
+
+- cal_id: 1u4bi9vrssuadcgj80cel08rf8b42d75@import.calendar.google.com
+  entities:
+  - device_id: getting_shit_done
+    ignore_availability: true
+    name: Getting Shit Done
+    track: true
+
+- cal_id: j11aalfokaijt6pgr7f88te2jcirgot3@import.calendar.google.com
+  entities:
+  - device_id: dannyandgemmawed
+    ignore_availability: true
+    name: DannyandGemmaWed
+    track: true
+
+- cal_id: bu1jfh4vhrs2tin07i5gs1mia4@group.calendar.google.com
+  entities:
+  - device_id: air_bnb
+    ignore_availability: true
+    name: Air BNB
+    track: true
+
+- cal_id: v96lfmga2cu97rs79lvtel4csc@group.calendar.google.com
+  entities:
+  - device_id: van_rental
+    ignore_availability: true
+    name: Van Rental
+    track: true
+
+- cal_id: danny@edrolo.com
+  entities:
+  - device_id: danny_edrolo_com
+    ignore_availability: true
+    name: danny@edrolo.com
+    track: true
+
+- cal_id: g376i60984olgqlbvmn5gmrrhs@group.calendar.google.com
+  entities:
+  - device_id: crm
+    ignore_availability: true
+    name: CRM
+    track: true
+
+- cal_id: 7d9lsk4ods41i8mfj95bv6kk70@group.calendar.google.com
+  entities:
+  - device_id: gqueues
+    ignore_availability: true
+    name: GQueues
+    track: true
+
+- cal_id: pt1mctcru78adms5mt6hctt1og@group.calendar.google.com
+  entities:
+  - device_id: ifttt_triggers
+    ignore_availability: true
+    name: IFTTT Triggers
+    track: true
+
+- cal_id: family16344883550333925751@group.calendar.google.com
+  entities:
+  - device_id: family
+    ignore_availability: true
+    name: Family
+    track: true
+
+- cal_id: addressbook#contacts@group.v.calendar.google.com
+  entities:
+  - device_id: birthdays
+    ignore_availability: true
+    name: Birthdays
+    track: true
+
+- cal_id: hd72hlejvdmupmdh8arvtkqtn0@group.calendar.google.com
+  entities:
+  - device_id: dads_journal
+    ignore_availability: true
+    name: Dads Journal
+    track: true
+
+- cal_id: kqvoo6278l2a23djj6pv03jsko@group.calendar.google.com
+  entities:
+  - device_id: shawtribe
+    ignore_availability: true
+    name: ShawTribe
+    track: true
+
+- cal_id: technix@gmail.com
+  entities:
+  - device_id: personal
+    ignore_availability: true
+    name: Personal
+    track: true
+
+- cal_id: jv5o3r4jsnbib7rvpejg9lig0s@group.calendar.google.com
+  entities:
+  - device_id: worklifebalance
+    ignore_availability: true
+    name: WorkLifeBalance
+    track: true

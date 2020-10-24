@@ -12,3 +12,4 @@ __pycache__
 appdaemon/appdaemon.yaml
 appdaemon/*.log*
 plex.conf
+.google.token
