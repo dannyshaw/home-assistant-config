@@ -1,0 +1,36 @@
+- alias: "Ada Screen Time Warning"
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.adas_screen_time
+    above: 1.5
+    below: 2
+
+  condition:
+    condition: state
+    entity_id: input_boolean.override_adas_screen_time
+    state: "off"
+
+  action:
+    - service: tts.google_translate_say
+      entity_id: media_player.family_area
+      data:
+        message: "Ada has had an hour and a half of television today. Time to actually parent."
+
+- alias: "Ada Screen Time Cutoff"
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.adas_screen_time
+    above: 2
+
+  condition:
+    condition: state
+    entity_id: input_boolean.override_adas_screen_time
+    state: "off"
+
+  action:
+  - service: tts.google_translate_say
+    entity_id: media_player.family_area
+    data:
+      message: "Time to say Bye Bye Telly, Ada."
+  - service: media_player.turn_off
+    entity_id: media_player.living_room_tv

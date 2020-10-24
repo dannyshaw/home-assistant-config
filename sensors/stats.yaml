@@ -1,5 +1,5 @@
 - platform: history_stats
-  name: Ada's screen time
+  name: Adas screen time
   entity_id: media_player.living_room_tv
   state: 'playing'
   type: time

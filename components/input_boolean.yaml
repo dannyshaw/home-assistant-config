@@ -18,3 +18,8 @@ living_room_morning_heating:
   name: Living Room Morning Heating
   initial: false
   icon: mdi:radiator
+
+override_adas_screen_time_limit:
+  name: Override Adas Screen Time Limit
+  initial: false
+  icon: mdi:television
