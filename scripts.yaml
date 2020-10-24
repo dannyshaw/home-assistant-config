@@ -52,11 +52,11 @@ spotify_lullaby:
 classical_sleep:
   alias: Ada's Red Button
   sequence:
-    - service: media_player.play_media
-      data_template:
-        entity_id: media_player.livingroom_mini
-        media_content_id: 'spotify:user:spotify:playlist:37i9dQZF1DX8Sz1gsYZdwj'
-        media_content_type: playlist
+    - service: spotcast.start
+      data:
+        device_name: 'Living Room Mini'
+        uri: 'spotify:user:spotify:playlist:37i9dQZF1DX8Sz1gsYZdwj'
+
 
 adas_toy_red_button:
   alias: Ada's Toy Red Button
