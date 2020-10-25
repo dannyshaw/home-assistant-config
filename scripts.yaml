@@ -39,23 +39,22 @@ cast_security_cam_to_tv:
         media_content_id: !secret moto_cam_1_mjpeg_stream
         media_content_type: image/jpeg
 
-spotify_lullaby:
-  alias: 'Play Classical Lullaby'
-  sequence:
-    - service: media_player.play_media
-      data_template:
-        entity_id: media_player.googlehome6866
-        media_content_id: 'spotify:user:spotify:playlist:37i9dQZF1DX8Sz1gsYZdwj'
-        media_content_type: playlist
 
-
-classical_sleep:
-  alias: Ada's Red Button
+start_playlist_classical_sleep:
+  alias: Play Classical Sleep
   sequence:
     - service: spotcast.start
       data:
         device_name: 'Living Room Mini'
         uri: 'spotify:user:spotify:playlist:37i9dQZF1DX8Sz1gsYZdwj'
+
+start_playlist_wiggles:
+  alias: Play Classical Sleep
+  sequence:
+    - service: spotcast.start
+      data:
+        device_name: 'Living Room Mini'
+        uri: 'spotify:user:spotify:playlist:37i9dQZF1DWU4fmy0wzUd7'
 
 
 adas_toy_red_button:
@@ -63,11 +62,11 @@ adas_toy_red_button:
   sequence:
     - service: script.turn_on
       data_template:
-        entity_id: scripts.classical_sleep
+        entity_id: script.start_playlist_wiggles
 
 adas_toy_blue_button:
   alias: Ada's Toy Blue Button
   sequence:
     - service: script.turn_on
       data_template:
-        entity_id: scripts.spotify_lullaby
+        entity_id: script.start_playlist_classical_sleep
