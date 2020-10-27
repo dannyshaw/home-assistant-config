@@ -33,7 +33,7 @@
 
 - trigger:
     platform: time
-    at: "20:33:00"
+    at: "20:50:00"
   action:
   - service: notify.mobile_app_danny_s_phone
     data:
