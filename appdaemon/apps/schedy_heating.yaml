@@ -26,7 +26,7 @@ schedy_heating:  # This is our app instance name.
       actors:
         climate.adas_room:
       schedule:
-      - value: 22
+      - value: 20.5
 
     livingroom:
       actors:
