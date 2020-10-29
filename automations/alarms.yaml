@@ -2,7 +2,7 @@
   trigger:
     platform: numeric_state
     entity_id: sensor.adas_screen_time
-    above: 1.5
+    above: 1
     below: 2
   condition:
     condition: state
@@ -12,7 +12,7 @@
     - service: tts.google_translate_say
       entity_id: media_player.family_area
       data:
-        message: "Ada has had an hour and a half of television today. Time to actually parent."
+        message: "Just a warning Ada has had an hour of television today."
 
 - alias: "Ada Screen Time Cutoff"
   trigger:
@@ -27,6 +27,6 @@
   - service: tts.google_translate_say
     entity_id: media_player.family_area
     data:
-      message: "Time to say Bye Bye Telly, Ada."
+      message: "Two hours of Television. Time to say Bye Bye, Ada."
   - service: media_player.turn_off
     entity_id: media_player.living_room_tv
