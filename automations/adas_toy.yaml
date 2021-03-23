@@ -1,3 +1,13 @@
+- alias: Adas Toy Green Button
+  trigger:
+    platform: state
+    enitity_id: binary_sensor.adas_toy_green_button
+    from: off
+    to: on
+  action:
+    service: script.turn_on
+    enitity_id: scripts.start_lullabys_for_big_eyes
+
 # - alias: Ada Room Welcome
 #   initial_state: 'off'
 #   trigger:
@@ -12,14 +22,3 @@
 #     entity_id: media_player.googlehome3485
 #     data:
 #       message: "Hi, Welcome to Ada's Room. You look beautiful today. What are you grateful for today?"
-
-
-- alias: Adas Toy Green Button
-  trigger:
-    platform: state
-    enitity_id: binary_sensor.adas_toy_green_button
-    from: off
-    to: on
-  action:
-    service: script.turn_on
-    enitity_id: scripts.start_lullabys_for_big_eyes
