@@ -110,3 +110,17 @@
     ignore_availability: true
     name: WorkLifeBalance
     track: true
+
+- cal_id: en714pbuou36qkl5970qh4q2i4@group.calendar.google.com
+  entities:
+  - device_id: university
+    ignore_availability: true
+    name: University
+    track: true
+
+- cal_id: on74a884b98277nq9cqnnp2tuo@group.calendar.google.com
+  entities:
+  - device_id: danny_s_life_organisation
+    ignore_availability: true
+    name: Danny's Life Organisation
+    track: true
