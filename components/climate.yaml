@@ -1,12 +1,12 @@
 - platform: generic_thermostat
   name: Bedroom
-  heater: switch.bedroom_heater
+  heater: switch.office_heater
   target_sensor: sensor.purifier_temperature
   target_temp: 17
 
 - platform: generic_thermostat
   name: Office
-  heater: switch.office_heater
+  heater: switch.bedroom_heater
   target_sensor: sensor.office_temperature
   target_temp: 19.5
 
