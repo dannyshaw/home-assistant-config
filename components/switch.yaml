@@ -1,19 +1,19 @@
 - platform: template
   switches:
 
-    bedroom_heating:
-      friendly_name: Bedroom Heating
-      value_template: "{{ is_state('climate.bedroom', 'heat') }}"
-      turn_on:
-        service: climate.set_hvac_mode
-        data:
-          entity_id: climate.bedroom
-          hvac_mode: heat
-      turn_off:
-        service: climate.set_hvac_mode
-        data:
-          entity_id: climate.bedroom
-          hvac_mode: "off"
+    # bedroom_heating:
+    #   friendly_name: Bedroom Heating
+    #   value_template: "{{ is_state('climate.bedroom', 'heat') }}"
+    #   turn_on:
+    #     service: climate.set_hvac_mode
+    #     data:
+    #       entity_id: climate.bedroom
+    #       hvac_mode: heat
+    #   turn_off:
+    #     service: climate.set_hvac_mode
+    #     data:
+    #       entity_id: climate.bedroom
+    #       hvac_mode: "off"
 
     office_heating:
       friendly_name: Office Heating

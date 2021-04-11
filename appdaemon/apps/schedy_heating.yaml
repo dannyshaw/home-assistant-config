@@ -37,13 +37,13 @@ schedy_heating:  # This is our app instance name.
           - x: "Next() if living_room_morning_heating() == 'on' else Break()"
           - { start: "06:00", end: "09:00" }
 
-    bedroom:
-      actors:
-        climate.bedroom:
-      schedule:
-      - value: 16
-        rules:
-          - { start: "20:00", end: "06:00" }
+    # bedroom:
+    #   actors:
+    #     climate.bedroom:
+    #   schedule:
+    #   - value: 16
+    #     rules:
+    #       - { start: "20:00", end: "06:00" }
 
     office:
       actors:
