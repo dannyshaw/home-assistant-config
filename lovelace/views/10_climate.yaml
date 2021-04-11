@@ -41,9 +41,9 @@ cards:
     title: Master Bedroom
     cards:
 
-      - type: thermostat
-        entity: climate.bedroom
-        name: ' '
+      # - type: thermostat
+      #   entity: climate.bedroom
+      #   name: ' '
 
       - type: glance
         entities:
