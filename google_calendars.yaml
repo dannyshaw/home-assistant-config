@@ -124,3 +124,10 @@
     ignore_availability: true
     name: Danny's Life Organisation
     track: true
+
+- cal_id: en-gb.australian#holiday@group.v.calendar.google.com
+  entities:
+  - device_id: holidays_in_australia
+    ignore_availability: true
+    name: Holidays in Australia
+    track: true

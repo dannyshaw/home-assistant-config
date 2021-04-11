@@ -1,7 +1,7 @@
 - alias: "Adas Toy Green Button"
   trigger:
     platform: state
-    enitity_id: binary_sensor.adas_toy_green_button
+    entity_id: binary_sensor.adas_toy_green_button
     from: off
     to: on
   action:
