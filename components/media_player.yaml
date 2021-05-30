@@ -3,4 +3,3 @@
   mac: !secret samsung_tv_mac
   name: Living Room TV
 
-# - platform: plex
