@@ -34,9 +34,9 @@
 - alias: Bathtime Toothbrushing Reminder
   trigger:
     platform: time
-    at: "19:10:00"
+    at: "07:50:00"
   action:
   - service: tts.google_translate_say
-    entity_id: media_player.bathroom_mini
+    entity_id: media_player.everywhere
     data:
       message: "Ada, it's time to brush your teeth!"
