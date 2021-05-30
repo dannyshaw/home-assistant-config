@@ -26,6 +26,10 @@ schedy_heating:  # This is our app instance name.
       actors:
         climate.adas_room:
       schedule:
+      - value: "OFF"
+        weekdays: 1,3,4
+        start: "06:00"
+        end: "17:00"
       - value: 21
 
     livingroom:
@@ -37,13 +41,6 @@ schedy_heating:  # This is our app instance name.
           - x: "Next() if living_room_morning_heating() == 'on' else Break()"
           - { start: "05:45", end: "09:00" }
 
-    # bedroom:
-    #   actors:
-    #     climate.bedroom:
-    #   schedule:
-    #   - value: 16
-    #     rules:
-    #       - { start: "20:00", end: "06:00" }
 
     office:
       actors:
@@ -56,11 +53,15 @@ schedy_heating:  # This is our app instance name.
           - rules:
             - x: "Next() if working_from_home() == 'on' else Break()"
             - { start: "07:00", end: "16:00" }
+      - v: "OFF"
+        rules:
+          - rules:
+            - { start: "00:00", end: "06:00" }
 
 
   schedule_append:
   # this somehow gets processed in reverse. so the following will set all
-  # schedules to default 18 degress and then off
+  # schedules to default 20 degress and then off
   - v: "OFF"
   - v: 20
 
@@ -69,11 +70,6 @@ schedy_heating:  # This is our app instance name.
   schedule_prepend:
   - x: Next() if automations_global() == 'on' else "OFF"
   - x: Next() if heating_schedule_enabled() == 'on' else "OFF"
-
-    # adas_room:
-    #   actors:
-    #     climate.adas_room:
-    #   schedule:
 
 
   watched_entities:
