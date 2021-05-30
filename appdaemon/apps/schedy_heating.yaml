@@ -26,16 +26,16 @@ schedy_heating:  # This is our app instance name.
       actors:
         climate.adas_room:
       schedule:
-      - value: 20.5
+      - value: 21
 
     livingroom:
       actors:
         climate.living_room:
       schedule:
-      - value: 20
+      - value: 22
         rules:
           - x: "Next() if living_room_morning_heating() == 'on' else Break()"
-          - { start: "06:00", end: "09:00" }
+          - { start: "05:45", end: "09:00" }
 
     # bedroom:
     #   actors:
@@ -55,7 +55,7 @@ schedy_heating:  # This is our app instance name.
           rules:
           - rules:
             - x: "Next() if working_from_home() == 'on' else Break()"
-            - { start: "06:00", end: "16:00" }
+            - { start: "07:00", end: "16:00" }
 
 
   schedule_append:

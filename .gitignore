@@ -5,7 +5,7 @@ tts/
 known_devices.yaml
 known_devices.yaml
 home-assistant.log
-home-assistant_v2.db
+home-assistant_v2.db*
 .cloud
 __pycache__
 .ps4-games.json
@@ -13,3 +13,4 @@ appdaemon/appdaemon.yaml
 appdaemon/*.log*
 plex.conf
 .google.token
+esphome/
