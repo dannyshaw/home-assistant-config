@@ -36,6 +36,8 @@ cards:
                 action: toggle
           - entity: sensor.office_temperature
             name: Temperature
+          - entity: sensor.office_humidity
+            name: Humidity        
 
   - type: custom:vertical-stack-in-card
     title: Master Bedroom
