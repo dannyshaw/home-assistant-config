@@ -31,20 +31,20 @@
     - pressure
     - visibility
 
-- platform: bom
-  monitored_conditions:
-    - apparent_t
-    - cloud
-    - gust_kmh
-    - air_temp
-    - delta_t
-    - rain_trace
-    - dewpt
-    - rel_hum
-    - vis_km
-    - weather
-    - wind_dir
-    - wind_spd_kmh
+# - platform: bom
+#   monitored_conditions:
+#     - apparent_t
+#     - cloud
+#     - gust_kmh
+#     - air_temp
+#     - delta_t
+#     - rain_trace
+#     - dewpt
+#     - rel_hum
+#     - vis_km
+#     - weather
+#     - wind_dir
+#     - wind_spd_kmh
 
 # - platform: bom_forecast
 #   product_id: IDV10450
