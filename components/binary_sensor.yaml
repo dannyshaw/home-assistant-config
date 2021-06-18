@@ -1,2 +1,3 @@
 - platform: mqtt
+  name: dannys-webcam
   state_topic: "home-assistant/dannys-computer/webcam-active"
