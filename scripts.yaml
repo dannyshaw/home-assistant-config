@@ -40,49 +40,49 @@ cast_security_cam_to_tv:
         media_content_type: image/jpeg
 
 
-start_playlist_classical_sleep:
-  alias: Play Classical Sleep
-  sequence:
-    - service: spotcast.start
-      data:
-        device_name: 'Living Room Mini'
-        uri: 'spotify:user:spotify:playlist:37i9dQZF1DX8Sz1gsYZdwj'
+# start_playlist_classical_sleep:
+#   alias: Play Classical Sleep
+#   sequence:
+#     - service: spotcast.start
+#       data:
+#         device_name: 'Living Room Mini'
+#         uri: 'spotify:user:spotify:playlist:37i9dQZF1DX8Sz1gsYZdwj'
 
-start_playlist_wiggles:
-  alias: Play Classical Sleep
-  sequence:
-    - service: spotcast.start
-      data:
-        device_name: 'Living Room Mini'
-        uri: 'spotify:user:spotify:playlist:37i9dQZF1DWU4fmy0wzUd7'
-
-
-start_lullabys_for_big_eyes:
-  alias: Play Lullabys For Big Eyes
-  sequence:
-    - service: spotcast.start
-      data:
-        device_name: 'Living Room Mini'
-        uri: 'spotify:album:6ZfFjWKVDa366Tb9K75zOl'
+# start_playlist_wiggles:
+#   alias: Play Classical Sleep
+#   sequence:
+#     - service: spotcast.start
+#       data:
+#         device_name: 'Living Room Mini'
+#         uri: 'spotify:user:spotify:playlist:37i9dQZF1DWU4fmy0wzUd7'
 
 
-adas_toy_red_button:
-  alias: Ada's Toy Red Button
-  sequence:
-    - service: script.turn_on
-      data_template:
-        entity_id: script.start_playlist_wiggles
+# start_lullabys_for_big_eyes:
+#   alias: Play Lullabys For Big Eyes
+#   sequence:
+#     - service: spotcast.start
+#       data:
+#         device_name: 'Living Room Mini'
+#         uri: 'spotify:album:6ZfFjWKVDa366Tb9K75zOl'
 
-adas_toy_blue_button:
-  alias: Ada's Toy Blue Button
-  sequence:
-    - service: script.turn_on
-      data_template:
-        entity_id: script.start_playlist_classical_sleep
 
-adas_toy_green_button:
-  alias: Ada's Toy Green Button
-  sequence:
-    - service: script.turn_on
-      data_template:
-        entity_id: script.start_lullabys_for_big_eyes
+# adas_toy_red_button:
+#   alias: Ada's Toy Red Button
+#   sequence:
+#     - service: script.turn_on
+#       data_template:
+#         entity_id: script.start_playlist_wiggles
+
+# adas_toy_blue_button:
+#   alias: Ada's Toy Blue Button
+#   sequence:
+#     - service: script.turn_on
+#       data_template:
+#         entity_id: script.start_playlist_classical_sleep
+
+# adas_toy_green_button:
+#   alias: Ada's Toy Green Button
+#   sequence:
+#     - service: script.turn_on
+#       data_template:
+#         entity_id: script.start_lullabys_for_big_eyes
