@@ -1,3 +1,0 @@
-# - platform: mqtt
-#   name: dashboard_motion
-#   state_topic: dashboard/motion
