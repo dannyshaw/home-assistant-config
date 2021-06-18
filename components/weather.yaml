@@ -1,5 +1,5 @@
 - platform: darksky
   api_key: !secret dark_sky_api_key
 
-- platform: bom
-  station: IDV60901.95936
+# - platform: bom
+#   station: IDV60901.95936

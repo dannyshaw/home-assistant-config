@@ -66,11 +66,11 @@ cards:
     entity_pop_4: sensor.dark_sky_precip_probability_4d
     entity_pop_5: sensor.dark_sky_precip_probability_5d
 
-  - entity: weather.bom_melbourne_olympic_park
-    type: weather-forecast
+  # - entity: weather.bom_melbourne_olympic_park
+  #   type: weather-forecast
 
-  - entity: camera.bom_radar_loop_melbourne
-    type: picture-entity
+  # - entity: camera.bom_radar_loop_melbourne
+  #   type: picture-entity
 
   - type: custom:mini-graph-card
     entities:

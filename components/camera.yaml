@@ -1,5 +1,5 @@
-- platform: bom
-  location: Melbourne
+# - platform: bom
+#   location: Melbourne
 
 # - platform: mjpeg
 #   name: moto_cam_1

@@ -46,17 +46,17 @@
     - wind_dir
     - wind_spd_kmh
 
-- platform: bom_forecast
-  product_id: IDV10450
-  name: Melbourne
-  forecast_days: 4
-  rest_of_today: True
-  friendly: True
-  friendly_state_format: '{max}, {summary}'
-  monitored_conditions:
-    - 'max'
-    - 'min'
-    - 'chance_of_rain'
-    - 'possible_rainfall'
-    - 'summary'
-    - 'detailed_summary'
+# - platform: bom_forecast
+#   product_id: IDV10450
+#   name: Melbourne
+#   forecast_days: 4
+#   rest_of_today: True
+#   friendly: True
+#   friendly_state_format: '{max}, {summary}'
+#   monitored_conditions:
+#     - 'max'
+#     - 'min'
+#     - 'chance_of_rain'
+#     - 'possible_rainfall'
+#     - 'summary'
+#     - 'detailed_summary'

@@ -39,8 +39,8 @@ cards:
     entity: sensor.adas_heater_time
     attribute: value
 
-  - entity: weather.bom_melbourne_olympic_park
-    type: weather-forecast
+  # - entity: weather.bom_melbourne_olympic_park
+  #   type: weather-forecast
 
-  - entity: camera.bom_radar_loop_melbourne
-    type: picture-entity
+  # - entity: camera.bom_radar_loop_melbourne
+  #   type: picture-entity
