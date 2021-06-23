@@ -1,6 +1,6 @@
 - platform: generic_thermostat
   name: Office
-  heater: switch.office_heater
+  heater: switch.office_heater_2
   target_sensor: sensor.office_temperature
   target_temp: 19.5
 
