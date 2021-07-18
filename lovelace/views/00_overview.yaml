@@ -39,6 +39,12 @@ cards:
     entity: sensor.adas_heater_time
     attribute: value
 
+  - type: history-graph
+    title: 'Adas Room Humidity'
+    hours_to_show: 168
+    entities:
+      - sensor.adas_room_humidity
+
   # - entity: weather.bom_melbourne_olympic_park
   #   type: weather-forecast
 
