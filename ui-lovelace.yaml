@@ -21,3 +21,5 @@ resources:
     type: module
   - url: /local/community/canvas-gauge-card/canvas-gauge-card.js
     type: module
+
+
