@@ -131,3 +131,10 @@
     ignore_availability: true
     name: Holidays in Australia
     track: true
+
+- cal_id: daniel.m.shaw@gmail.com
+  entities:
+  - device_id: daniel_m_shaw_gmail_com
+    ignore_availability: true
+    name: daniel.m.shaw@gmail.com
+    track: true
