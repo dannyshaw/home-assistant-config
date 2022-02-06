@@ -28,8 +28,11 @@ schedy_heating:  # This is our app instance name.
       schedule:
       - value: "OFF"
         weekdays: 3,4
-        start: "06:00"
+        start: "06:30"
         end: "17:00"
+      - value: 22
+        start: "03:00"
+        end: "06:30"
       - value: 21
 
     livingroom:
@@ -76,3 +79,4 @@ schedy_heating:  # This is our app instance name.
   - input_boolean.heating_schedule_enabled
   - input_boolean.automations_global
   - input_boolean.danny_working_from_home
+  - input_boolean.living_room_morning_heating
