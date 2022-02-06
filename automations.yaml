@@ -18,3 +18,16 @@
     target:
       device_id: 9fd68456fa7511ea986b75998eacf5e1
   mode: single
+- id: '1644127100239'
+  alias: Dim lights based on sun elevation
+  description: ''
+  use_blueprint:
+    path: EvTheFuture/dim_lights_based_on_sun_elevation.yaml
+    input:
+      min_brightness: 40
+      turn_on: true
+      target_lights:
+        area_id:
+        - 5fe667de18094e0aa0eac0812743ff0a
+        - 2ef487b8abbd4a4084c3d681290725b2
+        - 6553e27bd35941e6b8217ca2a7e36751
