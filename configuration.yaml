@@ -15,7 +15,8 @@ sensor: !include_dir_merge_list sensors/
 binary_sensor: !include components/binary_sensor.yaml
 device_tracker: !include components/device_tracker.yaml
 # group: !include groups.yaml
-automation: !include_dir_merge_list automations
+automation mine: !include_dir_merge_list automations
+automation ui: !include automations.yaml
 script: !include scripts.yaml
 fan: !include components/fan.yaml
 frontend: !include components/frontend.yaml
@@ -52,6 +53,8 @@ panel_iframe:
     url: !secret ferm_fridge_homepage
 
 python_script:
+
+
 
 # spotcast:
 #   sp_dc: !secret spotify_dc

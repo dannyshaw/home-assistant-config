@@ -16,8 +16,7 @@ schedy_switches:  # This is our app instance name.
       schedule:
       - value: "on"
         rules:
-          #- x: "Next() if living_room_morning_heating() == 'on' else Break()"
-          - { start: "16:30", end: "23:00" }
+        - { start: "16:30", end: "23:00" }
 
   schedule_append:
   - v: "off"
