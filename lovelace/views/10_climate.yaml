@@ -21,12 +21,11 @@ cards:
             name: Humidity
 
   - type: custom:vertical-stack-in-card
-    title: Office
+    title: Master Bedroom
     cards:
-
-      - entity: climate.office
+      - type: thermostat
+        entity: climate.master_bedroom
         name: ' '
-        type: thermostat
 
       - type: glance
         entities:
@@ -34,11 +33,32 @@ cards:
             name: Heater
             tap_action:
                 action: toggle
-          - entity: sensor.office_temperature
+          - entity: sensor.master_bedroom_temperature
             name: Temperature
-          - entity: sensor.office_humidity
+          - entity: sensor.master_bedroom_humidity
             name: Humidity        
-  
+
+
+  - type: custom:vertical-stack-in-card
+    title: Living Room
+    cards:
+      - entity: climate.living_room
+        name: ' '
+        type: thermostat
+
+  - type: custom:vertical-stack-in-card
+    title: Shed
+    cards:
+      - entity: sensor.ferm_fridge_shed_temp
+        name: Shed
+        type: sensor
+      - entity: sensor.ferm_fridge_chamber_temp
+        name: Fridge
+        type: sensor
+      - entity: sensor.ferm_fridge_beer_temp
+        name: Beer
+        type: sensor
+
   - type: custom:lovelace-darksky-card
     entity_current_conditions: sensor.dark_sky_icon
     entity_temperature: sensor.dark_sky_temperature
@@ -64,41 +84,3 @@ cards:
     entity_summary_3: sensor.dark_sky_summary_3d
     entity_summary_4: sensor.dark_sky_summary_4d
     entity_summary_5: sensor.dark_sky_summary_5d
-#   - type: custom:vertical-stack-in-card
-#     title: Master Bedroom
-#     cards:
-
-#       # - type: thermostat
-#       #   entity: climate.bedroom
-#       #   name: ' '
-
-#       - type: glance
-#         entities:
-#           - entity: switch.bedroom_heater
-#             name: Heater
-#             tap_action:
-#                 action: toggle
-#           - entity: sensor.air_purifier_temperature
-#             name: Temperature
-#           - entity: sensor.air_purifier_humidity
-#             name: Humidity
-
-  - type: custom:vertical-stack-in-card
-    title: Living Room
-    cards:
-      - entity: climate.living_room
-        name: ' '
-        type: thermostat
-
-  - type: custom:vertical-stack-in-card
-    title: Shed
-    cards:
-      - entity: sensor.ferm_fridge_shed_temp
-        name: Shed
-        type: sensor
-      - entity: sensor.ferm_fridge_chamber_temp
-        name: Fridge
-        type: sensor
-      - entity: sensor.ferm_fridge_beer_temp
-        name: Beer
-        type: sensor

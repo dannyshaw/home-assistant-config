@@ -62,3 +62,15 @@
         service: climate.turn_off
         data:
           entity_id: climate.living_room
+
+    adas_room_light_toggle:
+      friendly_name: "Adas Little Light Switch"
+      value_template: "{{ is_state_attr('switch.adas_room_light', 'sensor_state', 'on') }}"
+      turn_on:
+        service: switch.toggle
+        target:
+          entity_id: switch.adas_room_light
+      turn_off:
+        service: switch.toggle
+        target:
+          entity_id: switch.adas_room_light

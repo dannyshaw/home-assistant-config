@@ -1,8 +1,8 @@
 - platform: generic_thermostat
-  name: Office
+  name: Master Bedroom
   heater: switch.office_heater_tplink
-  target_sensor: sensor.office_temperature
-  target_temp: 19.5
+  target_sensor: sensor.master_bedroom_temperature
+  target_temp: 18.0
 
 - platform: generic_thermostat
   name: Adas Room

@@ -6,5 +6,3 @@ views:
   - !include lovelace/views/30_automations.yaml
   - !include lovelace/views/60_external.yaml
   - !include lovelace/views/70_map.yaml
-
-    
