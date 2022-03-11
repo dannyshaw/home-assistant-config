@@ -30,10 +30,10 @@ schedy_heating:  # This is our app instance name.
         weekdays: 3,4
         start: "06:30"
         end: "17:00"
-      - value: 22
+      - value: 21
         start: "03:00"
         end: "06:30"
-      - value: 21
+      - value: 20
 
     livingroom:
       actors:
