@@ -4,5 +4,11 @@
         "media_image_url": "https://store.playstation.com/store/api/chihiro/00_09_000/titlecontainer/au/en/999/CUSA01433_00/image",
         "media_content_type": "game",
         "locked": false
+    },
+    "CUSA16746": {
+        "media_title": "It Takes Two  PS4\u2122 & PS5\u2122",
+        "media_image_url": "https://store.playstation.com/store/api/chihiro/00_09_000/titlecontainer/au/en/999/CUSA16746_00/image",
+        "media_content_type": "game",
+        "locked": false
     }
 }

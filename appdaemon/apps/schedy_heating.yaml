@@ -1,4 +1,4 @@
-schedy_heating:  # This is our app instance name.
+7schedy_heating:  # This is our app instance name.
   module: hass_apps_loader
   class: SchedyApp
 
@@ -22,18 +22,17 @@ schedy_heating:  # This is our app instance name.
 
   rooms:
 
-    adasroom:
-      actors:
-        climate.adas_room:
-      schedule:
-      - value: "OFF"
-        weekdays: 3,4
-        start: "06:30"
-        end: "17:00"
-      - value: 21
-        start: "03:00"
-        end: "06:30"
-      - value: 20
+   # adasroom:
+  #    actors:
+     #   climate.adas_room:
+    #  schedule:
+    #  - value: "OFF"
+    #    start: "07:00"
+    #    end: "17:00"
+    #  - value: 18
+     #   start: "19:00"
+      #  end: "05:00"
+      #- value: 20
 
     livingroom:
       actors:
