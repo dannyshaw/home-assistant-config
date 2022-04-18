@@ -7,6 +7,6 @@
   action:
   - data_template:
       brightness: '{{ (((trigger.to_state.state | float(0)) * 3250)**0.5) | round(0) }}'
-      transition: 0
+      transition: .25
     service: light.turn_on
     entity_id: light.cabinet_lights
