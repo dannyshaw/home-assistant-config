@@ -8,7 +8,7 @@
   name: Adas Room
   heater: switch.adas_room_heater
   target_sensor: sensor.adas_room_temperature
-  target_temp: 20.5
+  target_temp: 18.0
 
 - platform: mqtt
   name: "Living Room"
