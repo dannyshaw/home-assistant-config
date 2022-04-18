@@ -6,7 +6,7 @@
   condition: []
   action:
   - data_template:
-      brightness_pct: '{{states.sensor.cabinet_dimmer.state | int }}'
+      brightness: '{{ (((trigger.to_state.state | float(0)) * 3250)**0.5) | round(0) }}'
       transition: 0
     service: light.turn_on
     entity_id: light.cabinet_lights
