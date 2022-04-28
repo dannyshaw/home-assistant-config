@@ -71,6 +71,7 @@ python_script:
 
 
 
-# spotcast:
-#   sp_dc: !secret spotify_dc
-#   sp_key: !secret spotify_key
+spotcast:
+  sp_dc: !secret spotify_dc
+  sp_key: !secret spotify_key
+  country: AU
