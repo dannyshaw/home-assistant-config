@@ -1,4 +1,4 @@
-7schedy_heating:  # This is our app instance name.
+schedy_heating:  # This is our app instance name.
   module: hass_apps_loader
   class: SchedyApp
 
