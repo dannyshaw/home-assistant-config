@@ -17,6 +17,8 @@ lovelace:
     type: module
   - url: /local/community/lovelace-darksky-card/lovelace-darksky-card.js?v=7.1
     type: module
+  - url: /local/community/rgb-light-card/card.js
+    type: module
 discovery:
 homeassistant:
   auth_providers:
@@ -75,3 +77,8 @@ spotcast:
   sp_dc: !secret spotify_dc
   sp_key: !secret spotify_key
   country: AU
+
+logger:
+  default: info
+  logs:
+    custom_components.spotcast: debug
