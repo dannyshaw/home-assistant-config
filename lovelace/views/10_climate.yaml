@@ -46,6 +46,18 @@ cards:
         name: ' '
         type: thermostat
 
+      - type: glance
+        entities:
+        - entity: light.living_room_lamp
+          name: Lamp
+          tap_action:
+            action: toggle
+          # type: entity-button
+        - entity: light.living_room_ceiling
+          name: Ceiling
+          tap_action:
+            action: toggle
+
   - type: custom:vertical-stack-in-card
     title: Shed
     cards:

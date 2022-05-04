@@ -19,6 +19,8 @@ lovelace:
     type: module
   - url: /local/community/rgb-light-card/card.js
     type: module
+  - url: /local/community/bom-radar-card/bom-radar-card.js
+    type: module
 discovery:
 homeassistant:
   auth_providers:
