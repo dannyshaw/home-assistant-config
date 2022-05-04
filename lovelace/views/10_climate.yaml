@@ -19,6 +19,13 @@ cards:
             name: Temperature
           - entity: sensor.adas_room_humidity
             name: Humidity
+      - type: entities
+        show_header_toggle: false
+        entities:
+            # Displays the light entity. It's optional
+            - entity: light.adas_room_light
+            - type: 'custom:rgb-light-card'
+              entity: light.adas_room_light
 
   - type: custom:vertical-stack-in-card
     title: Master Bedroom
@@ -84,3 +91,15 @@ cards:
     entity_summary_3: sensor.dark_sky_summary_3d
     entity_summary_4: sensor.dark_sky_summary_4d
     entity_summary_5: sensor.dark_sky_summary_5d
+  - type: 'custom:bom-radar-card'
+    frame_count: 10
+    center_latitude: -25.567607
+    center_longitude: 152.930597
+    marker_latitude: -26.175328
+    marker_longitude: 152.653189
+    show_marker: true
+    show_range: true
+    show_zoom: true
+    show_recenter: true
+    show_playback: true
+    zoom_level: 8
