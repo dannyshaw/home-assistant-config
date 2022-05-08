@@ -27,6 +27,7 @@ homeassistant:
     - type: homeassistant
     - type: legacy_api_password
       api_password: !secret api_password
+  packages: !include_dir_named packages
 http:
 #stream:
 # android_ip_webcam: !include components/android_ip_webcam.yaml
