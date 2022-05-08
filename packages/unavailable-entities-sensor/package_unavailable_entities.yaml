@@ -9,26 +9,41 @@
 # REQUIRED - This is the template sensor
 template:
   - sensor:
-      - name: 'Unavailable Entities'
-        unique_id: unavailable_entities
-        icon: "{{ 'mdi:alert-circle' if states('sensor.unavailable_entities')|int(0) > 0 else 'mdi:check-circle' }}"
-        unit_of_measurement: entities
-        state: >
-          {% if state_attr('sensor.unavailable_entities','entity_id') != none %}
-            {{ state_attr('sensor.unavailable_entities','entity_id')|count }}
+    - name: 'Unavailable Entities'
+      unique_id: unavailable_entities
+      icon: "{{ 'mdi:alert-circle' if states('sensor.unavailable_entities')|int(0) > 0 else 'mdi:check-circle' }}"
+      unit_of_measurement: entities
+      state: >
+        {% if state_attr('sensor.unavailable_entities','entity_id') != none %}
+          {{ state_attr('sensor.unavailable_entities','entity_id')|count }}
+        {% endif %}
+      attributes:
+        entity_id: >
+          {% if state_attr('group.ignored_unavailable_entities','entity_id') != none %}
+            {% set ignore_seconds = 60 %}
+            {% set ignore_ts = (now().timestamp() - ignore_seconds)|as_datetime %}
+            {% set entities = states|rejectattr('domain','in',['group','button'])|selectattr('state','in',['unavailable','unknown','none'])|list %}
+            {% set buttons = states.button|selectattr('state','eq','unavailable')|list %}
+            {{ (entities + buttons)
+              |rejectattr('entity_id','in',state_attr('group.ignored_unavailable_entities','entity_id'))
+              |rejectattr('last_changed','ge',ignore_ts)
+              |map(attribute='entity_id')|list }}
           {% endif %}
-        attributes:
-          entity_id: >
-            {% if state_attr('group.ignored_unavailable_entities','entity_id') != none %}
-              {% set ignore_seconds = 60 %}
-              {% set ignore_ts = (now().timestamp() - ignore_seconds)|as_datetime %}
-              {% set entities = states|rejectattr('domain','in',['group','button'])|selectattr('state','in',['unavailable','unknown','none'])|list %}
-              {% set buttons = states.button|selectattr('state','eq','unavailable')|list %}
-              {{ (entities + buttons)
-                |rejectattr('entity_id','in',state_attr('group.ignored_unavailable_entities','entity_id'))
-                |rejectattr('last_changed','ge',ignore_ts)
-                |map(attribute='entity_id')|list }}
-            {% endif %}
+
+    # Unavailable entities in the monitored_unavailable_entities group that have been unavailable for at least 20 mins
+    - name: 'Unavailable Monitored Entities'
+      state: >
+        {% if state_attr('sensor.unavailable_entities','entities') != none %}
+          {{ state_attr('sensor.unavailable_entities','entities')|count }}
+        {% endif %}
+      attributes:
+        entities: >
+          {% set ignore_sec = 1200 %}
+          {% set ignore_ts = (now().timestamp() - ignore_sec)|as_datetime %}
+          {{ states.light
+            |selectattr('entity_id','in',state_attr('group.monitored_unavailable_entities','entity_id'))
+            |rejectattr('last_changed','ge',ignore_ts)
+            |selectattr('state','in',['unavailable','unknown','none'])|map(attribute='entity_id')|list }}
 
 # REQUIRED - Add any entities you do not wish to monitor in this group.
 # IMPORTANT - This group MUST exist even if empty for sensor template to render.
@@ -37,6 +52,10 @@ group:
     entities:
       - sensor.unavailable_entities # prevent template loop warnings?
       - binary_sensor.updater # always unknown after restart
+  monitored_unavailable_entities:
+    entities:
+      - sensor.adas_room_temperature
+      - sensor.bedroom_temperature
 
 # OPTIONAL - filter template loop warnings from the Home Assistant log.
 logger:
