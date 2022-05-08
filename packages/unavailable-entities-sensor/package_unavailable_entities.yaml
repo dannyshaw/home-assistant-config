@@ -38,7 +38,7 @@ template:
         {% endif %}
       attributes:
         entities: >
-          {% set ignore_sec = 1200 %}
+          {% set ignore_sec = 60 %}
           {% set ignore_ts = (now().timestamp() - ignore_sec)|as_datetime %}
           {{ states.light
             |selectattr('entity_id','in',state_attr('group.monitored_unavailable_entities','entity_id'))
