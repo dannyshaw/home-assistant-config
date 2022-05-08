@@ -40,7 +40,7 @@ template:
         entities: >
           {% set ignore_sec = 60 %}
           {% set ignore_ts = (now().timestamp() - ignore_sec)|as_datetime %}
-          {{ states.light
+          {{ states.sensor
             |selectattr('entity_id','in',state_attr('group.monitored_unavailable_entities','entity_id'))
             |rejectattr('last_changed','ge',ignore_ts)
             |selectattr('state','in',['unavailable','unknown','none'])|map(attribute='entity_id')|list }}
