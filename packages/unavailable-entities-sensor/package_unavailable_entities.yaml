@@ -18,12 +18,14 @@ template:
         {% endif %}
       attributes:
         entities: >
-          {% set ignore_sec = 60 %}
-          {% set ignore_ts = (now().timestamp() - ignore_sec)|as_datetime %}
-          {{ entities
+          {% set ignore_seconds = 60 %}
+          {% set ignore_ts = (now().timestamp() - ignore_seconds)|as_datetime %}
+          {% set entities = states|rejectattr('domain','in',['group','button'])|selectattr('state','in',['unavailable','unknown','none'])|list %}
+          {% set buttons = states.button|selectattr('state','eq','unavailable')|list %}
+          {{ (entities + buttons)
             |selectattr('entity_id','in',state_attr('group.monitored_unavailable_entities','entity_id'))
             |rejectattr('last_changed','ge',ignore_ts)
-            |selectattr('state','in',['unavailable','unknown','none'])|map(attribute='entity_id')|list }}
+            |map(attribute='entity_id')|list }}
 
 # REQUIRED - Add any entities you do not wish to monitor in this group.
 # IMPORTANT - This group MUST exist even if empty for sensor template to render.
