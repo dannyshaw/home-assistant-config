@@ -13,14 +13,8 @@ automations_global:
   initial: true
   icon: mdi:run
 
-
 living_room_morning_heating:
   name: Living Room Morning Heating
-  initial: false
+  initial: true
   icon: mdi:radiator
-
-override_adas_screen_time_limit:
-  name: Override Adas Screen Time Limit
-  initial: false
-  icon: mdi:television
 

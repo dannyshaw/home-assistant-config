@@ -1,6 +1,7 @@
-schedy_heating:  # This is our app instance name.
+bschedy_heating:  # This is our app instance name.
   module: hass_apps_loader
   class: SchedyApp
+  debug: true
 
   actor_type: thermostat
 
@@ -18,7 +19,10 @@ schedy_heating:  # This is our app instance name.
       return state("input_boolean.living_room_morning_heating")
 
     def outside_temperature():
-      return state("sensor.dark_sky_temperature")
+      return state("sensor.ferm_fridge_shed_temp")
+
+    def sensor_unavailable(sensor):
+      return sensor in state("sensor.unavailable_entities", "entities")
 
   rooms:
 
@@ -27,17 +31,27 @@ schedy_heating:  # This is our app instance name.
         climate.adas_room:
       schedule:
       - value: "OFF"
+        # This will disable the heater if the temp sensor becomes unavailable to prevent overheating the room
+        rules:
+        - x: "Next() if sensor_unavailable('sensor.adas_room_temperature') else Break()"
+        - v: "OFF"
+      - value: "OFF"
         start: "06:00"
         end: "16:00"
-      - value: 18.5
-        start: "19:00"
-        end: "05:00"
+      - value: 18
+        rules:
+        - { start: "19:00", end: "05:00" }
       - value: 20
 
     bedroom:
       actors:
         climate.master_bedroom:
       schedule:
+      - value: "OFF"
+        # This will disable the heater if the temp sensor becomes unavailable to prevent overheating the room
+        rules:
+        - x: "Next() if sensor_unavailable('sensor.master_bedroom_temperature') else Break()"
+        - v: "OFF"
       - value: 21
         start: "05:00"
         end: "07:00"
@@ -52,25 +66,25 @@ schedy_heating:  # This is our app instance name.
       schedule:
       - value: 22
         rules:
-        - x: "Next() if living_room_morning_heating() == 'on' else Break()"
+        - x: "Next() if living_room_morning_heating() == 'on' and outside_temperature() < 16 else Break()"
         - { start: "05:45", end: "09:00" }
 
 
-    office:
-      actors:
-        climate.office:
-      schedule:
-      - v: 20
-        rules:
-        - weekdays: 1-5
-          rules:
-          - rules:
-            - x: "Next() if working_from_home() == 'on' else Break()"
-            - { start: "07:00", end: "16:00" }
-      - v: "OFF"
-        rules:
-          - rules:
-            - { start: "00:00", end: "06:00" }
+    # office:
+    #   actors:
+    #     climate.office:
+    #   schedule:
+    #   - v: 20
+    #     rules:
+    #     - weekdays: 1-5
+    #       rules:
+    #       - rules:
+    #         - x: "Next() if working_from_home() == 'on' else Break()"
+    #         - { start: "07:00", end: "16:00" }
+    #   - v: "OFF"
+    #     rules:
+    #       - rules:
+    #         - { start: "00:00", end: "06:00" }
 
 
   schedule_append:
@@ -91,3 +105,5 @@ schedy_heating:  # This is our app instance name.
   - input_boolean.automations_global
   - input_boolean.danny_working_from_home
   - input_boolean.living_room_morning_heating
+  - sensor.unavailable_entities:entities
+  - sensor.ferm_fridge_shed_temp
