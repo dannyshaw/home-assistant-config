@@ -19,13 +19,8 @@ cards:
             name: Temperature
           - entity: sensor.adas_room_humidity
             name: Humidity
-      - type: entities
-        show_header_toggle: false
-        entities:
-            # Displays the light entity. It's optional
-            - entity: light.adas_room_light
-            - type: 'custom:rgb-light-card'
-              entity: light.adas_room_light
+          - entity: light.adas_room_light
+
 
   - type: custom:vertical-stack-in-card
     title: Master Bedroom
@@ -44,6 +39,7 @@ cards:
             name: Temperature
           - entity: sensor.master_bedroom_humidity
             name: Humidity        
+          - entity: light.bedroom_light
 
 
   - type: custom:vertical-stack-in-card
@@ -64,6 +60,8 @@ cards:
           name: Ceiling
           tap_action:
             action: toggle
+        - entity: light.kitchen_dining
+        - entity: light.cabinet_lights
 
   - type: custom:vertical-stack-in-card
     title: Shed
@@ -103,13 +101,14 @@ cards:
     entity_summary_3: sensor.dark_sky_summary_3d
     entity_summary_4: sensor.dark_sky_summary_4d
     entity_summary_5: sensor.dark_sky_summary_5d
+  
   - type: 'custom:bom-radar-card'
     frame_count: 10
-    center_latitude: -25.567607
-    center_longitude: 152.930597
-    marker_latitude: -26.175328
-    marker_longitude: 152.653189
-    show_marker: true
+    center_latitude: -37.75872793070213
+    center_longitude: 144.99399949502234
+    marker_latitude: -37.75872793070213
+    marker_longitude: 144.99399949502234
+    show_marker: false
     show_range: true
     show_zoom: true
     show_recenter: true

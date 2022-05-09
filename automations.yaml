@@ -19,12 +19,18 @@
     path: slashback/trigger-different-actions-on-a-single-double-or-double-click-on-a-binary-sensor.yaml
     input:
       switch_id: binary_sensor.adas_blue_button
-      long_click_action: []
+      long_click_action:
+      - service: light.turn_on
+        data:
+          white: 25
+          brightness_pct: 10
+        target:
+          entity_id: light.adas_room_light
       short_click_action:
       - service: light.turn_on
         data:
-          brightness_pct: 100
           white: 255
+          brightness_pct: 100
         target:
           entity_id: light.adas_room_light
       double_click_action: []
