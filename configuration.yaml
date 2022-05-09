@@ -85,3 +85,16 @@ logger:
   default: info
   logs:
     custom_components.spotcast: debug
+
+alert:
+  unavailable_devices:
+    name: Entities Missing
+    done_message: Entities Restored
+    entity_id: sensor.unavailable_monitored_entities
+    state: {{ state_attr('sensor.unavailable_monitored_entities', 'entities')|length > 0 }}
+    repeat: 30
+    can_acknowledge: true
+    skip_first: true
+    notifiers:
+      - mobile_app_danny_s_phone
+
