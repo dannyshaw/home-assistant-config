@@ -11,10 +11,11 @@ template:
   - sensor:
 
     # Unavailable entities in the monitored_unavailable_entities group that have been unavailable for at least 20 mins
-    - name: 'Unavailable Monitored Entities'
+    - name: 'Unavailable Entities'
+      unique_id: unavailable_entities
       state: >
-        {% if state_attr('sensor.unavailable_monitored_entities','entities') != none %}
-          {{ state_attr('sensor.unavailable_monitored_entities','entities')|count }}
+        {% if state_attr('sensor.unavailable_entities','entities') != none %}
+          {{ state_attr('sensor.unavailable_entities','entities')|count }}
         {% endif %}
       attributes:
         entities: >
