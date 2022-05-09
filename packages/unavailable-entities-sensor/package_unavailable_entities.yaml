@@ -24,7 +24,7 @@ template:
           {% set entities = states|rejectattr('domain','in',['group','button'])|selectattr('state','in',['unavailable','unknown','none'])|list %}
           {% set buttons = states.button|selectattr('state','eq','unavailable')|list %}
           {{ (entities + buttons)
-            |selectattr('entity_id','in',state_attr('group.monitored_unavailable_entities','entities'))
+            |selectattr('entity_id','in',state_attr('group.monitored_unavailable_entities','entity_id'))
             |rejectattr('last_changed','ge',ignore_ts)
             |map(attribute='entity_id')|list }}
 
