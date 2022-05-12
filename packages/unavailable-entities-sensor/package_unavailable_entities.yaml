@@ -38,7 +38,7 @@ group:
   monitored_unavailable_entities:
     entities:
       - sensor.adas_room_temperature
-      - sensor.bedroom_temperature
+      - sensor.master_bedroom_temperature
 
 # OPTIONAL - filter template loop warnings from the Home Assistant log.
 logger:
