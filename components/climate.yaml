@@ -9,30 +9,3 @@
   heater: switch.adas_room_heater
   target_sensor: sensor.adas_room_temperature
   target_temp: 18.0
-
-- platform: mqtt
-  name: "Living Room"
-  initial: 20
-  modes:
-    - "off"
-    - "auto"
-    - "cool"
-    - "heat"
-    - "fan_only"
-  swing_modes:
-    - "both"
-    - "vertical"
-    - "horizonal"
-    - "off"
-  fan_modes:
-    - "high"
-    - "medium"
-    - "low"
-    - "auto"
-  power_command_topic: "livingroom/ac/power/set"
-  mode_command_topic: "livingroom/ac/mode/set"
-  temperature_command_topic: "livingroom/ac/temperature/set"
-  fan_mode_command_topic: "livingroom/ac/fan/set"
-  swing_mode_command_topic: "livingroom/ac/swing/set"
-  max_temp: 30
-  min_temp: 18
