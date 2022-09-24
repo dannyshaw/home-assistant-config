@@ -24,3 +24,7 @@ climate:
     swing_mode_command_topic: "livingroom/ac/swing/set"
     max_temp: 30
     min_temp: 18
+
+binary_sensor:
+  - name: dannys-webcam
+    state_topic: "home-assistant/dannys-computer/webcam-active"
