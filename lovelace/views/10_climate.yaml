@@ -21,25 +21,42 @@ cards:
             name: Humidity
           - entity: light.adas_room_light
 
-
   - type: custom:vertical-stack-in-card
-    title: Master Bedroom
-    cards:
-      - type: thermostat
-        entity: climate.master_bedroom
-        name: ' '
+  title: Leni's Room
+  cards:
+    - type: thermostat
+      entity: climate.lenis_room
+      name: ' '
+    - type: glance
+      name: Lights
+      entities:
+        - entity: switch.lenis_room_heater
+          name: 'Heater'
+          tap_action:
+              action: toggle
+        - entity: sensor.lenis_room_temperature
+          name: Temperature
 
-      - type: glance
-        entities:
-          - entity: switch.office_heater_tplink
-            name: Heater
-            tap_action:
-                action: toggle
-          - entity: sensor.master_bedroom_temperature
-            name: Temperature
-          - entity: sensor.master_bedroom_humidity
-            name: Humidity        
-          - entity: light.bedroom_light
+
+
+  # - type: custom:vertical-stack-in-card
+  #   title: Master Bedroom
+  #   cards:
+  #     - type: thermostat
+  #       entity: climate.master_bedroom
+  #       name: ' '
+
+  #     - type: glance
+  #       entities:
+  #         - entity: switch.office_heater_tplink
+  #           name: Heater
+  #           tap_action:
+  #               action: toggle
+  #         - entity: sensor.master_bedroom_temperature
+  #           name: Temperature
+  #         - entity: sensor.master_bedroom_humidity
+  #           name: Humidity
+  #         - entity: light.bedroom_light
 
 
   - type: custom:vertical-stack-in-card
@@ -63,54 +80,54 @@ cards:
         - entity: light.kitchen_dining
         - entity: light.cabinet_lights
 
-  - type: custom:vertical-stack-in-card
-    title: Shed
-    cards:
-      - entity: sensor.ferm_fridge_shed_temp
-        name: Shed
-        type: sensor
-      - entity: sensor.ferm_fridge_chamber_temp
-        name: Fridge
-        type: sensor
-      - entity: sensor.ferm_fridge_beer_temp
-        name: Beer
-        type: sensor
+  # - type: custom:vertical-stack-in-card
+  #   title: Shed
+  #   cards:
+  #     - entity: sensor.ferm_fridge_shed_temp
+  #       name: Shed
+  #       type: sensor
+  #     - entity: sensor.ferm_fridge_chamber_temp
+  #       name: Fridge
+  #       type: sensor
+  #     - entity: sensor.ferm_fridge_beer_temp
+  #       name: Beer
+  #       type: sensor
 
-  - type: custom:lovelace-darksky-card
-    entity_current_conditions: sensor.dark_sky_icon
-    entity_temperature: sensor.dark_sky_temperature
-    entity_summary_today: sensor.dark_sky_summary_0d
-    entity_daily_summary: sensor.dark_sky_daily_summary
-    entity_forecast_high_temp_1: sensor.dark_sky_daytime_high_temperature_1d
-    entity_forecast_high_temp_2: sensor.dark_sky_daytime_high_temperature_2d
-    entity_forecast_high_temp_3: sensor.dark_sky_daytime_high_temperature_3d
-    entity_forecast_high_temp_4: sensor.dark_sky_daytime_high_temperature_4d
-    entity_forecast_high_temp_5: sensor.dark_sky_daytime_high_temperature_5d
-    entity_forecast_icon_1: sensor.dark_sky_icon_1d
-    entity_forecast_icon_2: sensor.dark_sky_icon_2d
-    entity_forecast_icon_3: sensor.dark_sky_icon_3d
-    entity_forecast_icon_4: sensor.dark_sky_icon_4d
-    entity_forecast_icon_5: sensor.dark_sky_icon_5d
-    entity_forecast_low_temp_1: sensor.dark_sky_overnight_low_temperature_0d
-    entity_forecast_low_temp_2: sensor.dark_sky_overnight_low_temperature_1d
-    entity_forecast_low_temp_3: sensor.dark_sky_overnight_low_temperature_2d
-    entity_forecast_low_temp_4: sensor.dark_sky_overnight_low_temperature_3d
-    entity_forecast_low_temp_5: sensor.dark_sky_overnight_low_temperature_4d
-    entity_summary_1: sensor.dark_sky_summary_1d
-    entity_summary_2: sensor.dark_sky_summary_2d
-    entity_summary_3: sensor.dark_sky_summary_3d
-    entity_summary_4: sensor.dark_sky_summary_4d
-    entity_summary_5: sensor.dark_sky_summary_5d
-  
-  - type: 'custom:bom-radar-card'
-    frame_count: 10
-    center_latitude: -37.75872793070213
-    center_longitude: 144.99399949502234
-    marker_latitude: -37.75872793070213
-    marker_longitude: 144.99399949502234
-    show_marker: false
-    show_range: true
-    show_zoom: true
-    show_recenter: true
-    show_playback: true
-    zoom_level: 8
+  # - type: custom:lovelace-darksky-card
+  #   entity_current_conditions: sensor.dark_sky_icon
+  #   entity_temperature: sensor.dark_sky_temperature
+  #   entity_summary_today: sensor.dark_sky_summary_0d
+  #   entity_daily_summary: sensor.dark_sky_daily_summary
+  #   entity_forecast_high_temp_1: sensor.dark_sky_daytime_high_temperature_1d
+  #   entity_forecast_high_temp_2: sensor.dark_sky_daytime_high_temperature_2d
+  #   entity_forecast_high_temp_3: sensor.dark_sky_daytime_high_temperature_3d
+  #   entity_forecast_high_temp_4: sensor.dark_sky_daytime_high_temperature_4d
+  #   entity_forecast_high_temp_5: sensor.dark_sky_daytime_high_temperature_5d
+  #   entity_forecast_icon_1: sensor.dark_sky_icon_1d
+  #   entity_forecast_icon_2: sensor.dark_sky_icon_2d
+  #   entity_forecast_icon_3: sensor.dark_sky_icon_3d
+  #   entity_forecast_icon_4: sensor.dark_sky_icon_4d
+  #   entity_forecast_icon_5: sensor.dark_sky_icon_5d
+  #   entity_forecast_low_temp_1: sensor.dark_sky_overnight_low_temperature_0d
+  #   entity_forecast_low_temp_2: sensor.dark_sky_overnight_low_temperature_1d
+  #   entity_forecast_low_temp_3: sensor.dark_sky_overnight_low_temperature_2d
+  #   entity_forecast_low_temp_4: sensor.dark_sky_overnight_low_temperature_3d
+  #   entity_forecast_low_temp_5: sensor.dark_sky_overnight_low_temperature_4d
+  #   entity_summary_1: sensor.dark_sky_summary_1d
+  #   entity_summary_2: sensor.dark_sky_summary_2d
+  #   entity_summary_3: sensor.dark_sky_summary_3d
+  #   entity_summary_4: sensor.dark_sky_summary_4d
+  #   entity_summary_5: sensor.dark_sky_summary_5d
+
+  # - type: 'custom:bom-radar-card'
+  #   frame_count: 10
+  #   center_latitude: -37.75872793070213
+  #   center_longitude: 144.99399949502234
+  #   marker_latitude: -37.75872793070213
+  #   marker_longitude: 144.99399949502234
+  #   show_marker: false
+  #   show_range: true
+  #   show_zoom: true
+  #   show_recenter: true
+  #   show_playback: true
+  #   zoom_level: 8
