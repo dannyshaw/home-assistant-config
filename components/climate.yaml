@@ -9,3 +9,9 @@
   heater: switch.adas_room_heater
   target_sensor: sensor.adas_room_temperature
   target_temp: 18.0
+
+- platform: generic_thermostat
+  name: Lenis Room
+  heater: switch.lenis_room_heater
+  target_sensor: sensor.lenis_room_temperature
+  target_temp: 18.0
