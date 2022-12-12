@@ -1,4 +1,4 @@
-schedy_heating:  # This is our app instance name.
+schedy_heating: # This is our app instance name.
   module: hass_apps_loader
   class: SchedyApp
   debug: true
@@ -25,40 +25,56 @@ schedy_heating:  # This is our app instance name.
       return sensor in state("sensor.unavailable_entities", "entities")
 
   rooms:
-
     adasroom:
       actors:
         climate.adas_room:
       schedule:
-      - value: "OFF"
-        # This will disable the heater if the temp sensor becomes unavailable to prevent overheating the room
-        rules:
-        - x: "Next() if sensor_unavailable('sensor.adas_room_temperature') else Break()"
-        - v: "OFF"
-      - value: "OFF"
-        start: "06:00"
-        end: "16:00"
-      - value: 19
-        rules:
-        - { start: "19:00", end: "05:00" }
-      - value: 20
+        - value: "OFF"
+          # This will disable the heater if the temp sensor becomes unavailable to prevent overheating the room
+          rules:
+            - x: "Next() if sensor_unavailable('sensor.adas_room_temperature') else Break()"
+            - v: "OFF"
+        - value: "OFF"
+          start: "06:00"
+          end: "16:00"
+        - value: 19
+          rules:
+            - { start: "19:00", end: "05:00" }
+        - value: 20
+
+    lenisroom:
+      actors:
+        climate.lenis_room:
+      schedule:
+        - value: "OFF"
+          # This will disable the heater if the temp sensor becomes unavailable to prevent overheating the room
+          rules:
+            - x: "Next() if sensor_unavailable('sensor.lenis_room_temperature') else Break()"
+            - v: "OFF"
+        - value: "OFF"
+          start: "06:00"
+          end: "16:00"
+        - value: 19
+          rules:
+            - { start: "19:00", end: "05:00" }
+        - value: 20
 
     bedroom:
       actors:
         climate.master_bedroom:
       schedule:
-      - value: "OFF"
-        # This will disable the heater if the temp sensor becomes unavailable to prevent overheating the room
-        rules:
-        - x: "Next() if sensor_unavailable('sensor.master_bedroom_temperature') else Break()"
-        - v: "OFF"
-      - value: 21
-        start: "05:00"
-        end: "07:00"
-      - value: 21
-        start: "18:30"
-        end: "20:30"
-      - value: 19.5
+        - value: "OFF"
+          # This will disable the heater if the temp sensor becomes unavailable to prevent overheating the room
+          rules:
+            - x: "Next() if sensor_unavailable('sensor.master_bedroom_temperature') else Break()"
+            - v: "OFF"
+        - value: 21
+          start: "05:00"
+          end: "07:00"
+        - value: 21
+          start: "18:30"
+          end: "20:30"
+        - value: 19.5
 
     # livingroom:
     #   actors:
@@ -68,7 +84,6 @@ schedy_heating:  # This is our app instance name.
     #     rules:
     #     - x: "Next() if living_room_morning_heating() == 'on' and outside_temperature() < 16 else Break()"
     #     - { start: "05:45", end: "09:00" }
-
 
     # office:
     #   actors:
@@ -86,24 +101,20 @@ schedy_heating:  # This is our app instance name.
     #       - rules:
     #         - { start: "00:00", end: "06:00" }
 
-
   schedule_append:
-  # this somehow gets processed in reverse. so the following will set all
-  # schedules to default 20 degress and then off
-  - v: "OFF"
-  - v: 20
-
-
+    # this somehow gets processed in reverse. so the following will set all
+    # schedules to default 20 degress and then off
+    - v: "OFF"
+    - v: 20
 
   schedule_prepend:
-  - x: Next() if automations_global() == 'on' else "OFF"
-  - x: Next() if heating_schedule_enabled() == 'on' else "OFF"
-
+    - x: Next() if automations_global() == 'on' else "OFF"
+    - x: Next() if heating_schedule_enabled() == 'on' else "OFF"
 
   watched_entities:
-  - input_boolean.heating_schedule_enabled
-  - input_boolean.automations_global
-  - input_boolean.danny_working_from_home
-  - input_boolean.living_room_morning_heating
-  - sensor.unavailable_entities:entities
-  - sensor.ferm_fridge_shed_temp
+    - input_boolean.heating_schedule_enabled
+    - input_boolean.automations_global
+    - input_boolean.danny_working_from_home
+    - input_boolean.living_room_morning_heating
+    - sensor.unavailable_entities:entities
+    - sensor.ferm_fridge_shed_temp
