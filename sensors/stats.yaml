@@ -1,34 +1,18 @@
 - platform: history_stats
   name: Adas screen time
   entity_id: media_player.living_room_tv
-  state: 'playing'
+  state: "playing"
   type: time
-  start: '{{ now().replace(hour=6, minute=0, second=0) }}'
-  end: '{{ now().replace(hour=19, minute=0, second=0) }}'
-
-- platform: history_stats
-  name: Adas heater time
-  entity_id: switch.adas_room_heater
-  state: 'on'
-  type: time
-  start: '{{ now().replace(hour=0, minute=0, second=0) }}'
-  end: '{{ now() }}'
-
-- platform: history_stats
-  name: Office heater time
-  entity_id: switch.office_heater
-  state: 'on'
-  type: time
-  start: '{{ now().replace(hour=0, minute=0, second=0) }}'
-  end: '{{ now() }}'
+  start: "{{ now().replace(hour=6, minute=0, second=0) }}"
+  end: "{{ now().replace(hour=19, minute=0, second=0) }}"
 
 - platform: history_stats
   name: Dannys Mobile Time
-  entity_id: binary_sensor.danny_s_phone_interactive
-  state: 'on'
+  entity_id: binary_sensor.pixel_3a_interactive
+  state: "on"
   type: time
-  start: '{{ now().replace(hour=0, minute=0, second=0) }}'
-  end: '{{ now() }}'
+  start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+  end: "{{ now() }}"
 
 - platform: history_stats
   name: Time at home Danny
@@ -51,15 +35,15 @@
 - platform: template
   sensors:
     hours_outside_per_day_gemma: # XXX: fails when returns "0m"
-        friendly_name: Hours out of house Gemma
-        value_template: >
-          {% set value = state_attr("sensor.time_at_home_gemma", "value") %}
-          {% if value != None %}
-          {% set d, h, m = value.split() %}
-          {% set d, h, m = d[:-1] | int, h[:-1] | int, m[:-1] | int %}
-          {% set hours_outside = ((14 - d) * 86400 - h * 3600 - m * 60) / 3600 %}
-          {{ (hours_outside / 14) | round(1) }}
-          {% endif %}
+      friendly_name: Hours out of house Gemma
+      value_template: >
+        {% set value = state_attr("sensor.time_at_home_gemma", "value") %}
+        {% if value != None %}
+        {% set d, h, m = value.split() %}
+        {% set d, h, m = d[:-1] | int, h[:-1] | int, m[:-1] | int %}
+        {% set hours_outside = ((14 - d) * 86400 - h * 3600 - m * 60) / 3600 %}
+        {{ (hours_outside / 14) | round(1) }}
+        {% endif %}
 
     hours_outside_per_day_danny: # XXX: fails when returns "0m"
       friendly_name: Hours out of house Danny
