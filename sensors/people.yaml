@@ -4,12 +4,3 @@
       friendly_name: "Distance - Danny to Gem"
       unit_of_measurement: "km"
       value_template: "{{ distance('device_tracker.pixel_3a', 'device_tracker.gemmas_pixel') }}"
-
-- platform: places
-  name: danny
-  devicetracker_id: device_tracker.pixel_3a
-  options: zone,place
-  map_provider: google
-  map_zoom: 19
-  home_zone: zone.home
-  api_key: !secret email_danny
