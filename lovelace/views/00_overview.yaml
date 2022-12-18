@@ -82,7 +82,7 @@ cards:
               icon: mdi:battery-charging-medium
               hide_name: true
               primary: "Battery Level: {{ states('sensor.pixel_3a_battery_level') }}%"
-              secondary: "Steps: {{ states('sensor.pixel_3a_steps_sensor') }}%"
+              secondary: "Steps: {{ states('sensor.pixel_3a_steps_sensor') }}"
               card_mod:
                 style: |
                   mushroom-shape-icon {
@@ -130,7 +130,7 @@ cards:
                   {% else %} grey
                   {% endif %}
               primary: "Battery Level: {{ states('sensor.pixel_3a_battery_level') }}%"
-              secondary: "Steps: {{ states('sensor.pixel_3a_steps_sensor') }}%"
+              secondary: "Steps: {{ states('sensor.pixel_3a_steps_sensor') }}"
               tap_action:
                 action: more-info
               fill_container: true
@@ -177,11 +177,11 @@ cards:
         entity: sensor.danny
         primary: >
           {% if (state_attr('sensor.danny', 'direction_of_travel') == 'stationary') and (state_attr('sensor.danny','home_zone') == 'zone.home') %}
-          John is Home:
+          Danny is Home:
           {% elif (state_attr('sensor.danny', 'direction_of_travel') == 'stationary')%}
-          John is Here:
+          Danny is Here:
           {% else %}
-          John is
+          Danny is
           {% endif %}
         secondary: >
           {% if (state_attr('sensor.danny','direction_of_travel') == 'stationary') %}
