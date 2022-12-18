@@ -19,13 +19,13 @@ lovelace:
       type: module
     - url: /local/community/bom-radar-card/bom-radar-card.js
       type: module
-    - url: /hacsfiles/purifier-card/purifier-card.js
+    - url: /local/community/purifier-card/purifier-card.js
       type: module
-    - url: /hacsfiles/lovelace-mushroom/mushroom.js
+    - url: /local/community/lovelace-mushroom/mushroom.js
       type: module
-    - url: /hacsfiles/stack-in-card/stack-in-card.js
+    - url: /local/community/stack-in-card/stack-in-card.js
       type: module
-    - url: /hacsfiles/vertical-stack-in-card/vertical-stack-in-card.js
+    - url: /local/community/vertical-stack-in-card/vertical-stack-in-card.js
       type: module
 discovery:
 homeassistant:
