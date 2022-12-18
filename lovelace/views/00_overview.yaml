@@ -207,5 +207,6 @@ cards:
       - type: map
         default_zoom: 16
         entities:
-          - device_tracker.pixel_3a
+          - entity: device_tracker.pixel_3a
+            name: Danny
         aspect_ratio: 1.95:1
