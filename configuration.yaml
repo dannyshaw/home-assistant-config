@@ -21,6 +21,8 @@ lovelace:
       type: module
     - url: /local/community/bom-radar-card/bom-radar-card.js
       type: module
+    - url: /hacsfiles/purifier-card/purifier-card.js
+      type: module
 discovery:
 homeassistant:
   auth_providers:
