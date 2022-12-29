@@ -91,3 +91,4 @@ logger:
   default: info
   logs:
     custom_components.spotcast: debug
+    custom_components.homewhiz: debug
