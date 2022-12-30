@@ -64,6 +64,19 @@
         data: {}
         target:
           entity_id: light.adas_room_light
-
-
-
+- id: '1672316191485'
+  alias: Washing Cycle Done
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - select.washing_machine_state
+    from: DEVICE_STATE_RUNNING
+    to: DEVICE_STATE_ON
+  condition: []
+  action:
+  - service: tts.cloud_say
+    data:
+      entity_id: media_player.kitchen_home
+      message: The washing machine has finished it's cycle
+  mode: single
