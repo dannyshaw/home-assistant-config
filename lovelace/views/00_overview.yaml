@@ -45,6 +45,22 @@ cards:
     entities:
       - sensor.adas_room_humidity
 
+  - type: history-graph
+    title: "BT Proxy uptime"
+    hours_to_show: 4
+    entities:
+      - sensor.uptime
+
+  - type: history-graph
+    title: "BT Proxy free heap"
+    hours_to_show: 4
+    entities:
+      - sensor.free_heap
+
+  - type: entity
+    name: "Washing machine state"
+    entity: select.washing_machine_state
+
   # - entity: weather.bom_melbourne_olympic_park
   #   type: weather-forecast
 
