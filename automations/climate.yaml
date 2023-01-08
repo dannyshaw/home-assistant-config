@@ -3,6 +3,7 @@
     - platform: sun
       event: sunset
     - alias: It's hot
+      platform: numeric_state
       condition: state
       entity_id: sensor.melbourne_temp
       above: 27
