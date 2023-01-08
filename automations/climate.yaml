@@ -1,0 +1,31 @@
+- alias: "Turn on hot night mode, on hot nights"
+  trigger:
+    - platform: sun
+      event: sunset
+    - alias: It's hot
+      condition: state
+      entity_id: sensor.melbourne_temp
+      above: 27
+  action:
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.hot_night_mode
+
+- alias: "Turn off AC when outside temp is lower than inside temp an the input temp is reasonable"
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.melbourne_temp
+      below: "{{ states.sensor.home_average_temperature.state - 2 }}"
+      for:
+        minutes: 30
+  condition:
+    - alias: Night mode is on
+      condition: state
+      entity_id: input_boolean.hot_night_mode
+      state: "on"
+    - alias: It's night time
+      condition: state
+      entity_id: sun.sun
+      state: below_horizon
+  action:
+    - service: climate.turn_off
+      entity_id: climate.living_room_ac
