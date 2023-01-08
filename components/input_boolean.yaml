@@ -21,5 +21,4 @@ living_room_morning_heating:
 hot_night_mode:
   name: Hot night mode
   initial: false
-  icon: mdi: sun-thermometer
-
+  icon: mdi:sun-thermometer
