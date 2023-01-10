@@ -8,7 +8,7 @@ jobs:
       - name: ⤵️ Check out configuration from GitHub
         uses: actions/checkout@v3
       - name: 🚀 Run Home Assistant Configuration Check
-        uses: frenck/action-home-assistant@v1
+        uses: frenck/action-home-assistant@v1.4
         with:
           path: "."
           secrets: travis_secrets.yaml
