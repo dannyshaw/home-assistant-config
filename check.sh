@@ -1,9 +1,9 @@
 #!/bin/bash
 
-set -eoux pipefail
+set -eou pipefail
 
 version='latest' #$(<"./.HA_VERSION")
-docker pull "ghcr.io/home-assistant/home-assistant:${version}"
+docker pull -q "ghcr.io/home-assistant/home-assistant:${version}"
 
 docker run --rm \
         --entrypoint "" \

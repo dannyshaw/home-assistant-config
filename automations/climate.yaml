@@ -31,14 +31,25 @@
       below: 21
       for:
         minutes: 30
-  condition:
-    - alias: Night mode is on
-      condition: state
-      entity_id: input_boolean.hot_night_mode
-      state: "on"
-    - condition: numeric_state
+    - platform: numeric_state
       entity_id: sensor.home_average_temperature
       below: 23
+      for:
+        minutes: 30
+  condition:
+    and:
+      - alias: Night mode is on
+        condition: state
+        entity_id: input_boolean.hot_night_mode
+        state: "on"
+      - condition: numeric_state
+        entity_id: sensor.melbourne_temp
+        below: 21
+      - condition: numeric_state
+        entity_id: sensor.home_average_temperature
+        below: 23
   action:
     - service: climate.turn_off
       entity_id: climate.living_room_ac
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.hot_night_mode
