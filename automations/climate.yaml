@@ -50,6 +50,6 @@
         below: 23
   action:
     - service: climate.turn_off
-      entity_id: climate.living_room_ac
+      entity_id: climate.living_room
     - service: input_boolean.turn_off
       entity_id: input_boolean.hot_night_mode
