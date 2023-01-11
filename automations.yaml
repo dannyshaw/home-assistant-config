@@ -1,6 +1,6 @@
-- id: "1644127100239"
+- id: '1644127100239'
   alias: Dim lights based on sun elevation
-  description: ""
+  description: ''
   use_blueprint:
     path: EvTheFuture/dim_lights_based_on_sun_elevation.yaml
     input:
@@ -8,75 +8,78 @@
       turn_on: true
       target_lights:
         area_id:
-          - 5fe667de18094e0aa0eac0812743ff0a
-          - 2ef487b8abbd4a4084c3d681290725b2
-          - 6553e27bd35941e6b8217ca2a7e36751
-          - f8941279e2ec472f96ab086d3a50ab75
-- id: "1651064077285"
+        - 5fe667de18094e0aa0eac0812743ff0a
+        - 2ef487b8abbd4a4084c3d681290725b2
+        - 6553e27bd35941e6b8217ca2a7e36751
+        - f8941279e2ec472f96ab086d3a50ab75
+- id: '1651064077285'
   alias: Ada's Lights - Blue Button
-  description: ""
+  description: ''
   use_blueprint:
     path: slashback/trigger-different-actions-on-a-single-double-or-double-click-on-a-binary-sensor.yaml
     input:
       switch_id: binary_sensor.adas_blue_button
       long_click_action:
-        - service: light.turn_on
-          data:
-            white: 25
-            brightness_pct: 10
-          target:
-            entity_id: light.adas_room_light
+      - service: light.turn_on
+        data:
+          white: 25
+          brightness_pct: 10
+        target:
+          entity_id: light.adas_room_light
       short_click_action:
-        - service: light.turn_on
-          data:
-            white: 255
-            brightness_pct: 100
-          target:
-            entity_id: light.adas_room_light
+      - service: light.turn_on
+        data:
+          white: 255
+          brightness_pct: 100
+        target:
+          entity_id: light.adas_room_light
       double_click_action: []
-- id: "1651101346989"
+- id: '1651101346989'
   alias: Ada's Lights - Yellow Button
-  description: ""
+  description: ''
   use_blueprint:
     path: slashback/trigger-different-actions-on-a-single-double-or-double-click-on-a-binary-sensor.yaml
     input:
       switch_id: binary_sensor.adas_yellow_button
       short_click_action:
-        - service: light.turn_on
-          data_template:
-            hs_color:
-              - "{{ (60 + (state_attr('light.adas_room_light', 'hs_color')[0] or 0))
-                % 360 }}"
-              - 100
-            brightness_pct: 100
-            transition: 1
-          target:
-            entity_id: light.adas_room_light
-- id: "1651108558107"
+      - service: light.turn_on
+        data_template:
+          hs_color:
+          - '{{ (60 + (state_attr(''light.adas_room_light'', ''hs_color'')[0] or 0))
+            % 360 }}'
+          - 100
+          brightness_pct: 100
+          transition: 1
+        target:
+          entity_id: light.adas_room_light
+- id: '1651108558107'
   alias: New Automation
-  description: ""
+  description: ''
   use_blueprint:
     path: slashback/trigger-different-actions-on-a-single-double-or-double-click-on-a-binary-sensor.yaml
     input:
       switch_id: binary_sensor.adas_green_button
       short_click_action:
-        - service: light.turn_off
-          data: {}
-          target:
-            entity_id: light.adas_room_light
-- id: "1672316191485"
+      - service: light.turn_off
+        data: {}
+        target:
+          entity_id: light.adas_room_light
+- id: '1672316191485'
   alias: Washing Cycle Done
-  description: ""
+  description: ''
   trigger:
-    - platform: state
-      entity_id:
-        - select.washing_machine_state
-      from: DEVICE_STATE_RUNNING
-      to: DEVICE_STATE_ON
-  condition: []
+  - platform: state
+    entity_id:
+    - select.washing_machine_state
+    from: DEVICE_STATE_RUNNING
+    to: DEVICE_STATE_ON
+  condition:
+  - condition: time
+    after: 06:00:00
+    before: '22:00:00'
   action:
-    - service: tts.cloud_say
-      data:
-        entity_id: media_player.kitchen_home
-        message: The washing machine has finished it's cycle
+  - service: tts.cloud_say
+    data:
+      entity_id: media_player.kitchen_home
+      message: The washing machine has finished it's cycle
   mode: single
