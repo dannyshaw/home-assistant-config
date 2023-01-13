@@ -2,8 +2,17 @@
 
 set -eou pipefail
 
-version='latest' #$(<"./.HA_VERSION")
-docker pull -q "ghcr.io/home-assistant/home-assistant:${version}"
+# Default to current install version, but allow -v <version> override
+version=$(<"./.HA_VERSION")
+while getopts v: flag
+do
+    case "${flag}" in
+        v) version=${OPTARG};;
+    esac
+done
+
+
+docker pull "ghcr.io/home-assistant/home-assistant:${version}"
 
 docker run --rm \
         --entrypoint "" \
