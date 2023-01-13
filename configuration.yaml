@@ -13,8 +13,6 @@ lovelace:
       type: module
     - url: /local/community/canvas-gauge-card/canvas-gauge-card.js
       type: module
-    - url: /local/community/lovelace-darksky-card/lovelace-darksky-card.js?v=7.1
-      type: module
     - url: /local/community/rgb-light-card/card.js
       type: module
     - url: /local/community/bom-radar-card/bom-radar-card.js
@@ -39,7 +37,7 @@ http:
 # android_ip_webcam: !include components/android_ip_webcam.yaml
 sensor: !include_dir_merge_list sensors/
 binary_sensor: !include components/binary_sensor.yaml
-device_tracker: !include components/device_tracker.yaml
+# device_tracker: !include components/device_tracker.yaml
 # group: !include groups.yaml
 automation mine: !include_dir_merge_list automations
 automation: !include automations.yaml
@@ -73,11 +71,11 @@ ffmpeg:
 
 panel_iframe:
   router:
-    title: "Router"
+    title: "Dream Router"
     url: !secret router_homepage
-  fridge:
-    title: "Ferm Fridge"
-    url: !secret ferm_fridge_homepage
+  # fridge:
+  #   title: "Ferm Fridge"
+  #   url: !secret ferm_fridge_homepage
 
 python_script:
 
