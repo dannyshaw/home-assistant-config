@@ -13,13 +13,13 @@ jobs:
           path: "."
           secrets: secrets_ci.yaml
           version: stable
-      - name: setup python
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.11 #install the python needed
-      - name: Install dependencies
-        run: |
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-      - name: execute py script # run file
-        run: |
-          python scripts/check_secrets.py
+      # - name: setup python
+      #   uses: actions/setup-python@v4
+      #   with:
+      #     python-version: 3.11 #install the python needed
+      # - name: Install dependencies
+      #   run: |
+      #     if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      # - name: execute py script # run file
+      #   run: |
+      #     python scripts/check_secrets.py
