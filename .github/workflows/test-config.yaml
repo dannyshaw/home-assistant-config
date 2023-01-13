@@ -11,5 +11,5 @@ jobs:
         uses: frenck/action-home-assistant@v1.4
         with:
           path: "."
-          secrets: travis_secrets.yaml
+          secrets: secrets_ci.yaml
           version: stable

@@ -22,7 +22,7 @@ docker run --rm \
     docker run --rm \
         --entrypoint "" \
         -v $(pwd):/github/workspace \
-        -v $(pwd)/travis_secrets.yaml:/github/workspace/secrets.yaml \
+        -v $(pwd)/secrets_ci.yaml:/github/workspace/secrets.yaml \
         --workdir /github/workspace \
         "ghcr.io/home-assistant/home-assistant:${version}" \
         python -m homeassistant \
