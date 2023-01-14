@@ -1,5 +1,5 @@
 ---
-exclude: (?x)^(config/custom_components/.*| config/www/.*)$
+exclude: (?x)^(custom_components/.*| www/.*)$
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v2.4.0
