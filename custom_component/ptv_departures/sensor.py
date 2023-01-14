@@ -12,6 +12,7 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
 
 class PTVSensor(Entity):
     """Representation of a Sensor."""
+
     def __init__(self, hass, config):
         """Initialize the sensor."""
         self._hass = hass
@@ -34,11 +35,11 @@ class PTVSensor(Entity):
     @property
     def unit_of_measurement(self):
         """Return the unit of measurement."""
-        return 'ISO8601'
+        return "ISO8601"
 
     @property
     def device_class(self):
-        return 'timestamp'
+        return "timestamp"
 
     @property
     def device_state_attributes(self) -> dict:
@@ -51,7 +52,7 @@ class PTVSensor(Entity):
         return attr
 
     def get_location(self):
-        home_zone = self._hass.states.get('zone.home').attributes
+        home_zone = self._hass.states.get("zone.home").attributes
         return home_zone["latitude"], home_zone["longitude"]
 
     def update(self):
@@ -65,11 +66,11 @@ class PTVSensor(Entity):
         debug_distance = self._config.get("debug_distance", 300)
         direction_ids = self._config.get("direction_ids", [])
 
-        self._departures = get_departures(route_type, stop_id, max_results,
-                                          route_ids, direction_ids)
+        self._departures = get_departures(
+            route_type, stop_id, max_results, route_ids, direction_ids
+        )
         self._state = self._departures[0]["departing"]
 
         if debug_nearby:
             latitude, longitude = self.get_location()
-            self._debug_nearby = get_stops_nearby(latitude, longitude,
-                                                  debug_distance)
+            self._debug_nearby = get_stops_nearby(latitude, longitude, debug_distance)
