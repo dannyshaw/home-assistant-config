@@ -1,45 +1,46 @@
- - type: horizontal-stack
-        title: "Ada's Room"
-        cards:
+---
+    - type: horizontal-stack
+      title: "Ada's Room"
+      cards:
           - type: vertical-stack
             cards:
-              - type: glance
-                title:
-                entities:
-                  - entity: switch.adas_room_heater
-                    name: Heater
-                  - entity: sensor.adas_room_humidity
-                    name: Humidity
-                  - entity: binary_sensor.adas_room_motion_sensor
-                    name: Motion
+                - type: glance
+                  title:
+                  entities:
+                      - entity: switch.adas_room_heater
+                        name: Heater
+                      - entity: sensor.adas_room_humidity
+                        name: Humidity
+                      - entity: binary_sensor.adas_room_motion_sensor
+                        name: Motion
           - type: glance
             title: Automations
             entities:
-              - type: entity-button
-                name: Turn Off All Heating
-                tap_action:
-                  action: call-service
-                  service: script.turn_off_all_heaters
-                entity: script.turn_off_all_heaters
-              - type: entity-button
-                name: Heat The House
-                tap_action:
-                  action: call-service
-                  service: script.heat_the_house
-                entity: script.heat_the_house
-              - type: entity-button
-                name: Front Security Cam
-                tap_action:
-                  action: call-service
-                  service: script.cast_security_cam_to_tv
-                entity: script.cast_security_cam_to_tv
-      - type: glance
-        entities:
+                - type: entity-button
+                  name: Turn Off All Heating
+                  tap_action:
+                      action: call-service
+                      service: script.turn_off_all_heaters
+                  entity: script.turn_off_all_heaters
+                - type: entity-button
+                  name: Heat The House
+                  tap_action:
+                      action: call-service
+                      service: script.heat_the_house
+                  entity: script.heat_the_house
+                - type: entity-button
+                  name: Front Security Cam
+                  tap_action:
+                      action: call-service
+                      service: script.cast_security_cam_to_tv
+                  entity: script.cast_security_cam_to_tv
+    - type: glance
+      entities:
           - switch.bedroom_heater
           - sensor.bedroom_humidity
           - sensor.bedroom_temperature
-      - type: glance
-        entities:
+    - type: glance
+      entities:
           - switch.bedroom_heating
           - switch.adas_room_heating
           - switch.living_room_heating

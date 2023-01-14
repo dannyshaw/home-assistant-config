@@ -1,2 +1,3 @@
-- platform: torque
-  email: !secret torque_email_config
+---
+    - platform: torque
+      email: !secret torque_email_config

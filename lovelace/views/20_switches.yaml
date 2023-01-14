@@ -1,42 +1,43 @@
+---
 title: Switches
 cards:
-  - type: custom:vertical-stack-in-card
-    cards:
-      - type: glance
-        title: Living Room
-        entities:
-        - entity: light.living_room_lamp
-          name: Lamp
-          tap_action:
-            action: toggle
+    - type: custom:vertical-stack-in-card
+      cards:
+          - type: glance
+            title: Living Room
+            entities:
+                - entity: light.living_room_lamp
+                  name: Lamp
+                  tap_action:
+                      action: toggle
           # type: entity-button
-        - entity: light.living_room_ceiling
-          name: Ceiling
-          tap_action:
-            action: toggle
-        - entity: light.kitchen_dining
-          name: Dining Room
-          tap_action:
-            action: toggle
+                - entity: light.living_room_ceiling
+                  name: Ceiling
+                  tap_action:
+                      action: toggle
+                - entity: light.kitchen_dining
+                  name: Dining Room
+                  tap_action:
+                      action: toggle
 
-      - type: glance
-        title: Ada's Room
-        entities:
-        - entity: light.adas_room_light
-          name: Light
-          tap_action:
-            action: toggle
-        - entity: switch.baby_monitor
-          name: Baby Monitor
-          tap_action:
-            action: toggle
+          - type: glance
+            title: Ada's Room
+            entities:
+                - entity: light.adas_room_light
+                  name: Light
+                  tap_action:
+                      action: toggle
+                - entity: switch.baby_monitor
+                  name: Baby Monitor
+                  tap_action:
+                      action: toggle
 
-      - type: glance
-        title: Outside
-        entities:
-        - entity: switch.mosquito_killer
-          tap_action:
-            action: toggle
+          - type: glance
+            title: Outside
+            entities:
+                - entity: switch.mosquito_killer
+                  tap_action:
+                      action: toggle
 
       # - type: glance
       #   title: Master Bedroom
@@ -46,12 +47,12 @@ cards:
       #       tap_action:
       #         action: toggle
 
-  - type: custom:vertical-stack-in-card
-    cards:
-    - type: custom:air-purifier-card
-      entity: fan.xiaomi_miio_device
-    - type: history-graph
-      title: 'Air Quality'
-      entities:
-        - sensor.air_purifier_air_quality
-      hours_to_show: 80
+    - type: custom:vertical-stack-in-card
+      cards:
+          - type: custom:air-purifier-card
+            entity: fan.xiaomi_miio_device
+          - type: history-graph
+            title: 'Air Quality'
+            entities:
+                - sensor.air_purifier_air_quality
+            hours_to_show: 80

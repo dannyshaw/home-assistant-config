@@ -1,41 +1,42 @@
+---
 title: Climate
 path: climate
 cards:
-  - type: custom:vertical-stack-in-card
-    title: Ada's Room
-    cards:
-      - type: thermostat
-        entity: climate.adas_room
-        name: " "
+    - type: custom:vertical-stack-in-card
+      title: Ada's Room
+      cards:
+          - type: thermostat
+            entity: climate.adas_room
+            name: " "
 
-      - type: glance
-        name: Lights
-        entities:
-          - entity: switch.adas_room_heater
-            name: "Heater"
-            tap_action:
-              action: toggle
-          - entity: sensor.adas_room_temperature
-            name: Temperature
-          - entity: sensor.adas_room_humidity
-            name: Humidity
-          - entity: light.adas_room_light
+          - type: glance
+            name: Lights
+            entities:
+                - entity: switch.adas_room_heater
+                  name: "Heater"
+                  tap_action:
+                      action: toggle
+                - entity: sensor.adas_room_temperature
+                  name: Temperature
+                - entity: sensor.adas_room_humidity
+                  name: Humidity
+                - entity: light.adas_room_light
 
-  - type: custom:vertical-stack-in-card
-    title: Leni's Room
-    cards:
-      - type: thermostat
-        entity: climate.lenis_room
-        name: " "
-      - type: glance
-        name: Lights
-        entities:
-          - entity: switch.lenis_room_heater
-            name: "Heater"
-            tap_action:
-              action: toggle
-          - entity: sensor.lenis_room_temperature
-            name: Temperature
+    - type: custom:vertical-stack-in-card
+      title: Leni's Room
+      cards:
+          - type: thermostat
+            entity: climate.lenis_room
+            name: " "
+          - type: glance
+            name: Lights
+            entities:
+                - entity: switch.lenis_room_heater
+                  name: "Heater"
+                  tap_action:
+                      action: toggle
+                - entity: sensor.lenis_room_temperature
+                  name: Temperature
 
   # - type: custom:vertical-stack-in-card
   #   title: Master Bedroom
@@ -56,26 +57,26 @@ cards:
   #           name: Humidity
   #         - entity: light.bedroom_light
 
-  - type: custom:vertical-stack-in-card
-    title: Living Room
-    cards:
-      - entity: climate.living_room
-        name: " "
-        type: thermostat
+    - type: custom:vertical-stack-in-card
+      title: Living Room
+      cards:
+          - entity: climate.living_room
+            name: " "
+            type: thermostat
 
-      - type: glance
-        entities:
-          - entity: light.living_room_lamp
-            name: Lamp
-            tap_action:
-              action: toggle
+          - type: glance
+            entities:
+                - entity: light.living_room_lamp
+                  name: Lamp
+                  tap_action:
+                      action: toggle
             # type: entity-button
-          - entity: light.living_room_ceiling
-            name: Ceiling
-            tap_action:
-              action: toggle
-          - entity: light.kitchen_dining
-          - entity: light.cabinet_lights
+                - entity: light.living_room_ceiling
+                  name: Ceiling
+                  tap_action:
+                      action: toggle
+                - entity: light.kitchen_dining
+                - entity: light.cabinet_lights
 
   # - type: custom:vertical-stack-in-card
   #   title: Shed
