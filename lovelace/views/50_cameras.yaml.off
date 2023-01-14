@@ -57,5 +57,3 @@ cards:
           - switch.moto_cam_2_torch
           # - switch.moto_cam_2_whitebalance_lock
           - switch.moto_cam_2_video_recording
-
-

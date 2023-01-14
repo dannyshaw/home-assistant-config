@@ -4,12 +4,13 @@ import hmac
 import requests
 import urllib
 
-API_VER = '/v3/'
-BASE_URL = 'https://timetableapi.ptv.vic.gov.au'
+API_VER = "/v3/"
+BASE_URL = "https://timetableapi.ptv.vic.gov.au"
 
 
 class RouteType(Enum):
-    """ Enum for Route Types and their IDs."""
+    """Enum for Route Types and their IDs."""
+
     TRAIN = 0
     TRAM = 1
     BUS = 2
@@ -18,7 +19,8 @@ class RouteType(Enum):
 
 
 class PTVClient(object):
-    """ Class to make calls to PTV API."""
+    """Class to make calls to PTV API."""
+
     def __init__(self, dev_id, api_key):
         """Initialize a PTVClient.
 
@@ -41,8 +43,8 @@ class PTVClient(object):
         Returns
             The hex signature. (str)
         """
-        key = bytes(self.api_key, 'UTF-8')
-        raw = bytes(path, 'UTF-8')
+        key = bytes(self.api_key, "UTF-8")
+        raw = bytes(path, "UTF-8")
         return hmac.new(key, raw, sha1).hexdigest().upper()
 
     def _api_call(self, path, params={}):
@@ -59,24 +61,31 @@ class PTVClient(object):
         """
         params["devid"] = self.dev_id
         query = "?" + urllib.parse.urlencode(params, doseq=True)
-        url = BASE_URL + path + query + '&signature=' + self._computeSignature(
-            path + query)
+        url = (
+            BASE_URL
+            + path
+            + query
+            + "&signature="
+            + self._computeSignature(path + query)
+        )
         response = requests.get(url)
         response.raise_for_status()
         return response.json()
 
     # Departures
-    def get_departure_from_stop(self,
-                                route_type,
-                                stop_id,
-                                route_id=None,
-                                platform_numbers=[],
-                                direction_id=None,
-                                date_utc=None,
-                                max_results=None,
-                                gtfs=False,
-                                include_cancelled=False,
-                                expand=None):
+    def get_departure_from_stop(
+        self,
+        route_type,
+        stop_id,
+        route_id=None,
+        platform_numbers=[],
+        direction_id=None,
+        date_utc=None,
+        max_results=None,
+        gtfs=False,
+        include_cancelled=False,
+        expand=None,
+    ):
         """Get Service departures from the specified stop for all routes of the
         specified route type or a single route if route_id is specified.
         departures are timetabled and real-time (if applicable).
@@ -105,10 +114,10 @@ class PTVClient(object):
                 List objects to be returned in full (i.e. expanded)
                 - options include: all, stop, route, run, direction, disruption
         """
-        path = API_VER + 'departures/route_type/{}/stop/{}'
+        path = API_VER + "departures/route_type/{}/stop/{}"
         path = path.format(route_type.value, stop_id)
         if route_id:
-            path += '/route/{}'
+            path += "/route/{}"
             path = path.format(route_id)
         params = {}
         if len(platform_numbers) > 0:
@@ -130,13 +139,13 @@ class PTVClient(object):
 
     # Directions
     def get_direction_for_route(self, route_id):
-        """ Get The directions that a specified route travels in.
+        """Get The directions that a specified route travels in.
 
         Parameters:
             route_id (int)
                 Identifier of route
         """
-        path = API_VER + 'directions/route/{}'
+        path = API_VER + "directions/route/{}"
         path = path.format(route_id)
         return self._api_call(path)
 
@@ -147,7 +156,7 @@ class PTVClient(object):
             direction_id (int)
                 Identifier of direction of travel
         """
-        path = API_VER + 'directions/{}'
+        path = API_VER + "directions/{}"
         path = path.format(direction_id)
         return self._api_call(path)
 
@@ -160,14 +169,14 @@ class PTVClient(object):
             route_type (RouteType enum)
                 Type of Transport
         """
-        path = API_VER + 'directions/{}/route_type/{}'
+        path = API_VER + "directions/{}/route_type/{}"
         path = path.format(direction_id, route_type.value)
         return self._api_call(path)
 
     # Disruptions
     def get_disruptions(self):
         """Get All disruption information for all route types."""
-        path = API_VER + 'disruptions'
+        path = API_VER + "disruptions"
         return self._api_call(path)
 
     def get_disruptions_on_route(self, route_id, disruption_status=None):
@@ -181,13 +190,13 @@ class PTVClient(object):
             Filter by status of disruption_status
             Options: 'current' or 'planned'
         """
-        path = API_VER + 'disruptions/route/{}'
+        path = API_VER + "disruptions/route/{}"
         path = path.format(route_id)
         params = {}
         if disruption_status:
-            if disruption_status.lower() not in ['current', 'planned']:
+            if disruption_status.lower() not in ["current", "planned"]:
                 raise TypeError(
-                    'Only \"current\" and \"planned\" allowed for disruption_status'
+                    'Only "current" and "planned" allowed for disruption_status'
                 )
             params["disruption_status"] = disruption_status.lower()
         return self._api_call(path, params)
@@ -199,16 +208,14 @@ class PTVClient(object):
             disruption_id (int)
                 Identifier of disruption
         """
-        path = API_VER + 'disruptions/{}'
+        path = API_VER + "disruptions/{}"
         path = path.format(disruption_id)
         return self._api_call(path)
 
     # Patterns
-    def get_stopping_pattern_for_run(self,
-                                     run_id,
-                                     route_type,
-                                     stop_id=None,
-                                     date_utc=None):
+    def get_stopping_pattern_for_run(
+        self, run_id, route_type, stop_id=None, date_utc=None
+    ):
         """Get The stopping pattern of the specified trip/service run and route type.
 
         Parameters:
@@ -222,13 +229,13 @@ class PTVClient(object):
             date_utc (datetime)
                 Filter by the date and time of the request (ISO 8601 UTC format)
         """
-        path = API_VER + 'pattern/run/{}/route_type/{}'
+        path = API_VER + "pattern/run/{}/route_type/{}"
         path = path.format(run_id, route_type.value)
         params = {}
         if stop_id:
-            params['stop_id'] = stop_id
+            params["stop_id"] = stop_id
         if date_utc:
-            params['date_utc'] = date_utc
+            params["date_utc"] = date_utc
         return self._api_call(path, params)
 
     # Routes
@@ -241,7 +248,7 @@ class PTVClient(object):
             route_name (str)
                 Filter by name of route
         """
-        path = API_VER + 'routes'
+        path = API_VER + "routes"
         params = {}
         if route_name:
             params["route_name"] = route_name
@@ -256,15 +263,14 @@ class PTVClient(object):
             route_id (int)
                 Identifier of route
         """
-        path = API_VER + 'routes/{}'
+        path = API_VER + "routes/{}"
         path = path.format(route_id)
         return self._api_call(path)
 
     # Route Types
     def get_route_types(self):
-        """Get all route types (i.e. identifiers of transport modes) and their names
-        """
-        path = API_VER + 'route_types'
+        """Get all route types (i.e. identifiers of transport modes) and their names"""
+        path = API_VER + "route_types"
         return self._api_call(path)
 
     # Runs
@@ -275,7 +281,7 @@ class PTVClient(object):
             route_id (int)
                 Identifier of route
         """
-        path = API_VER + 'runs/route/{}'
+        path = API_VER + "runs/route/{}"
         path = path.format(route_id)
         return self._api_call(path)
 
@@ -286,7 +292,7 @@ class PTVClient(object):
             run_id (int)
                 Identifier of a trip/service run
         """
-        path = API_VER + 'runs/{}'
+        path = API_VER + "runs/{}"
         path = path.format(run_id)
         return self._api_call(path)
 
@@ -299,18 +305,20 @@ class PTVClient(object):
             route_type (RouteType enum)
                 Type of Transport
         """
-        path = API_VER + 'runs/{}/route_type/{}'
+        path = API_VER + "runs/{}/route_type/{}"
         path = path.format(run_id, route_type.value)
         return self._api_call(path)
 
     # Search
-    def search(self,
-               search_term,
-               route_types=[],
-               latitude=None,
-               longitude=None,
-               max_distance=None,
-               include_outlets=True):
+    def search(
+        self,
+        search_term,
+        route_types=[],
+        latitude=None,
+        longitude=None,
+        max_distance=None,
+        include_outlets=True,
+    ):
         """Get Stops, routes and myki ticket outlets that contain the search term
         (note: stops and routes are ordered by route_type by default).
 
@@ -332,26 +340,28 @@ class PTVClient(object):
             include_outlets (bool)
                 Indicates if outlets will be returned in response (default = true)
         """
-        path = API_VER + 'search/' + urllib.parse.quote(search_term)
+        path = API_VER + "search/" + urllib.parse.quote(search_term)
         params = {}
         if len(route_types) > 0:
-            params['route_types'] = list(map(lambda x: x.value, route_types))
+            params["route_types"] = list(map(lambda x: x.value, route_types))
         if latitude:
-            params['latitude'] = latitude
+            params["latitude"] = latitude
         if longitude:
-            params['longitude'] = longitude
+            params["longitude"] = longitude
         if max_distance:
-            params['max_distance'] = max_distance
-        params['include_outlets'] = str(include_outlets).lower()
+            params["max_distance"] = max_distance
+        params["include_outlets"] = str(include_outlets).lower()
         return self._api_call(path, params)
 
     # Stops
-    def get_stop(self,
-                 stop_id,
-                 route_type,
-                 stop_location=False,
-                 stop_amenities=False,
-                 stop_accessibility=False):
+    def get_stop(
+        self,
+        stop_id,
+        route_type,
+        stop_location=False,
+        stop_amenities=False,
+        stop_accessibility=False,
+    ):
         """Get Stop location, amenity and accessibility facility information for
         the specified stop (metropolitan and V/Line stations only).
 
@@ -369,12 +379,12 @@ class PTVClient(object):
             stop_accessibility (bool)
                 Indicates if stop accessibility information will be returned (default = false)
         """
-        path = API_VER + 'stops/{}/route_type/{}'
+        path = API_VER + "stops/{}/route_type/{}"
         path = path.format(stop_id, route_type.value)
         params = {}
-        params['stop_location'] = str(stop_location).lower()
-        params['stop_amenities'] = str(stop_amenities).lower()
-        params['stop_accessibility'] = str(stop_accessibility).lower()
+        params["stop_location"] = str(stop_location).lower()
+        params["stop_amenities"] = str(stop_amenities).lower()
+        params["stop_accessibility"] = str(stop_accessibility).lower()
         return self._api_call(path, params)
 
     def get_stops(self, route_id, route_type):
@@ -388,16 +398,13 @@ class PTVClient(object):
 
 
         """
-        path = API_VER + 'stops/route/{}/route_type/{}'
+        path = API_VER + "stops/route/{}/route_type/{}"
         path = path.format(route_id, route_type.value)
         return self._api_call(path)
 
-    def get_stop_near_location(self,
-                               latitude,
-                               longitude,
-                               route_types=[],
-                               max_results=30,
-                               max_distance=300):
+    def get_stop_near_location(
+        self, latitude, longitude, route_types=[], max_results=30, max_distance=300
+    ):
         """Get All stops near the specified location.
 
         Parameters:
@@ -415,11 +422,11 @@ class PTVClient(object):
                 Filter by maximum distance (in metres) from location specified
                 via latitude and longitude parameters (default = 300)
         """
-        path = API_VER + 'stops/location/{},{}'
+        path = API_VER + "stops/location/{},{}"
         path = path.format(str(latitude), str(longitude))
         params = {}
-        params['max_results'] = max_results
-        params['max_distance'] = max_distance
+        params["max_results"] = max_results
+        params["max_distance"] = max_distance
         if len(route_types) > 0:
             params["route_types"] = list(map(lambda x: x.value, route_types))
         return self._api_call(path, params)
