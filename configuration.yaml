@@ -1,37 +1,38 @@
+---
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
 lovelace:
-  mode: yaml
-  resources:
-    - url: /local/community/lovelace-card-mod/card-mod.js
-      type: module
-    - url: /local/community/config-template-card/config-template-card.js
-      type: module
-    - url: /local/custom-lovelace/air-purifier/card.js
-      type: module
-    - url: /local/custom-lovelace/mini-graph-card-bundle.js?v=0.9.4
-      type: module
-    - url: /local/community/canvas-gauge-card/canvas-gauge-card.js
-      type: module
-    - url: /local/community/rgb-light-card/card.js
-      type: module
-    - url: /local/community/bom-radar-card/bom-radar-card.js
-      type: module
-    - url: /local/community/purifier-card/purifier-card.js
-      type: module
-    - url: /local/community/lovelace-mushroom/mushroom.js
-      type: module
-    - url: /local/community/stack-in-card/stack-in-card.js
-      type: module
-    - url: /local/community/vertical-stack-in-card/vertical-stack-in-card.js
-      type: module
+    mode: yaml
+    resources:
+        - url: /local/community/lovelace-card-mod/card-mod.js
+          type: module
+        - url: /local/community/config-template-card/config-template-card.js
+          type: module
+        - url: /local/custom-lovelace/air-purifier/card.js
+          type: module
+        - url: /local/custom-lovelace/mini-graph-card-bundle.js?v=0.9.4
+          type: module
+        - url: /local/community/canvas-gauge-card/canvas-gauge-card.js
+          type: module
+        - url: /local/community/rgb-light-card/card.js
+          type: module
+        - url: /local/community/bom-radar-card/bom-radar-card.js
+          type: module
+        - url: /local/community/purifier-card/purifier-card.js
+          type: module
+        - url: /local/community/lovelace-mushroom/mushroom.js
+          type: module
+        - url: /local/community/stack-in-card/stack-in-card.js
+          type: module
+        - url: /local/community/vertical-stack-in-card/vertical-stack-in-card.js
+          type: module
 discovery:
 homeassistant:
-  auth_providers:
-    - type: homeassistant
-    - type: legacy_api_password
-      api_password: !secret api_password
-  packages: !include_dir_named packages
+    auth_providers:
+        - type: homeassistant
+        - type: legacy_api_password
+          api_password: !secret api_password
+    packages: !include_dir_named packages
 http:
 #stream:
 # android_ip_webcam: !include components/android_ip_webcam.yaml
@@ -56,12 +57,12 @@ input_boolean: !include components/input_boolean.yaml
 speedtestdotnet: !include components/speedtestdotnet.yaml
 system_health:
 tts:
-  - platform: google_translate
+    - platform: google_translate
 tuya:
-  username: !secret email
-  password: !secret tuya_password
-  country_code: 61
-  platform: "tuya"
+    username: !secret email
+    password: !secret tuya_password
+    country_code: 61
+    platform: "tuya"
 tplink:
 ffmpeg:
 # option removed
@@ -70,9 +71,9 @@ ffmpeg:
 #   client_secret: !secret google_api_client_secret
 
 panel_iframe:
-  router:
-    title: "Dream Router"
-    url: !secret router_homepage
+    router:
+        title: "Dream Router"
+        url: !secret router_homepage
   # fridge:
   #   title: "Ferm Fridge"
   #   url: !secret ferm_fridge_homepage
@@ -80,12 +81,12 @@ panel_iframe:
 python_script:
 
 spotcast:
-  sp_dc: !secret spotify_dc
-  sp_key: !secret spotify_key
-  country: AU
+    sp_dc: !secret spotify_dc
+    sp_key: !secret spotify_key
+    country: AU
 
 logger:
-  default: info
-  logs:
-    custom_components.spotcast: debug
-    custom_components.homewhiz: debug
+    default: info
+    logs:
+        custom_components.spotcast: debug
+        custom_components.homewhiz: debug

@@ -1,12 +1,13 @@
-- id: 'cabinet_dimmer'
-  alias: Cabinet Light Dimmer
-  trigger:
-  - entity_id: sensor.cabinet_dimmer
-    platform: state
-  condition: []
-  action:
-  - data_template:
-      brightness_pct: '{{ (trigger.to_state.state | float(0)) * 10 }}'
-      transition: .25
-    service: light.turn_on
-    entity_id: light.cabinet_lights
+---
+    - id: 'cabinet_dimmer'
+      alias: Cabinet Light Dimmer
+      trigger:
+          - entity_id: sensor.cabinet_dimmer
+            platform: state
+      condition: []
+      action:
+          - data_template:
+                brightness_pct: '{{ (trigger.to_state.state | float(0)) * 10 }}'
+                transition: .25
+            service: light.turn_on
+            entity_id: light.cabinet_lights

@@ -1,55 +1,56 @@
-- alias: "Turn on hot night mode on hot nights"
-  trigger:
-    - platform: sun
-      event: sunset
-  condition:
-    - or:
-        - alias: It's hot
-          condition: numeric_state
-          entity_id: sensor.melbourne_temp
-          above: 27
-        - alias: It's hot minimum overnight
-          condition: numeric_state
-          entity_id: sensor.nortcote_temp_min_1
-          above: 19
-  action:
-    - service: input_boolean.turn_on
-      entity_id: input_boolean.hot_night_mode
+---
+    - alias: "Turn on hot night mode on hot nights"
+      trigger:
+          - platform: sun
+            event: sunset
+      condition:
+          - or:
+                - alias: It's hot
+                  condition: numeric_state
+                  entity_id: sensor.melbourne_temp
+                  above: 27
+                - alias: It's hot minimum overnight
+                  condition: numeric_state
+                  entity_id: sensor.nortcote_temp_min_1
+                  above: 19
+      action:
+          - service: input_boolean.turn_on
+            entity_id: input_boolean.hot_night_mode
 
-- alias: "Turn off hot night mode at sunrise"
-  trigger:
-    - platform: sun
-      event: sunrise
-  action:
-    - service: input_boolean.turn_off
-      entity_id: input_boolean.hot_night_mode
+    - alias: "Turn off hot night mode at sunrise"
+      trigger:
+          - platform: sun
+            event: sunrise
+      action:
+          - service: input_boolean.turn_off
+            entity_id: input_boolean.hot_night_mode
 
-- alias: "Turn off AC when outside temp is lower than inside temp an the input temp is reasonable"
-  trigger:
-    - platform: numeric_state
-      entity_id: sensor.melbourne_temp
-      below: 21
-      for:
-        minutes: 30
-    - platform: numeric_state
-      entity_id: sensor.home_average_temperature
-      below: 23
-      for:
-        minutes: 30
-  condition:
-    and:
-      - alias: Night mode is on
-        condition: state
-        entity_id: input_boolean.hot_night_mode
-        state: "on"
-      - condition: numeric_state
-        entity_id: sensor.melbourne_temp
-        below: 21
-      - condition: numeric_state
-        entity_id: sensor.home_average_temperature
-        below: 23
-  action:
-    - service: climate.turn_off
-      entity_id: climate.living_room
-    - service: input_boolean.turn_off
-      entity_id: input_boolean.hot_night_mode
+    - alias: "Turn off AC when outside temp is lower than inside temp an the input temp is reasonable"
+      trigger:
+          - platform: numeric_state
+            entity_id: sensor.melbourne_temp
+            below: 21
+            for:
+                minutes: 30
+          - platform: numeric_state
+            entity_id: sensor.home_average_temperature
+            below: 23
+            for:
+                minutes: 30
+      condition:
+          and:
+              - alias: Night mode is on
+                condition: state
+                entity_id: input_boolean.hot_night_mode
+                state: "on"
+              - condition: numeric_state
+                entity_id: sensor.melbourne_temp
+                below: 21
+              - condition: numeric_state
+                entity_id: sensor.home_average_temperature
+                below: 23
+      action:
+          - service: climate.turn_off
+            entity_id: climate.living_room
+          - service: input_boolean.turn_off
+            entity_id: input_boolean.hot_night_mode

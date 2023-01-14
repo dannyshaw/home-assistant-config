@@ -1,6 +1,0 @@
-# - platform: template
-#   lights:
-#     dashboard_screen:
-#       turn_on:
-#       turn_off:
-#       set_level:
