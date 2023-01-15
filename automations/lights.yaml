@@ -27,7 +27,7 @@
     target:
       entity_id: light.living_room_lamp
 
-- alias: "Lamp morning"
+- alias: "Lamp morning on"
   trigger:
   - platform: time
     at: "05:45:00"
