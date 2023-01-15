@@ -5,3 +5,33 @@
       friendly_name: "Distance - Danny to Gem"
       unit_of_measurement: "km"
       value_template: "{{ distance('device_tracker.pixel_3a', 'device_tracker.gemmas_pixel') }}"
+
+- platform: bayesian
+  prior: 0.5
+  name: danny_asleep
+  probability_threshold: 0.85
+  observations:
+  - alias: I'm home
+    entity_id: person.danny
+    prob_given_true: 0.99
+    prob_given_false: 0.5
+    platform: "state"
+    to_state: "home"
+  - alias: The sun is down
+    entity_id: "sensor.sun"
+    prob_given_true: 0.9
+    prob_given_false: 0.2
+    platform: "state"
+    to_state: "below_horizon"
+  - alias: Phone is charging
+    entity_id: "binary_sensor.pixel_3a_is_charging"
+    prob_given_true: 0.9
+    prob_given_false: 0.2
+    platform: "state"
+    to_state: "on"
+  - alias: Sleep tracking is on and do not disturb mode is on
+    entity_id: "sensor.pixel_3a_do_not_disturb_sensor"
+    prob_given_true: 0.95
+    prob_given_false: 0.5
+    platform: "state"
+    to_state: "alarms_only"
