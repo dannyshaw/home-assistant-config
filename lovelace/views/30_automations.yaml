@@ -1,3 +1,4 @@
+---
 title: Automations
 cards:
 - type: entities
@@ -26,10 +27,10 @@ cards:
 
 - type: vertical-stack
   cards:
-    - type: custom:air-purifier-card
-      entity: fan.xiaomi_miio_device
-    - type: history-graph
-      title: 'Air Quality'
-      entities:
-        - sensor.air_purifier_air_quality
-      hours_to_show: 48
+  - type: custom:air-purifier-card
+    entity: fan.xiaomi_miio_device
+  - type: history-graph
+    title: 'Air Quality'
+    entities:
+    - sensor.air_purifier_air_quality
+    hours_to_show: 48

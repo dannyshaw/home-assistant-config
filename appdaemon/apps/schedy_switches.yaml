@@ -1,3 +1,4 @@
+---
 schedy_switches:  # This is our app instance name.
   module: hass_apps_loader
   class: SchedyApp
@@ -16,7 +17,7 @@ schedy_switches:  # This is our app instance name.
       schedule:
       - value: "on"
         rules:
-        - { start: "16:30", end: "23:00" }
+        - {start: "16:30", end: "23:00"}
 
 
     # kitchen:

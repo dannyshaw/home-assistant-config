@@ -1,3 +1,4 @@
+---
 start:
   description: Starts spotify playback on chromecast devices
   fields:
@@ -9,7 +10,7 @@ start:
       example: "4363634563457346xcyvydgf3qwa"
     entity_id:
       description: "The entity_id of the chromecast mediaplayer (not used together with device_name and spotify_device_name)."
-      example:  "media_player.vardagsrum"
+      example: "media_player.vardagsrum"
     uri:
       description: "Supported Spotify URI as string. None or empty uri will transfer the current/last playback (see parameter force_playback)."
       example: "spotify:playlist:37i9dQZF1DX3yvAYDslnv8"

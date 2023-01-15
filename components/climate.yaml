@@ -1,3 +1,4 @@
+---
 - platform: generic_thermostat
   name: Master Bedroom
   heater: switch.office_heater_tplink

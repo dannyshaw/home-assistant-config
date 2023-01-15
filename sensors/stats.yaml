@@ -1,3 +1,4 @@
+---
 - platform: history_stats
   name: Adas screen time
   entity_id: media_player.living_room_tv
@@ -34,7 +35,7 @@
 
 - platform: template
   sensors:
-    hours_outside_per_day_gemma: # XXX: fails when returns "0m"
+    hours_outside_per_day_gemma:       # XXX: fails when returns "0m"
       friendly_name: Hours out of house Gemma
       value_template: >
         {% set value = state_attr("sensor.time_at_home_gemma", "value") %}
@@ -45,7 +46,7 @@
         {{ (hours_outside / 14) | round(1) }}
         {% endif %}
 
-    hours_outside_per_day_danny: # XXX: fails when returns "0m"
+    hours_outside_per_day_danny:       # XXX: fails when returns "0m"
       friendly_name: Hours out of house Danny
       value_template: >
         {% set value = state_attr("sensor.time_at_home_danny", "value") %}

@@ -1,3 +1,4 @@
+---
 - alias: Bathtime Toothbrushing Reminder
   trigger:
     platform: time

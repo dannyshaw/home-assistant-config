@@ -1,3 +1,4 @@
+---
 blueprint:
   name: Confirmable Notification
   description: >-
@@ -48,37 +49,37 @@ blueprint:
       selector:
         action:
 
-mode: restart
+mode     : restart
 
-sequence:
-  - alias: "Set up variables"
-    variables:
-      action_confirm: "{{ 'CONFIRM_' ~ context.id }}"
-      action_dismiss: "{{ 'DISMISS_' ~ context.id }}"
-  - alias: "Send notification"
-    domain: mobile_app
-    type: notify
-    device_id: !input notify_device
-    title: !input title
-    message: !input message
-    data:
-      actions:
-        - action: "{{ action_confirm }}"
-          title: !input confirm_text
-        - action: "{{ action_dismiss }}"
-          title: !input dismiss_text
-  - alias: "Awaiting response"
-    wait_for_trigger:
-      - platform: event
-        event_type: mobile_app_notification_action
-        event_data:
-          action: "{{ action_confirm }}"
-      - platform: event
-        event_type: mobile_app_notification_action
-        event_data:
-          action: "{{ action_dismiss }}"
-  - choose:
-      - conditions: "{{ wait.trigger.event.data.action == action_confirm }}"
-        sequence: !input confirm_action
-      - conditions: "{{ wait.trigger.event.data.action == action_dismiss }}"
-        sequence: !input dismiss_action
+sequence :
+- alias: "Set up variables"
+  variables:
+    action_confirm: "{{ 'CONFIRM_' ~ context.id }}"
+    action_dismiss: "{{ 'DISMISS_' ~ context.id }}"
+- alias: "Send notification"
+  domain: mobile_app
+  type: notify
+  device_id: !input notify_device
+  title: !input title
+  message: !input message
+  data:
+    actions:
+    - action: "{{ action_confirm }}"
+      title: !input confirm_text
+    - action: "{{ action_dismiss }}"
+      title: !input dismiss_text
+- alias: "Awaiting response"
+  wait_for_trigger:
+  - platform: event
+    event_type: mobile_app_notification_action
+    event_data:
+      action: "{{ action_confirm }}"
+  - platform: event
+    event_type: mobile_app_notification_action
+    event_data:
+      action: "{{ action_dismiss }}"
+- choose:
+  - conditions: "{{ wait.trigger.event.data.action == action_confirm }}"
+    sequence: !input confirm_action
+  - conditions: "{{ wait.trigger.event.data.action == action_dismiss }}"
+    sequence: !input dismiss_action
