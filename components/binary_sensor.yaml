@@ -4,3 +4,10 @@
     cooler_outside:
       friendly_name: Cooler Outside
       value_template: "{{ states('sensor.adas_room_temperature')|float > states('sensor.melbourne_temp')|float }}"
+
+- platform: template
+  sensors:
+    danny_headphones_on:
+      friendly_name: "Danny headphones on"
+      value_template: "{{ 'on' if '20:74:CF:EC:D5:76 (Aeropex by AfterShokz)' in state_attr('sensor.pixel_3a_bluetooth_connection', 'connected_paired_devices')\
+        \ else 'off'}}"
