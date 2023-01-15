@@ -1,14 +1,15 @@
-danny_working_from_home:
+---
+danny_working_from_home    :
   name: Danny Working From Home
   initial: true
   icon: mdi:home-city
 
-heating_schedule_enabled:
+heating_schedule_enabled   :
   name: Heating Schedule
   initial: true
   icon: mdi:radiator
 
-automations_global:
+automations_global         :
   name: Automations Global
   initial: true
   icon: mdi:run
@@ -18,7 +19,7 @@ living_room_morning_heating:
   initial: true
   icon: mdi:radiator
 
-hot_night_mode:
+hot_night_mode             :
   name: Hot night mode
   initial: false
   icon: mdi:sun-thermometer

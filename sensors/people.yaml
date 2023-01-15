@@ -1,3 +1,4 @@
+---
 - platform: template
   sensors:
     distance_danny_gem:

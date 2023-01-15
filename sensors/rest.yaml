@@ -1,3 +1,4 @@
+---
 - platform: rest
   name: ferm_fridge_beer_temp
   resource: !secret ferm_fridge_api

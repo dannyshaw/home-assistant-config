@@ -1,4 +1,5 @@
-blueprint:
+---
+blueprint   :
   name: Motion-activated Light
   description: Turn on a light when motion is detected.
   domain: automation
@@ -28,23 +29,23 @@ blueprint:
 
 # If motion is detected within the delay,
 # we restart the script.
-mode: restart
+mode        : restart
 max_exceeded: silent
 
-trigger:
+trigger     :
   platform: state
   entity_id: !input motion_entity
   from: "off"
   to: "on"
 
-action:
-  - service: light.turn_on
-    target: !input light_target
-  - wait_for_trigger:
-      platform: state
-      entity_id: !input motion_entity
-      from: "on"
-      to: "off"
-  - delay: !input no_motion_wait
-  - service: light.turn_off
-    target: !input light_target
+action      :
+- service: light.turn_on
+  target: !input light_target
+- wait_for_trigger:
+    platform: state
+    entity_id: !input motion_entity
+    from: "on"
+    to: "off"
+- delay: !input no_motion_wait
+- service: light.turn_off
+  target: !input light_target

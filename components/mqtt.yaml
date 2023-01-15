@@ -1,30 +1,31 @@
-climate:
-  - name: "Living Room"
-    initial: 20
-    modes:
-      - "off"
-      - "auto"
-      - "cool"
-      - "heat"
-      - "fan_only"
-    swing_modes:
-      - "both"
-      - "vertical"
-      - "horizonal"
-      - "off"
-    fan_modes:
-      - "high"
-      - "medium"
-      - "low"
-      - "auto"
-    power_command_topic: "livingroom/ac/power/set"
-    mode_command_topic: "livingroom/ac/mode/set"
-    temperature_command_topic: "livingroom/ac/temperature/set"
-    fan_mode_command_topic: "livingroom/ac/fan/set"
-    swing_mode_command_topic: "livingroom/ac/swing/set"
-    max_temp: 30
-    min_temp: 18
+---
+climate      :
+- name: "Living Room"
+  initial: 20
+  modes:
+  - "off"
+  - "auto"
+  - "cool"
+  - "heat"
+  - "fan_only"
+  swing_modes:
+  - "both"
+  - "vertical"
+  - "horizonal"
+  - "off"
+  fan_modes:
+  - "high"
+  - "medium"
+  - "low"
+  - "auto"
+  power_command_topic: "livingroom/ac/power/set"
+  mode_command_topic: "livingroom/ac/mode/set"
+  temperature_command_topic: "livingroom/ac/temperature/set"
+  fan_mode_command_topic: "livingroom/ac/fan/set"
+  swing_mode_command_topic: "livingroom/ac/swing/set"
+  max_temp: 30
+  min_temp: 18
 
 binary_sensor:
-  - name: dannys-webcam
-    state_topic: "home-assistant/dannys-computer/webcam-active"
+- name: dannys-webcam
+  state_topic: "home-assistant/dannys-computer/webcam-active"

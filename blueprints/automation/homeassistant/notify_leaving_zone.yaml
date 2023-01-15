@@ -1,3 +1,4 @@
+---
 blueprint:
   name: Zone Notification
   description: Send a notification to a device when a person leaves a specific zone.
@@ -21,7 +22,7 @@ blueprint:
         device:
           integration: mobile_app
 
-trigger:
+trigger  :
   platform: state
   entity_id: !input person_entity
 
@@ -36,7 +37,7 @@ condition:
   condition: template
   value_template: "{{ trigger.from_state.state == zone_state and trigger.to_state.state != zone_state }}"
 
-action:
+action   :
   domain: mobile_app
   type: notify
   device_id: !input notify_device

@@ -1,3 +1,4 @@
+---
 - platform: template
   sensors:
     bedroom_heater_amps:
