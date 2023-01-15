@@ -1,6 +1,6 @@
 ---
-    - platform: template
-      sensors:
-          cooler_outside:
-              friendly_name: Cooler Outside
-              value_template: "{{ states('sensor.adas_room_temperature')|float > states('sensor.melbourne_temp')|float }}"
+- platform: template
+  sensors:
+    cooler_outside:
+      friendly_name: Cooler Outside
+      value_template: "{{ states('sensor.adas_room_temperature')|float > states('sensor.melbourne_temp')|float }}"

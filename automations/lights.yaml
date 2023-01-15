@@ -1,13 +1,48 @@
 ---
-    - id: 'cabinet_dimmer'
-      alias: Cabinet Light Dimmer
-      trigger:
-          - entity_id: sensor.cabinet_dimmer
-            platform: state
-      condition: []
-      action:
-          - data_template:
-                brightness_pct: '{{ (trigger.to_state.state | float(0)) * 10 }}'
-                transition: .25
-            service: light.turn_on
-            entity_id: light.cabinet_lights
+- id: "cabinet_dimmer"
+  alias: Cabinet Light Dimmer
+  trigger:
+  - entity_id: sensor.cabinet_dimmer
+    platform: state
+  condition: []
+  action:
+  - data_template:
+      brightness_pct: "{{ (trigger.to_state.state | float(0)) * 10 }}"
+      transition: .25
+    service: light.turn_on
+    entity_id: light.cabinet_lights
+
+- alias: "Danny Bedtime Nudge"
+  trigger:
+  - platform: time
+    at: "21:30:00"
+  condition:
+  - condition: state
+    entity_id: light.living_room_lamp
+    state: "on"
+  action:
+  - service: light.turn_on
+    data:
+      brightness_pct: 2
+    target:
+      entity_id: light.living_room_lamp
+
+- alias: "Lamp morning"
+  trigger:
+  - platform: time
+    at: "05:45:00"
+  action:
+  - service: light.turn_on
+    data:
+      brightness_pct: 2
+    target:
+      entity_id: light.living_room_lamp
+
+- alias: "Lamp evening off"
+  trigger:
+  - platform: time
+    at: "22:00:00"
+  action:
+  - service: light.turn_off
+    target:
+      entity_id: light.living_room_lamp

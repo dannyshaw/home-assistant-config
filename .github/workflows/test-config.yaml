@@ -1,19 +1,19 @@
 ---
 name: Configuration Check
-on: [push, pull_request]
+on  : [push, pull_request]
 jobs:
-    home-assistant:
-        name: Home Assistant Core Configuration Check
-        runs-on: ubuntu-latest
-        steps:
-            - name: ⤵️ Check out configuration from GitHub
-              uses: actions/checkout@v3
-            - name: 🚀 Run Home Assistant Configuration Check
-              uses: frenck/action-home-assistant@v1.4
-              with:
-                  path: "."
-                  secrets: secrets_ci.yaml
-                  version: stable
+  home-assistant:
+    name: Home Assistant Core Configuration Check
+    runs-on: ubuntu-latest
+    steps:
+    - name: ⤵️ Check out configuration from GitHub
+      uses: actions/checkout@v3
+    - name: 🚀 Run Home Assistant Configuration Check
+      uses: frenck/action-home-assistant@v1.4
+      with:
+        path: "."
+        secrets: secrets_ci.yaml
+        version: stable
       # - name: setup python
       #   uses: actions/setup-python@v4
       #   with:
