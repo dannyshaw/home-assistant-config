@@ -138,3 +138,15 @@
     ignore_availability: true
     name: daniel.m.shaw@gmail.com
     track: true
+
+- cal_id: eelis8ocis994ov3df42kdn3fo@group.calendar.google.com
+  entities:
+  - device_id: sleep_as_android
+    ignore_availability: true
+    name: Sleep as Android
+
+- cal_id: bd40952605e58a87083e6d45d50282fe83682010cf372323d436f90187766069@group.calendar.google.com
+  entities:
+  - device_id: home_assistant_scheduled_events
+    ignore_availability: true
+    name: Home Assistant Scheduled Events
