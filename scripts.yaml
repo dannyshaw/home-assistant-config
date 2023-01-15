@@ -40,7 +40,12 @@ cast_security_cam_to_tv:
       media_content_id: !secret moto_cam_1_mjpeg_stream
       media_content_type: image/jpeg
 
-
+bedtime                :
+  alias: Bedtime Routine
+  sequence:
+  - service: lights.turn_off
+    data:
+      entity_id: all
 # start_playlist_classical_sleep:
 #   alias: Play Classical Sleep
 #   sequence:
@@ -57,7 +62,6 @@ cast_security_cam_to_tv:
 #         device_name: 'Living Room Mini'
 #         uri: 'spotify:user:spotify:playlist:37i9dQZF1DWU4fmy0wzUd7'
 
-
 # start_lullabys_for_big_eyes:
 #   alias: Play Lullabys For Big Eyes
 #   sequence:
@@ -65,7 +69,6 @@ cast_security_cam_to_tv:
 #       data:
 #         device_name: 'Living Room Mini'
 #         uri: 'spotify:album:6ZfFjWKVDa366Tb9K75zOl'
-
 
 # adas_toy_red_button:
 #   alias: Ada's Toy Red Button
