@@ -1,6 +1,6 @@
 ---
-    - platform: template
-      switches:
+- platform: template
+  switches:
 
     # bedroom_heating:
     #   friendly_name: Bedroom Heating
@@ -16,62 +16,62 @@
     #       entity_id: climate.bedroom
     #       hvac_mode: "off"
 
-          office_heating:
-              friendly_name: Office Heating
-              value_template: "{{ is_state('climate.office', 'heat') }}"
-              turn_on:
-                  service: climate.set_hvac_mode
-                  data:
-                      entity_id: climate.office
-                      hvac_mode: heat
-              turn_off:
-                  service: climate.set_hvac_mode
-                  data:
-                      entity_id: climate.office
-                      hvac_mode: "off"
+    office_heating:
+      friendly_name: Office Heating
+      value_template: "{{ is_state('climate.office', 'heat') }}"
+      turn_on:
+        service: climate.set_hvac_mode
+        data:
+          entity_id: climate.office
+          hvac_mode: heat
+      turn_off:
+        service: climate.set_hvac_mode
+        data:
+          entity_id: climate.office
+          hvac_mode: "off"
 
-          adas_room_heating:
-              friendly_name: Ada's Room Heating
-              value_template: "{{ is_state('climate.adas_room', 'heat') }}"
-              turn_on:
-                  service: climate.set_hvac_mode
-                  data:
-                      entity_id: climate.adas_room
-                      hvac_mode: heat
-              turn_off:
-                  service: climate.set_hvac_mode
-                  data:
-                      entity_id: climate.adas_room
-                      hvac_mode: "off"
+    adas_room_heating:
+      friendly_name: Ada's Room Heating
+      value_template: "{{ is_state('climate.adas_room', 'heat') }}"
+      turn_on:
+        service: climate.set_hvac_mode
+        data:
+          entity_id: climate.adas_room
+          hvac_mode: heat
+      turn_off:
+        service: climate.set_hvac_mode
+        data:
+          entity_id: climate.adas_room
+          hvac_mode: "off"
 
-          living_room_heating:
-              friendly_name: Living Room Heating
-              value_template: "{{ is_state('climate.living_room', 'heat') }}"
-              turn_on:
-                  - service: climate.turn_on
-                    data:
-                        entity_id: climate.living_room
-                  - service: climate.set_hvac_mode
-                    data:
-                        entity_id: climate.living_room
-                        hvac_mode: heat
-                  - service: climate.set_temperature
-                    data:
-                        entity_id: climate.living_room
-                        temperature: 20
-              turn_off:
-                  service: climate.turn_off
-                  data:
-                      entity_id: climate.living_room
+    living_room_heating:
+      friendly_name: Living Room Heating
+      value_template: "{{ is_state('climate.living_room', 'heat') }}"
+      turn_on:
+      - service: climate.turn_on
+        data:
+          entity_id: climate.living_room
+      - service: climate.set_hvac_mode
+        data:
+          entity_id: climate.living_room
+          hvac_mode: heat
+      - service: climate.set_temperature
+        data:
+          entity_id: climate.living_room
+          temperature: 20
+      turn_off:
+        service: climate.turn_off
+        data:
+          entity_id: climate.living_room
 
-          adas_room_light_toggle:
-              friendly_name: "Adas Little Light Switch"
-              value_template: "{{ is_state_attr('switch.adas_room_light', 'sensor_state', 'on') }}"
-              turn_on:
-                  service: switch.toggle
-                  target:
-                      entity_id: switch.adas_room_light
-              turn_off:
-                  service: switch.toggle
-                  target:
-                      entity_id: switch.adas_room_light
+    adas_room_light_toggle:
+      friendly_name: "Adas Little Light Switch"
+      value_template: "{{ is_state_attr('switch.adas_room_light', 'sensor_state', 'on') }}"
+      turn_on:
+        service: switch.toggle
+        target:
+          entity_id: switch.adas_room_light
+      turn_off:
+        service: switch.toggle
+        target:
+          entity_id: switch.adas_room_light

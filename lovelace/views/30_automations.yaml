@@ -1,36 +1,36 @@
 ---
 title: Automations
 cards:
-    - type: entities
-      show_header_toggle: false
-      entities:
-          - entity: input_boolean.automations_global
-            name: All Automations
-            tap_action:
-                action: toggle
-          - entity: input_boolean.danny_working_from_home
-            name: Danny WFH
-            tap_action:
-                action: toggle
-          - entity: input_boolean.heating_schedule_enabled
-            name: Heating Schedule
-            tap_action:
-                action: toggle
-          - entity: input_boolean.override_adas_screen_time_limit
-            name: Ada's screen time override
-            tap_action:
-                action: toggle
-          - entity: input_boolean.living_room_morning_heating
-            name: Living Room Morning
-            tap_action:
-                action: toggle
+- type: entities
+  show_header_toggle: false
+  entities:
+  - entity: input_boolean.automations_global
+    name: All Automations
+    tap_action:
+      action: toggle
+  - entity: input_boolean.danny_working_from_home
+    name: Danny WFH
+    tap_action:
+      action: toggle
+  - entity: input_boolean.heating_schedule_enabled
+    name: Heating Schedule
+    tap_action:
+      action: toggle
+  - entity: input_boolean.override_adas_screen_time_limit
+    name: Ada's screen time override
+    tap_action:
+      action: toggle
+  - entity: input_boolean.living_room_morning_heating
+    name: Living Room Morning
+    tap_action:
+      action: toggle
 
-    - type: vertical-stack
-      cards:
-          - type: custom:air-purifier-card
-            entity: fan.xiaomi_miio_device
-          - type: history-graph
-            title: 'Air Quality'
-            entities:
-                - sensor.air_purifier_air_quality
-            hours_to_show: 48
+- type: vertical-stack
+  cards:
+  - type: custom:air-purifier-card
+    entity: fan.xiaomi_miio_device
+  - type: history-graph
+    title: 'Air Quality'
+    entities:
+    - sensor.air_purifier_air_quality
+    hours_to_show: 48

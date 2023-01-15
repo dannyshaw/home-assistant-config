@@ -1,44 +1,44 @@
 ---
-turn_off_all_heaters:
-    alias: Turn off all the heating
-    sequence:
-        - service: switch.turn_off
-          data:
-              entity_id: switch.adas_room_heater
-        - service: switch.turn_off
-          data:
-              entity_id: switch.bedroom_heater
-        - service: switch.turn_off
-          data:
-              entity_id: switch.adas_room_heating
-        - service: switch.turn_off
-          data:
-              entity_id: switch.bedroom_heating
-        - service: switch.turn_off
-          data:
-              entity_id: switch.living_room_heating
+turn_off_all_heaters   :
+  alias: Turn off all the heating
+  sequence:
+  - service: switch.turn_off
+    data:
+      entity_id: switch.adas_room_heater
+  - service: switch.turn_off
+    data:
+      entity_id: switch.bedroom_heater
+  - service: switch.turn_off
+    data:
+      entity_id: switch.adas_room_heating
+  - service: switch.turn_off
+    data:
+      entity_id: switch.bedroom_heating
+  - service: switch.turn_off
+    data:
+      entity_id: switch.living_room_heating
 
-heat_the_house:
-    alias: Heat up the house
-    sequence:
-        - service: switch.turn_on
-          data:
-              entity_id: switch.adas_room_heating
-        - service: switch.turn_on
-          data:
-              entity_id: switch.bedroom_heating
-        - service: switch.turn_on
-          data:
-              entity_id: switch.living_room_heating
+heat_the_house         :
+  alias: Heat up the house
+  sequence:
+  - service: switch.turn_on
+    data:
+      entity_id: switch.adas_room_heating
+  - service: switch.turn_on
+    data:
+      entity_id: switch.bedroom_heating
+  - service: switch.turn_on
+    data:
+      entity_id: switch.living_room_heating
 
 cast_security_cam_to_tv:
-    alias: Cast Security Camera to TV
-    sequence:
-        - service: media_player.play_media
-          data:
-              entity_id: media_player.bedroom_tv
-              media_content_id: !secret moto_cam_1_mjpeg_stream
-              media_content_type: image/jpeg
+  alias: Cast Security Camera to TV
+  sequence:
+  - service: media_player.play_media
+    data:
+      entity_id: media_player.bedroom_tv
+      media_content_id: !secret moto_cam_1_mjpeg_stream
+      media_content_type: image/jpeg
 
 
 # start_playlist_classical_sleep:

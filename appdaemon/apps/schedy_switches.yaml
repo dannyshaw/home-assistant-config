@@ -1,23 +1,23 @@
 ---
 schedy_switches:  # This is our app instance name.
-    module: hass_apps_loader
-    class: SchedyApp
+  module: hass_apps_loader
+  class: SchedyApp
 
-    actor_type: switch
+  actor_type: switch
 
-    expression_environment: |
-        def automations_global():
-          return state("input_boolean.automations_global")
+  expression_environment: |
+    def automations_global():
+      return state("input_boolean.automations_global")
 
-    rooms:
+  rooms:
 
-        outside:
-            actors:
-                switch.mosquito_killer:
-            schedule:
-                - value: "on"
-                  rules:
-                      - {start: "16:30", end: "23:00"}
+    outside:
+      actors:
+        switch.mosquito_killer:
+      schedule:
+      - value: "on"
+        rules:
+        - {start: "16:30", end: "23:00"}
 
 
     # kitchen:
@@ -28,12 +28,12 @@ schedy_switches:  # This is our app instance name.
     #     rules:
     #     - { start: "05:30", end: "23:00" }
 
-    schedule_append:
-        - v: "off"
+  schedule_append:
+  - v: "off"
 
-    schedule_prepend:
-        - x: Next() if automations_global() == 'on' else "off"
+  schedule_prepend:
+  - x: Next() if automations_global() == 'on' else "off"
 
 
-    watched_entities:
-        - input_boolean.automations_global
+  watched_entities:
+  - input_boolean.automations_global

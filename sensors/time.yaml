@@ -1,15 +1,15 @@
 ---
-    - platform: time_date
-      display_options:
-          - 'time'
-          - 'date'
-          - 'date_time'
-          - 'time_date'
-          - 'time_utc'
-          - 'beat'
+- platform: time_date
+  display_options:
+  - 'time'
+  - 'date'
+  - 'date_time'
+  - 'time_date'
+  - 'time_utc'
+  - 'beat'
 
-    - platform: worldclock
-      time_zone: Europe/London
+- platform: worldclock
+  time_zone: Europe/London
 
-    - platform: worldclock
-      time_zone: Pacific/Auckland
+- platform: worldclock
+  time_zone: Pacific/Auckland

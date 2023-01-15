@@ -2,8 +2,8 @@
 title: Map
 panel: true
 cards:
-    - type: map
-      entities:
-          - device_tracker.dannys_pixel
-          - device_tracker.gemmas_pixel
-          - zone.home
+- type: map
+  entities:
+  - device_tracker.dannys_pixel
+  - device_tracker.gemmas_pixel
+  - zone.home
