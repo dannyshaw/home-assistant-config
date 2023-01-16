@@ -12,6 +12,7 @@
       value_template: "{{ 'on' if '20:74:CF:EC:D5:76 (Aeropex by AfterShokz)' in state_attr('sensor.pixel_3a_bluetooth_connection', 'connected_paired_devices')\
         \ else 'off'}}"
 
+# Use probability to determine if Danny is asleep
 - platform: bayesian
   prior: 0.5
   name: danny_asleep
@@ -20,20 +21,20 @@
   - entity_id: person.danny
     prob_given_true: 0.99
     prob_given_false: 0.5
-    platform: "state"
-    to_state: "home"
-  - entity_id: "sensor.sun"
+    platform: state
+    to_state: home
+  - entity_id: sensor.sun
     prob_given_true: 0.9
     prob_given_false: 0.2
-    platform: "state"
-    to_state: "below_horizon"
-  - entity_id: "binary_sensor.pixel_3a_is_charging"
+    platform: state
+    to_state: below_horizon
+  - entity_id: binary_sensor.pixel_3a_is_charging
     prob_given_true: 0.9
     prob_given_false: 0.2
-    platform: "state"
+    platform: state
     to_state: "on"
-  - entity_id: "sensor.pixel_3a_do_not_disturb_sensor"
+  - entity_id: sensor.pixel_3a_do_not_disturb_sensor
     prob_given_true: 0.95
     prob_given_false: 0.5
-    platform: "state"
-    to_state: "alarms_only"
+    platform: state
+    to_state: priority_only
