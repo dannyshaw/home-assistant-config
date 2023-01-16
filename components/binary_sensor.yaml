@@ -18,23 +18,23 @@
   name: danny_asleep
   probability_threshold: 0.85
   observations:
-  - entity_id: person.danny
+  - platform: state
+    entity_id: person.danny
+    to_state: home
     prob_given_true: 0.99
     prob_given_false: 0.5
-    platform: state
-    to_state: home
-  - entity_id: sun.sun
+  - platform: state
+    entity_id: sun.sun
+    to_state: below_horizon
     prob_given_true: 0.95
     prob_given_false: 0.2
-    platform: state
-    to_state: below_horizon
-  - entity_id: binary_sensor.pixel_3a_is_charging
+  - platform: state
+    entity_id: binary_sensor.pixel_3a_is_charging
+    to_state: "on"
     prob_given_true: 0.9
     prob_given_false: 0.2
-    platform: state
-    to_state: "on"
-  - entity_id: sensor.pixel_3a_do_not_disturb_sensor
+  - platform: template
+    value_template: >
+      "{{ states('sensor.pixel_3a_do_not_disturb_sensor')  in ['priority_only', 'alarms_only'] }}"
     prob_given_true: 0.9
     prob_given_false: 0.4
-    platform: template
-    value_template: "{{ states('sensor.pixel_3a_do_not_disturb_sensor')  in ['priority_only', 'alarms_only'] }}"
