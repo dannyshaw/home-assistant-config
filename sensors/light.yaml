@@ -1,0 +1,9 @@
+---
+- platform: template
+  sensors:
+    sun_relative_brightness:
+      friendly_name: "Light brightness relative to sunrise"
+      unit_of_measurement: "%"
+      value_template: >-
+        {% set elevation = state_attr('sun.sun', 'elevation') %}
+        {% if elevation > 10 %} 1 {% elif elevation < 2 %} 0.02 {% else %} {{ elevation / 10 }} {% endif %}
