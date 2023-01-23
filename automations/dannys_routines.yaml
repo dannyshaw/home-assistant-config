@@ -1,0 +1,10 @@
+---
+- alias: "Automation for bedtime"
+  trigger:
+  - platform: state
+    entity_id: sensor.danny_asleep
+    from: "off"
+    to: "on"
+  action:
+  - service: script.turn_on
+    entity_id: script.bedtime
