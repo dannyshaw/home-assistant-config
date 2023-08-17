@@ -150,3 +150,21 @@
   - device_id: home_assistant_scheduled_events
     ignore_availability: true
     name: Home Assistant Scheduled Events
+
+- cal_id: cmhbd2h4uc4qtrn5tehodeglupri6upp@import.calendar.google.com
+  entities:
+  - device_id: valonia_drive_house_maintenance
+    ignore_availability: true
+    name: Valonia Drive - House Maintenance
+
+- cal_id: p6bpk8fql49hbugvs6ueild2ac@group.calendar.google.com
+  entities:
+  - device_id: todoist
+    ignore_availability: true
+    name: Todoist
+
+- cal_id: umls50t6gqvl4eg2ien2diehus@group.calendar.google.com
+  entities:
+  - device_id: todoist
+    ignore_availability: true
+    name: Todoist

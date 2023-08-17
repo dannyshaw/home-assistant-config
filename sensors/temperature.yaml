@@ -4,13 +4,21 @@
   type: mean
   round_digits: 1
   entity_ids:
-  - sensor.adas_room_temperature
-  - sensor.lenis_room_temperature
+    - sensor.adas_room_sensor_temperature
+    - sensor.lenis_room_sensor_temperature
+    - sensor.family_room_sensor_temperature
 
-- platform: min_max
-  name: "Home Average Temperature"
-  type: mean
-  round_digits: 1
-  entity_ids:
-  - sensor.adas_room_temperature
-  - sensor.lenis_room_temperature
+- platform: rest
+  name: Beer Temp
+  resource: !secret ferm_fridge_api
+  # value_template: '{{ value_json[0].beer_temp }}'
+  value_template: '{{ value_json[0].beer_temp | replace("&deg; C", "") }}'
+  unit_of_measurement: "°C"
+  icon: "mdi:thermometer"
+
+- platform: rest
+  name: Outside Temp
+  resource: !secret ferm_fridge_api
+  value_template: '{{ value_json[0].room_temp | replace("&deg; C", "") }}'
+  unit_of_measurement: "°C"
+  icon: "mdi:thermometer"

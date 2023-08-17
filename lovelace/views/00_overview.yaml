@@ -1,229 +1,235 @@
 ---
 title: Overview
-path : overview
+path: overview
 cards:
-- type: custom:vertical-stack-in-card
-  title: Ada's Screen Time
-  cards:
+  - type: calendar
+    initial_view: dayGridDay
+    entities:
+      - calendar.shawtribe
+    theme: main
+
+  - type: custom:vertical-stack-in-card
+    title: Ada's Screen Time
+    cards:
+      - type: entity
+        name: Today
+        entity: sensor.adas_screen_time
+        attribute: value
+
+      - type: "custom:mini-graph-card"
+        name: Daily
+        bar_spacing: 2
+        decimals: 2
+        group_by: date
+        height: 200
+        hours_to_show: 168
+        icon: "mdi:television"
+        unit: Hours
+        entities:
+          - entity: sensor.adas_screen_time
+            name: Screen Time
+            aggregate_func: max
+            color: orange
+        show:
+          graph: bar
+          hour24: true
+          extrema: false
+          average: false
+
   - type: entity
-    name: Today
-    entity: sensor.adas_screen_time
+    name: "Dannys Mobile Time"
+    entity: sensor.dannys_mobile_time
     attribute: value
 
-  - type: "custom:mini-graph-card"
-    name: Daily
-    bar_spacing: 2
-    decimals: 2
-    group_by: date
-    height: 200
+  - type: entity
+    name: "Ada Heater Time On"
+    entity: sensor.adas_heater_time
+    attribute: value
+
+  - type: history-graph
+    title: "Adas Room Humidity"
     hours_to_show: 168
-    icon: "mdi:television"
-    unit: Hours
     entities:
-    - entity: sensor.adas_screen_time
-      name: Screen Time
-      aggregate_func: max
-      color: orange
-    show:
-      graph: bar
-      hour24: true
-      extrema: false
-      average: false
+      - sensor.adas_room_humidity
 
-- type: entity
-  name: "Dannys Mobile Time"
-  entity: sensor.dannys_mobile_time
-  attribute: value
+  - type: history-graph
+    title: "BT Proxy uptime"
+    hours_to_show: 12
+    entities:
+      - sensor.uptime
 
-- type: entity
-  name: "Ada Heater Time On"
-  entity: sensor.adas_heater_time
-  attribute: value
+  - type: history-graph
+    title: "BT Proxy free heap"
+    hours_to_show: 12
+    entities:
+      - sensor.free_heap
 
-- type: history-graph
-  title: "Adas Room Humidity"
-  hours_to_show: 168
-  entities:
-  - sensor.adas_room_humidity
+  - type: entity
+    name: "Washing machine state"
+    entity: select.washing_machine_state
 
-- type: history-graph
-  title: "BT Proxy uptime"
-  hours_to_show: 12
-  entities:
-  - sensor.uptime
+    # - entity: weather.bom_melbourne_olympic_park
+    #   type: weather-forecast
 
-- type: history-graph
-  title: "BT Proxy free heap"
-  hours_to_show: 12
-  entities:
-  - sensor.free_heap
+    # - entity: camera.bom_radar_loop_melbourne
+    #   type: picture-entity
 
-- type: entity
-  name: "Washing machine state"
-  entity: select.washing_machine_state
-
-  # - entity: weather.bom_melbourne_olympic_park
-  #   type: weather-forecast
-
-  # - entity: camera.bom_radar_loop_melbourne
-  #   type: picture-entity
-
-- type: custom:stack-in-card
-  mode: vertical
-  card_mod:
-    style: |
-      ha-card {
-      background-color: rgba(255, 255, 255, .1);
-      }
-  cards:
   - type: custom:stack-in-card
-    mode: horizontal
+    mode: vertical
+    card_mod:
+      style: |
+        ha-card {
+        background-color: rgba(255, 255, 255, .1);
+        }
     cards:
-    - type: custom:mushroom-person-card
-      entity: device_tracker.pixel_3a
-      icon_type: entity-picture
-      hide_name: true
-      layout: vertical
-      secondary_info: state
-    - type: conditional
-      conditions:
-      - entity: sensor.pixel_3a_battery_state
-        state: "charging"
-      card:
-        type: custom:mushroom-template-card
-        entity: sensor.pixel_3a_battery_level
-        layout: vertical
-        icon_color: yellow
-        fill_container: true
-        name: Fold3
-        icon: mdi:battery-charging-medium
-        hide_name: true
-        primary: "Battery Level: {{ states('sensor.pixel_3a_battery_level') }}%"
-        secondary: "Steps: {{ states('sensor.pixel_3a_steps_sensor') }}"
-        card_mod:
-          style: |
-            mushroom-shape-icon {
-              animation: blink 1s linear infinite;
-            }
-            @keyframes blink {
-              50% {opacity: 0;}
-            }
-    - type: conditional
-      conditions:
-      - entity: sensor.pixel_3a_battery_state
-        state: "discharging"
-      card:
-        type: custom:mushroom-template-card
-        entity: sensor.pixel_3a_battery_level
-        layout: vertical
-        icon: |
-          {% set bl = states('sensor.pixel_3a_battery_level') | int %}
-          {% if bl < 10 %} mdi:battery-outline
-          {% elif bl < 20 %} mdi:battery-10
-          {% elif bl < 30 %} mdi:battery-20
-          {% elif bl < 40 %} mdi:battery-30
-          {% elif bl < 50 %} mdi:battery-40
-          {% elif bl < 60 %} mdi:battery-50
-          {% elif bl < 70 %} mdi:battery-60
-          {% elif bl < 80 %} mdi:battery-70
-          {% elif bl < 90 %} mdi:battery-80
-          {% elif bl < 100 %} mdi:battery-90
-          {% elif bl == 100 %} mdi:battery
-          {% else %} mdi:battery-unknown
+      - type: custom:stack-in-card
+        mode: horizontal
+        cards:
+          - type: custom:mushroom-person-card
+            entity: device_tracker.pixel_6a_gps
+            icon_type: entity-picture
+            hide_name: true
+            layout: vertical
+            secondary_info: state
+          - type: conditional
+            conditions:
+              - entity: sensor.pixel_6a_battery_state
+                state: "charging"
+            card:
+              type: custom:mushroom-template-card
+              entity: sensor.pixel_6a_battery_level
+              layout: vertical
+              icon_color: yellow
+              fill_container: true
+              name: Fold3
+              icon: mdi:battery-charging-medium
+              hide_name: true
+              primary: "Battery Level: {{ states('sensor.pixel_6a_battery_level') }}%"
+              secondary: "Steps: {{ states('sensor.pixel_6a_steps_sensor') }}"
+              card_mod:
+                style: |
+                  mushroom-shape-icon {
+                    animation: blink 1s linear infinite;
+                  }
+                  @keyframes blink {
+                    50% {opacity: 0;}
+                  }
+          - type: conditional
+            conditions:
+              - entity: sensor.pixel_6a_battery_state
+                state: "discharging"
+            card:
+              type: custom:mushroom-template-card
+              entity: sensor.pixel_6a_battery_level
+              layout: vertical
+              icon: |
+                {% set bl = states('sensor.pixel_6a_battery_level') | int %}
+                {% if bl < 10 %} mdi:battery-outline
+                {% elif bl < 20 %} mdi:battery-10
+                {% elif bl < 30 %} mdi:battery-20
+                {% elif bl < 40 %} mdi:battery-30
+                {% elif bl < 50 %} mdi:battery-40
+                {% elif bl < 60 %} mdi:battery-50
+                {% elif bl < 70 %} mdi:battery-60
+                {% elif bl < 80 %} mdi:battery-70
+                {% elif bl < 90 %} mdi:battery-80
+                {% elif bl < 100 %} mdi:battery-90
+                {% elif bl == 100 %} mdi:battery
+                {% else %} mdi:battery-unknown
+                {% endif %}
+              icon_color: |-
+                {% set bl = states('sensor.pixel_6a_battery_level') | int %}
+                {% if bl < 10 %} #cc0c16
+                {% elif bl < 20 %} #e61e28
+                {% elif bl < 30 %} #e3464e
+                {% elif bl < 40 %} orange
+                {% elif bl < 50 %} #f0b93a
+                {% elif bl < 60 %} #f3f56c
+                {% elif bl < 70 %} #f2f536
+                {% elif bl < 80 %} #69f095
+                {% elif bl < 90 %} #2ee669
+                {% elif bl < 100 %} #05ad3b
+                {% elif bl == 100 %} #03872d
+                {% else %} grey
+                {% endif %}
+              primary: "Battery Level: {{ states('sensor.pixel_6a_battery_level') }}%"
+              secondary: "Steps: {{ states('sensor.pixel_6a_steps_sensor') }}"
+              tap_action:
+                action: more-info
+              fill_container: true
+            # - type: custom:mushroom-chips-card
+            #   chips:
+            #     - type: entity
+            #       entity: binary_sensor.front_door_sensor_contact
+            #       content_info: none
+            #     - type: entity
+            #       entity: binary_sensor.back_door_sensor_contact
+            #       content_info: none
+            #     - type: entity
+            #       entity: binary_sensor.bedroom_window_sensor_contact
+            #       content_info: none
+            #     - type: entity
+            #       entity: binary_sensor.right_kitchen_window_contact
+            #       content_info: none
+            #     - type: entity
+            #       entity: binary_sensor.sink_kitchen_window_contact
+            #       content_info: none
+            #     - type: entity
+            #       entity: binary_sensor.tv_window_sensor_contact
+            #       content_info: none
+            #     - type: template
+            #       content: >-
+            #         {{ states('sensor.living_room_temp_sensor_temperature')| round (0)}}°F
+            #       tap_action:
+            #         action: none
+            #     - type: entity
+            #       entity: lock.front_door_lock_2
+            #       content_info: none
+            #     - type: entity
+            #       entity: alarm_control_panel.blink_johns_house
+            #       content_info: none
+            #     - type: template
+            #       content: >-
+            #         {{ states('climate.john_s_device')}}
+            #       tap_action:
+            #         action: none
+            #     - type: entity
+            #       entity: sensor.blink_back_yard_temperature
+            #       content_info: none
+      - type: custom:mushroom-template-card
+        entity: sensor.danny
+        primary: >
+          {% if (state_attr('sensor.danny', 'direction_of_travel') == 'stationary') and (state_attr('sensor.danny','home_zone') == 'zone.home') %}
+          Danny is Home:
+          {% elif (state_attr('sensor.danny', 'direction_of_travel') == 'stationary')%}
+          Danny is Here:
+          {% else %}
+          Danny is
           {% endif %}
-        icon_color: |-
-          {% set bl = states('sensor.pixel_3a_battery_level') | int %}
-          {% if bl < 10 %} #cc0c16
-          {% elif bl < 20 %} #e61e28
-          {% elif bl < 30 %} #e3464e
-          {% elif bl < 40 %} orange
-          {% elif bl < 50 %} #f0b93a
-          {% elif bl < 60 %} #f3f56c
-          {% elif bl < 70 %} #f2f536
-          {% elif bl < 80 %} #69f095
-          {% elif bl < 90 %} #2ee669
-          {% elif bl < 100 %} #05ad3b
-          {% elif bl == 100 %} #03872d
-          {% else %} grey
+        secondary: >
+          {% if (state_attr('sensor.danny','direction_of_travel') == 'stationary') %}
+          {{ state_attr('sensor.danny','street_number') }} {{
+          state_attr('sensor.danny','street') }}, {{
+          state_attr('sensor.danny','city') }}, {{
+          state_attr('sensor.danny','postal_code') }}
+          {% else %}
+          Traveling...
           {% endif %}
-        primary: "Battery Level: {{ states('sensor.pixel_3a_battery_level') }}%"
-        secondary: "Steps: {{ states('sensor.pixel_3a_steps_sensor') }}"
-        tap_action:
-          action: more-info
-        fill_container: true
-      # - type: custom:mushroom-chips-card
-      #   chips:
-      #     - type: entity
-      #       entity: binary_sensor.front_door_sensor_contact
-      #       content_info: none
-      #     - type: entity
-      #       entity: binary_sensor.back_door_sensor_contact
-      #       content_info: none
-      #     - type: entity
-      #       entity: binary_sensor.bedroom_window_sensor_contact
-      #       content_info: none
-      #     - type: entity
-      #       entity: binary_sensor.right_kitchen_window_contact
-      #       content_info: none
-      #     - type: entity
-      #       entity: binary_sensor.sink_kitchen_window_contact
-      #       content_info: none
-      #     - type: entity
-      #       entity: binary_sensor.tv_window_sensor_contact
-      #       content_info: none
-      #     - type: template
-      #       content: >-
-      #         {{ states('sensor.living_room_temp_sensor_temperature')| round (0)}}°F
-      #       tap_action:
-      #         action: none
-      #     - type: entity
-      #       entity: lock.front_door_lock_2
-      #       content_info: none
-      #     - type: entity
-      #       entity: alarm_control_panel.blink_johns_house
-      #       content_info: none
-      #     - type: template
-      #       content: >-
-      #         {{ states('climate.john_s_device')}}
-      #       tap_action:
-      #         action: none
-      #     - type: entity
-      #       entity: sensor.blink_back_yard_temperature
-      #       content_info: none
-  - type: custom:mushroom-template-card
-    entity: sensor.danny
-    primary: >
-      {% if (state_attr('sensor.danny', 'direction_of_travel') == 'stationary') and (state_attr('sensor.danny','home_zone') == 'zone.home') %}
-      Danny is Home:
-      {% elif (state_attr('sensor.danny', 'direction_of_travel') == 'stationary')%}
-      Danny is Here:
-      {% else %}
-      Danny is
-      {% endif %}
-    secondary: >
-      {% if (state_attr('sensor.danny','direction_of_travel') == 'stationary') %}
-      {{ state_attr('sensor.danny','street_number') }} {{
-      state_attr('sensor.danny','street') }}, {{
-      state_attr('sensor.danny','city') }}, {{
-      state_attr('sensor.danny','postal_code') }}
-      {% else %}
-      Traveling...
-      {% endif %}
-    icon: >-
-      {% if (state_attr('sensor.danny','direction_of_travel') == 'stationary') and (states('device_tracker.pixel_3a') == 'home') %} mdi:home-account
-      {% elif (state_attr('sensor.danny','direction_of_travel') == 'stationary') and (states('device_tracker.pixel_3a') == 'not_home') %} mdi:domain
-      {% else %} mdi:car
-      {% endif %}
-    icon_color: >-
-      {% if (state_attr('sensor.danny','direction_of_travel') == 'stationary') and (states('device_tracker.pixel_3a') == 'home') %} green
-      {% elif (state_attr('sensor.danny','direction_of_travel') == 'stationary') and (states('device_tracker.pixel_3a') == 'not_home') %} blue
-      {% else %} cyan
-      {% endif %}
-    multiline_secondary: true
+        icon: >-
+          {% if (state_attr('sensor.danny','direction_of_travel') == 'stationary') and (states('device_tracker.pixel_6a_gps') == 'home') %} mdi:home-account
+          {% elif (state_attr('sensor.danny','direction_of_travel') == 'stationary') and (states('device_tracker.pixel_6a_gps') == 'not_home') %} mdi:domain
+          {% else %} mdi:car
+          {% endif %}
+        icon_color: >-
+          {% if (state_attr('sensor.danny','direction_of_travel') == 'stationary') and (states('device_tracker.pixel_6a_gps') == 'home') %} green
+          {% elif (state_attr('sensor.danny','direction_of_travel') == 'stationary') and (states('device_tracker.pixel_6a_gps') == 'not_home') %} blue
+          {% else %} cyan
+          {% endif %}
+        multiline_secondary: true
 
-  - type: map
-    default_zoom: 16
-    entities:
-    - entity: device_tracker.pixel_3a
-      name: Danny
-    aspect_ratio: 1.95:1
+      - type: map
+        default_zoom: 16
+        entities:
+          - entity: device_tracker.pixel_6a_gps
+            name: Danny
+        aspect_ratio: 1.95:1

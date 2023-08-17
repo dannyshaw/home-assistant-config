@@ -1,18 +1,27 @@
 ---
 - platform: generic_thermostat
-  name: Master Bedroom
-  heater: switch.office_heater_tplink
-  target_sensor: sensor.master_bedroom_temperature
-  target_temp: 18.0
+  name: Central Heating
+  heater: switch.central_heating_power
+  target_sensor: sensor.family_room_sensor_temperature
+  target_temp: 19.0
+  min_temp: 15.0
+  max_temp: 25.0
+  away_temp: 18.0
+  min_cycle_duration:
+    seconds: 10
 
 - platform: generic_thermostat
   name: Adas Room
   heater: switch.adas_room_heater
-  target_sensor: sensor.adas_room_temperature
+  target_sensor: sensor.adas_room_sensor_temperature
   target_temp: 18.0
+  min_temp: 15.0
+  max_temp: 25.0
 
 - platform: generic_thermostat
   name: Lenis Room
   heater: switch.lenis_room_heater
-  target_sensor: sensor.lenis_room_temperature
+  target_sensor: sensor.lenis_room_sensor_temperature
   target_temp: 18.0
+  min_temp: 15.0
+  max_temp: 25.0

@@ -4,4 +4,4 @@
     distance_danny_gem:
       friendly_name: "Distance - Danny to Gem"
       unit_of_measurement: "km"
-      value_template: "{{ distance('device_tracker.pixel_3a', 'device_tracker.gemmas_pixel') }}"
+      value_template: "{{ distance('device_tracker.pixel_6a', 'device_tracker.gemmas_phone') }}"
