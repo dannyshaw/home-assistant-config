@@ -1,7 +1,7 @@
 ---
 - platform: history_stats
   name: Adas screen time
-  entity_id: media_player.living_room_tv
+  entity_id: media_player.family_room_tv
   state: "playing"
   type: time
   start: "{{ now().replace(hour=6, minute=0, second=0) }}"
@@ -9,7 +9,7 @@
 
 - platform: history_stats
   name: Dannys Mobile Time
-  entity_id: binary_sensor.pixel_3a_interactive
+  entity_id: binary_sensor.pixel_6a_interactive
   state: "on"
   type: time
   start: "{{ now().replace(hour=0, minute=0, second=0) }}"
