@@ -8,8 +8,28 @@
     - sensor.lenis_room_sensor_temperature
     - sensor.family_room_sensor_temperature
 
+- platform: template
+  sensors:
+    preferred_temperature:
+      friendly_name: "Outside Temperature"
+      unit_of_measurement: "°C"
+      value_template: >
+        {% if states('sensor.deck_temperature') not in ['unknown', 'unavailable'] %}
+          {{ states('sensor.deck_temperature') }}
+        {% else %}
+          {{ states('sensor.melbourne_temperature') }}
+        {% endif %}
+
+- platform: template
+  sensors:
+    preferred_temperature:
+      friendly_name: "Inside Temperature"
+      unit_of_measurement: "°C"
+      value_template: >
+        {{ states('sensor.family_room_sensor_temperature') }}
+
 - platform: rest
-  name: Beer Temp
+  name: Beer Temperature
   resource: !secret ferm_fridge_api
   # value_template: '{{ value_json[0].beer_temp }}'
   value_template: '{{ value_json[0].beer_temp | replace("&deg; C", "") }}'
@@ -17,7 +37,7 @@
   icon: "mdi:thermometer"
 
 - platform: rest
-  name: Outside Temp
+  name: Deck Temperature
   resource: !secret ferm_fridge_api
   value_template: '{{ value_json[0].room_temp | replace("&deg; C", "") }}'
   unit_of_measurement: "°C"

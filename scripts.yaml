@@ -90,3 +90,53 @@ bedtime:
 #     - service: script.turn_on
 #       data_template:
 #         entity_id: script.start_lullabys_for_big_eyes
+
+toggle_adas_bed_light:
+  id: toggle_adas_bed_light
+  alias: "Toggle Adas Bed Light"
+  sequence:
+    - service: light.toggle
+      data:
+        entity_id: light.adas_cubby_lights
+
+cycle_bed_light_color:
+  alias: "Cycle Bed Light Color"
+  sequence:
+    - service: python_script.cycle_rgb_light
+      data:
+        entity_id: light.adas_cubby_lights
+    # - service: persistent_notification.create
+    #   data:
+    #     title: "Debug Info"
+    #     message: >
+    #       {% set colors = [
+    #           (255, 0, 0), (255, 85, 0), (128, 128, 0), (64, 191, 0), (0, 255, 0),
+    #           (0, 191, 64), (0, 128, 128), (0, 64, 191), (0, 0, 255), (64, 64, 255),
+    #           (128, 0, 255), (191, 0, 255), (255, 0, 255), (191, 64, 191), (128, 128, 128),
+    #           (64, 191, 64), (0, 255, 255), (64, 191, 255), (128, 128, 255), (191, 64, 255)
+    #       ] %}
+    #       {% set current_color = state_attr('light.adas_cubby_lights', 'rgb_color') %}
+    #       Current Color: {{ current_color }}
+    #       {% if current_color in colors %}
+    #         {% set next_color = colors[(colors.index(current_color) + 1) % colors|length] %}
+    #       {% else %}
+    #         {% set next_color = colors[0] %}
+    #       {% endif %}
+    #       Next Color: {{ next_color }}
+    # - service: light.turn_on
+    #   data:
+    #     entity_id: light.adas_cubby_lights
+    #     rgb_color: >
+    #       {% set colors = [
+    #           (255, 0, 0), (255, 85, 0), (128, 128, 0), (64, 191, 0), (0, 255, 0),
+    #           (0, 191, 64), (0, 128, 128), (0, 64, 191), (0, 0, 255), (64, 64, 255),
+    #           (128, 0, 255), (191, 0, 255), (255, 0, 255), (191, 64, 191), (128, 128, 128),
+    #           (64, 191, 64), (0, 255, 255), (64, 191, 255), (128, 128, 255), (191, 64, 255)
+    #       ] %}
+    #       {% set current_color = state_attr('light.adas_cubby_lights', 'rgb_color') %}
+    #       {% if current_color in colors %}
+    #         {% set next_color = colors[(colors.index(current_color) + 1) % colors|length] %}
+    #       {% else %}
+    #         {% set next_color = colors[0] %}
+    #       {% endif %}
+    #       {{ next_color }}

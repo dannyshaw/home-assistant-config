@@ -1,88 +1,155 @@
-- id: "1651064077285"
+- id: '1651064077285'
   alias: Ada's Lights - Blue Button
-  description: ""
+  description: ''
   use_blueprint:
     path: slashback/trigger-different-actions-on-a-single-double-or-double-click-on-a-binary-sensor.yaml
     input:
       switch_id: binary_sensor.adas_blue_button
       long_click_action:
-        - service: light.turn_on
-          data:
-            white: 25
-            brightness_pct: 10
-          target:
-            entity_id: light.adas_room_light
+      - service: light.turn_on
+        data:
+          white: 25
+          brightness_pct: 10
+        target:
+          entity_id: light.adas_room_light
       short_click_action:
-        - service: light.turn_on
-          data:
-            white: 255
-            brightness_pct: 100
-          target:
-            entity_id: light.adas_room_light
+      - service: light.turn_on
+        data:
+          white: 255
+          brightness_pct: 100
+        target:
+          entity_id: light.adas_room_light
       double_click_action: []
-- id: "1651101346989"
+- id: '1651101346989'
   alias: Ada's Lights - Yellow Button
-  description: ""
+  description: ''
   use_blueprint:
     path: slashback/trigger-different-actions-on-a-single-double-or-double-click-on-a-binary-sensor.yaml
     input:
       switch_id: binary_sensor.adas_yellow_button
       short_click_action:
-        - service: light.turn_on
-          data_template:
-            hs_color:
-              - "{{ (60 + (state_attr('light.adas_room_light', 'hs_color')[0] or 0))
-                % 360 }}"
-              - 100
-            brightness_pct: 100
-            transition: 1
-          target:
-            entity_id: light.adas_room_light
-- id: "1651108558107"
+      - service: light.turn_on
+        data_template:
+          hs_color:
+          - '{{ (60 + (state_attr(''light.adas_room_light'', ''hs_color'')[0] or 0))
+            % 360 }}'
+          - 100
+          brightness_pct: 100
+          transition: 1
+        target:
+          entity_id: light.adas_room_light
+- id: '1651108558107'
   alias: New Automation
-  description: ""
+  description: ''
   use_blueprint:
     path: slashback/trigger-different-actions-on-a-single-double-or-double-click-on-a-binary-sensor.yaml
     input:
       switch_id: binary_sensor.adas_green_button
       short_click_action:
-        - service: light.turn_off
-          data: {}
-          target:
-            entity_id: light.adas_room_light
-- id: "1672316191485"
+      - service: light.turn_off
+        data: {}
+        target:
+          entity_id: light.adas_room_light
+- id: '1672316191485'
   alias: Washing Cycle Done
-  description: ""
+  description: ''
   trigger:
-    - platform: state
-      entity_id:
-        - select.washing_machine_state
-      from: DEVICE_STATE_RUNNING
-      to: DEVICE_STATE_ON
+  - platform: state
+    entity_id:
+    - select.washing_machine_state
+    from: DEVICE_STATE_RUNNING
+    to: DEVICE_STATE_ON
   condition:
-    - condition: time
-      after: 06:00:00
-      before: "22:00:00"
+  - condition: time
+    after: 06:00:00
+    before: '22:00:00'
   action:
-    - service: tts.cloud_say
-      data:
-        entity_id: media_player.kitchen_home
-        message: The washing machine has finished it's cycle
+  - service: tts.cloud_say
+    data:
+      entity_id: media_player.kitchen_home
+      message: The washing machine has finished it's cycle
   mode: single
-- id: "1684069946267"
+- id: '1684069946267'
   alias: Trigger Bedtime Routine with Phone Charge
-  description: ""
+  description: ''
   trigger:
-    - platform: state
-      entity_id:
-        - binary_sensor.danny_asleep
-      from: "off"
-      to: "on"
+  - platform: state
+    entity_id:
+    - binary_sensor.danny_asleep
+    from: 'off'
+    to: 'on'
   condition:
-    - condition: time
-      after: "20:30:00"
-      before: 01:00:00
+  - condition: time
+    after: '20:30:00'
+    before: 01:00:00
   action:
-    - service: script.bedtime
-      data: {}
+  - service: script.bedtime
+    data: {}
+  mode: single
+- id: '1704546738005'
+  alias: Turn off AC when outside temp is lower than inside temp an the input temp
+    is reasonable
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.melbourne_temp
+    below: 21
+    for:
+      minutes: 30
+  - platform: numeric_state
+    entity_id: sensor.home_average_temperature
+    below: 23
+    for:
+      minutes: 30
+  condition:
+  - and:
+    - alias: Night mode is on
+      condition: state
+      entity_id: input_boolean.hot_night_mode
+      state: 'on'
+    - condition: numeric_state
+      entity_id: sensor.deck_temperature
+      below: 21
+    - condition: numeric_state
+      entity_id: sensor.home_average_temperature
+      below: 23
+  action:
+  - service: climate.turn_off
+    entity_id: climate.central_cooling
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.hot_night_mode
+  mode: single
+- id: '1709121550654'
+  alias: Turn off AC when outside temp is lower than inside temp an the input temp
+    is reasonable
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id:
+    - sensor.melbourne_temp
+    below: 21
+    for:
+      minutes: 30
+  - platform: numeric_state
+    entity_id: sensor.home_average_temperature
+    below: 23
+    for:
+      minutes: 30
+  condition:
+  - and:
+    - alias: Night mode is on
+      condition: state
+      entity_id: input_boolean.hot_night_mode
+      state: 'on'
+    - condition: numeric_state
+      entity_id: sensor.deck_temperature
+      below: 21
+    - condition: numeric_state
+      entity_id: sensor.home_average_temperature
+      below: 23
+  action:
+  - service: climate.turn_off
+    entity_id: climate.central_cooling
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.hot_night_mode
   mode: single

@@ -8,7 +8,39 @@
   max_temp: 25.0
   away_temp: 18.0
   min_cycle_duration:
-    seconds: 10
+    seconds: 60
+
+- platform: generic_thermostat
+  name: Family Room Cooling
+  heater: switch.family_room_wall_unit
+  target_sensor: sensor.family_room_sensor_temperature
+  ac_mode: true
+  target_temp: 21.0
+  min_temp: 18.0
+  max_temp: 27.0
+  away_temp: 24.0
+  min_cycle_duration:
+    seconds: 120
+
+- platform: generic_thermostat
+  name: Family Room Heating
+  heater: switch.family_room_wall_unit
+  target_sensor: sensor.family_room_sensor_temperature
+  target_temp: 21.0
+  min_temp: 18.0
+  max_temp: 27.0
+  away_temp: 24.0
+  min_cycle_duration:
+    seconds: 120
+
+# - platform: generic_thermostat
+#   name: Crystal Growing
+#   heater: switch.crystal_heater
+#   target_sensor: sensor.studio_temperature
+#   target_temp: 20.0
+#   min_temp: 18.0
+#   max_temp: 27.0
+#   away_temp: 24.0
 
 - platform: generic_thermostat
   name: Adas Room
@@ -22,6 +54,15 @@
   name: Lenis Room
   heater: switch.lenis_room_heater
   target_sensor: sensor.lenis_room_sensor_temperature
+  target_temp: 18.0
+  min_temp: 15.0
+  max_temp: 25.0
+
+
+- platform: generic_thermostat
+  name: Studio
+  heater: switch.studio_heater
+  target_sensor: sensor.studio_temperature
   target_temp: 18.0
   min_temp: 15.0
   max_temp: 25.0

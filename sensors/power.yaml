@@ -21,3 +21,4 @@
       friendly_name_template: "{{ states.switch.bedroom_heater.name}} Today's Consumption"
       value_template: '{{ states.switch.bedroom_heater.attributes["today_energy_kwh"] | float }}'
       unit_of_measurement: 'kWh'
+

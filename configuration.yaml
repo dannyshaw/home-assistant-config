@@ -28,12 +28,11 @@ lovelace:
       type: module
     - url: /local/community/lovelace-layout-card/layout-card.js
       type: module
-discovery:
+    - url: /local/community/lovelace-clock-card/clock-card.js
+      type: module
 homeassistant:
   auth_providers:
     - type: homeassistant
-    - type: legacy_api_password
-      api_password: !secret api_password
   packages: !include_dir_named packages
 http:
 #stream:
@@ -45,59 +44,59 @@ binary_sensor: !include components/binary_sensor.yaml
 automation mine: !include_dir_merge_list automations
 automation: !include automations.yaml
 script: !include scripts.yaml
-fan: !include components/fan.yaml
 frontend: !include components/frontend.yaml
 light: !include components/light.yaml
 climate: !include components/climate.yaml
 switch: !include components/switch.yaml
 camera: !include components/camera.yaml
 mqtt: !include components/mqtt.yaml
-media_player: !include components/media_player.yaml
 weather: !include components/weather.yaml
 input_select: !include components/input_select.yaml
 input_boolean: !include components/input_boolean.yaml
-speedtestdotnet: !include components/speedtestdotnet.yaml
 system_health:
 tts:
   - platform: google_translate
-tuya:
-  username: !secret email
-  password: !secret tuya_password
-  country_code: 61
-  platform: "tuya"
-tplink:
+# tuya:
+#   username: !secret email
+#   password: !secret tuya_password
+#   country_code: 61
+#   platform: "tuya"
 ffmpeg:
 # option removed
 # google:
 #   client_id: !secret google_api_client_id
 #   client_secret: !secret google_api_client_secret
 
-panel_iframe:
-  router:
-    title: "Dream Router"
-    url: !secret router_homepage
-  fridge:
-    title: "Deck Fermenter"
-    url: !secret ferm_fridge_homepage
-
 python_script:
 
-spotcast:
-  sp_dc: !secret spotify_dc
-  sp_key: !secret spotify_key
-  country: AU
+# spotcast:
+#   sp_dc: !secret spotify_dc
+#   sp_key: !secret spotify_key
+#   country: AU
 
 logger:
   default: info
   logs:
     custom_components.spotcast: debug
     custom_components.homewhiz: debug
-
-adaptive_lighting:
-  lights:
-    - light.living_room_lamp
+    homeassistant.components.automation: debug
+    homeassistant.components.script: debug
+    homeassistant.helpers.template: debug
+    sqlalchemy: debug
 
 utility_meter:
   central_heating_hours:
     source: switch.central_heating_power
     cycle: daily
+
+  daily_family_room_heater_energy:
+    source: sensor.family_room_wall_unit_power_consumption
+    cycle: daily
+
+  weekly_family_room_heater_energy:
+    source: sensor.family_room_wall_unit_power_consumption
+    cycle: weekly
+
+  monthly_family_room_heater_energy:
+    source: sensor.family_room_wall_unit_power_consumption
+    cycle: weekly

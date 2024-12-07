@@ -2,7 +2,7 @@
 schedy_switches: # This is our app instance name.
   module: hass_apps_loader
   class: SchedyApp
-
+  # debug: true
   actor_type: switch
 
   expression_environment: |
@@ -17,14 +17,6 @@ schedy_switches: # This is our app instance name.
         - value: "on"
           rules:
             - { start: "17:00", end: "19:00" }
-
-    # kitchen:
-    #   actors:
-    #     switch.cabinet_lights:
-    #   schedule:
-    #   - value: "on"
-    #     rules:
-    #     - { start: "05:30", end: "23:00" }
 
   schedule_append:
     - v: "off"

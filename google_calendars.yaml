@@ -168,3 +168,21 @@
   - device_id: todoist
     ignore_availability: true
     name: Todoist
+
+- cal_id: 1d965bc2ee7cb22b1c08c46ca5a6c1b36dff48f4153dbb758dbcdfa3ff820382@group.calendar.google.com
+  entities:
+  - device_id: shawtribe_routines
+    ignore_availability: true
+    name: Shawtribe - routines
+
+- cal_id: bd3b8b3c4e3d0b025ea06ddb602ef2dcae2fa86c034875c34537ca160e520a39@group.calendar.google.com
+  entities:
+  - device_id: edrolo_sync
+    ignore_availability: true
+    name: Edrolo Sync
+
+- cal_id: 97e318346b735857ff65feda51da3ce4f8b6c627d1641a68605c1e551b293782@group.calendar.google.com
+  entities:
+  - device_id: friends_and_family_birthdays
+    ignore_availability: true
+    name: Friends and Family Birthdays
