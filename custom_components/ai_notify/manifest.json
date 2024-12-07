@@ -1,0 +1,9 @@
+{
+  "domain": "ai_notify",
+  "name": "AI Notify",
+  "version": "0.0.1",
+  "documentation": "https://your-documentation-url",
+  "requirements": ["openai"],
+  "dependencies": [],
+  "codeowners": []
+}

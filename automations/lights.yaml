@@ -1,50 +1,40 @@
----
-- id: "cabinet_dimmer"
-  alias: Cabinet Light Dimmer
-  trigger:
-  - entity_id: sensor.cabinet_dimmer
-    platform: state
-  condition: []
-  action:
-  - data_template:
-      brightness_pct: "{{ (trigger.to_state.state | float(0)) * 10 }}"
-      transition: .25
-    service: light.turn_on
-    entity_id: light.cabinet_lights
-
-- alias: "Danny Bedtime Nudge"
-  trigger:
-  - platform: time
-    at: "21:30:00"
-  condition:
-  - condition: state
-    entity_id: light.living_room_lamp
-    state: "on"
-  action:
-  - service: light.turn_on
-    data:
-      brightness_pct: 2
-    target:
-      entity_id: light.living_room_lamp
-
-- alias: "Lamp morning on"
-  trigger:
-  - platform: time
-    at: "05:30:00"
-  action:
-  - service: light.turn_on
-    data:
-      brightness_pct: 2
-    target:
-      entity_id: light.living_room_lamp
-
-# - alias: "Lamp sunrise"
+# ---
+# - id: "cabinet_dimmer"
+#   alias: Cabinet Light Dimmer
 #   trigger:
-#   - platform: state
-#     entity_id: sun_relative_brightness
+#     - entity_id: sensor.cabinet_dimmer
+#       platform: state
+#   condition: []
 #   action:
-#   - service: light.turn_on
-#     data:
-#       brightness_pct: "{{states('sensor.sun_relative_brightness') | float(0)}}"
-#     target:
+#     - data_template:
+#         brightness_pct: "{{ (trigger.to_state.state | float(0)) * 10 }}"
+#         transition: .25
+#       service: light.turn_on
+#       entity_id: light.cabinet_lights
+
+# - alias: "Danny Bedtime Nudge"
+#   trigger:
+#     - platform: time
+#       at: "21:30:00"
+#   condition:
+#     - condition: state
 #       entity_id: light.living_room_lamp
+#       state: "on"
+#   action:
+#     - service: light.turn_on
+#       data:
+#         brightness_pct: 2
+#       target:
+#         entity_id: light.living_room_lamp
+
+# - alias: "Lamp morning on"
+#   trigger:
+#     - platform: time
+#       at: "05:30:00"
+#   action:
+#     - service: light.turn_on
+#       data:
+#         brightness_pct: 2
+#       target:
+#         entity_id: light.living_room_lamp
+

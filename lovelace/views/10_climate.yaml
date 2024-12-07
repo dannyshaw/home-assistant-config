@@ -1,76 +1,90 @@
 ---
 title: Climate
 path: climate
-type: custom:horizontal-layout
-layout:
-  max_cols: 2
-  width: 450
+type: panel
 cards:
-  - type: vertical-stack
+  - type: horizontal-stack
     cards:
-      - type: custom:mushroom-climate-card
-        entity: climate.adas_room
-        show_temperature_control: true
-        hvac_modes:
-          - heat
-          - "off"
-        icon: mdi:heat-wave
-        layout: horizontal
-
-      - type: custom:mushroom-climate-card
-        entity: climate.lenis_room
-        show_temperature_control: true
-        hvac_modes:
-          - heat
-          - "off"
-        icon: mdi:heat-wave
-        layout: horizontal
-
-      - type: custom:mushroom-climate-card
-        entity: climate.central_heating
-        show_temperature_control: true
-        hvac_modes:
-          - heat
-          - "off"
-        icon: mdi:heat-wave
-        layout: horizontal
-      - type: custom:mushroom-entity-card
-        entity: sensor.outside_temp
-        name: Deck Temperature
-        # layout: vertical
-        primary_info: state
-        secondary_info: name
-
-  - type: vertical-stack
-    cards:
-      - type: calendar
-        entities:
-          - calendar.shawtribe
-        initial_view: listWeek
-        theme: main
-        card_mod:
-          style:
-            ha-full-calendar:
-              $: |
-                #calendar {
-                  min-height: 800px !important;
-                }
-
-  - type: vertical-stack
-    cards:
-      - type: horizontal-stack
+      - type: vertical-stack
         cards:
-          - type: custom:mushroom-person-card
-            entity: person.danny
-            icon_type: entity-picture
-            # hide_name: true
-            # layout: vertical
-            secondary_info: state
-          - type: custom:mushroom-person-card
-            entity: person.gemma
-            icon_type: entity-picture
-            # hide_name: true
-            # layout: vertical
-            secondary_info: state
-      - type: weather-forecast
-        entity: weather.eltham
+          - type: horizontal-stack
+            cards:
+              - type: custom:mushroom-climate-card
+                entity: climate.adas_room
+                show_temperature_control: true
+                hvac_modes:
+                  - heat
+                  - "off"
+                icon: mdi:heat-wave
+                # layout: horizontal
+
+              - type: custom:mushroom-climate-card
+                entity: climate.lenis_room
+                show_temperature_control: true
+                hvac_modes:
+                  - heat
+                  - "off"
+                icon: mdi:heat-wave
+                # layout: horizontal
+
+          - type: horizontal-stack
+            cards:
+              - type: custom:mushroom-climate-card
+                entity: climate.central_heating
+                show_temperature_control: true
+                hvac_modes:
+                  - heat
+                  - "off"
+                icon: mdi:heat-wave
+                # layout: horizontal
+
+              - type: custom:mushroom-entity-card
+                entity: sensor.outside_temp
+                name: Deck Temperature
+                primary_info: state
+                secondary_info: name
+                fill_container: true
+
+          - type: horizontal-stack
+            cards:
+              - type: custom:mushroom-light-card
+                entity: switch.mosquito_killer
+                name: Deck Lights
+                icon: mdi:string-lights
+              - type: custom:mushroom-light-card
+                entity: light.living_room_lamp
+                name: Livingroom Lamp
+                icon: mdi:lamp
+
+      - type: vertical-stack
+        cards:
+          - type: calendar
+            entities:
+              - calendar.shawtribe
+            initial_view: listWeek
+            card_mod:
+              style:
+                ha-full-calendar:
+                  $: |
+                    #calendar {
+                      min-height: 800px !important;
+                    }
+
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: custom:mushroom-person-card
+                entity: person.danny
+                icon_type: entity-picture
+                # hide_name: true
+                # layout: vertical
+                secondary_info: state
+              - type: custom:mushroom-person-card
+                entity: person.gemma
+                icon_type: entity-picture
+                # hide_name: true
+                # layout: vertical
+                secondary_info: state
+          - type: weather-forecast
+            entity: weather.eltham

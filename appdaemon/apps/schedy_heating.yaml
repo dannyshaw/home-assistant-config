@@ -2,7 +2,7 @@
 schedy_heating: # This is our app instance name.
   module: hass_apps_loader
   class: SchedyApp
-  debug: true
+  # debug: true
 
   actor_type: thermostat
 
@@ -22,6 +22,12 @@ schedy_heating: # This is our app instance name.
     def outside_temperature():
       return state("sensor.outside_temp")
 
+    def inside_temperature():
+      return state("sensor.inside_temp")
+
+    def no_one_home():
+      return state("sensor.no_one_home")
+
     def sensor_unavailable(sensor):
       return sensor in state("sensor.unavailable_entities", "entities")
 
@@ -36,14 +42,15 @@ schedy_heating: # This is our app instance name.
           rules:
             - x: "Next() if sensor_unavailable('sensor.adas_room_sensor_temperature') else Break()"
             - v: "OFF"
-        - value: "OFF"
-          start: "06:00"
-          end: "16:00"
-        - value: 18.5
-          rules:
-            - { start: "19:00", end: "06:00" }
-        - value: 19
-
+        - start: "20:00"
+          end: "06:00"
+          value: 16
+        - start: "06:00"
+          end: "07:00"
+          value: 17
+        - start: "07:00"
+          end: "18:00"
+          value: "OFF"
     lenisroom:
       actors:
         climate.lenis_room:
@@ -54,13 +61,15 @@ schedy_heating: # This is our app instance name.
           rules:
             - x: "Next() if sensor_unavailable('sensor.lenis_room_sensor_temperature') else Break()"
             - v: "OFF"
-        - value: "OFF"
-          start: "06:00"
-          end: "16:00"
-        - value: 19
-          rules:
-            - { start: "19:00", end: "06:00" }
-        - value: 19
+        - start: "20:00"
+          end: "06:00"
+          value: 16
+        - start: "06:00"
+          end: "07:00"
+          value: 17
+        - start: "07:00"
+          end: "18:00"
+          value: "OFF"
 
     central:
       actors:
@@ -70,9 +79,9 @@ schedy_heating: # This is our app instance name.
             "OFF"
             # This will disable the heater if the temp sensor becomes unavailable to prevent overheating the room
           rules:
-            - x: "Next() if sensor_unavailable('sensor.family_room_sensor_temperature') else Break()"
+            #- x: "Next() if sensor_unavailable('sensor.family_room_sensor_temperature') and outside_temperature() < 10 else Break()"
             - v: "OFF"
-        - value: 19.4
+        - value: 19
           start: "05:30"
           end: "19:00"
 
@@ -128,6 +137,7 @@ schedy_heating: # This is our app instance name.
   schedule_prepend:
     - x: Next() if automations_global() == 'on' else "OFF"
     - x: Next() if heating_schedule_enabled() == 'on' else "OFF"
+    - x: Next() if no_one_home() == 'off' else "OFF"
 
   watched_entities:
     - input_boolean.heating_schedule_enabled
@@ -135,4 +145,6 @@ schedy_heating: # This is our app instance name.
     - input_boolean.danny_working_from_home
     - input_boolean.living_room_morning_heating
     - sensor.unavailable_entities:entities
-    - sensor.ferm_fridge_shed_temp
+    - sensor.no_one_home
+    - sensor.outside_temperature
+    - sensor.inside_temperature
