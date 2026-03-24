@@ -63,7 +63,7 @@ schedy_heating: # This is our app instance name.
             - v: "OFF"
         - start: "20:00"
           end: "06:00"
-          value: 16
+          value: 18
         - start: "06:00"
           end: "07:00"
           value: 17
@@ -112,21 +112,21 @@ schedy_heating: # This is our app instance name.
     #     - x: "Next() if living_room_morning_heating() == 'on' and outside_temperature() < 16 else Break()"
     #     - { start: "05:45", end: "09:00" }
 
-    # office:
-    #   actors:
-    #     climate.office:
-    #   schedule:
-    #   - v: 20
-    #     rules:
-    #     - weekdays: 1-5
-    #       rules:
-    #       - rules:
-    #         - x: "Next() if working_from_home() == 'on' else Break()"
-    #         - { start: "07:00", end: "16:00" }
-    #   - v: "OFF"
-    #     rules:
-    #       - rules:
-    #         - { start: "00:00", end: "06:00" }
+    office:
+      actors:
+        climate.studio:
+      schedule:
+        - v: 20
+          # rules:
+          #   - weekdays: 1-5
+          #     rules:
+          #       - rules:
+          #           - x: "Next() if working_from_home() == 'on' else Break()"
+          #           - { start: "07:00", end: "16:00" }
+        - v: "OFF"
+          rules:
+            - rules:
+                - { start: "22:00", end: "05:00" }
 
   schedule_append:
     # this somehow gets processed in reverse. so the following will set all

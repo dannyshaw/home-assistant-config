@@ -56,6 +56,9 @@ input_boolean: !include components/input_boolean.yaml
 system_health:
 tts:
   - platform: google_translate
+  - platform: amazon_polly
+    aws_access_key_id: !secret aws_access_key
+    aws_secret_access_key: !secret aws_secret_access_key
 # tuya:
 #   username: !secret email
 #   password: !secret tuya_password
@@ -69,20 +72,17 @@ ffmpeg:
 
 python_script:
 
-# spotcast:
-#   sp_dc: !secret spotify_dc
-#   sp_key: !secret spotify_key
-#   country: AU
+recorder:
+  purge_keep_days: 28
+  auto_purge: true
+
+spotcast:
+  sp_dc: !secret spotify_dc
+  sp_key: !secret spotify_key
+  country: AU
 
 logger:
-  default: info
-  logs:
-    custom_components.spotcast: debug
-    custom_components.homewhiz: debug
-    homeassistant.components.automation: debug
-    homeassistant.components.script: debug
-    homeassistant.helpers.template: debug
-    sqlalchemy: debug
+  default: warning
 
 utility_meter:
   central_heating_hours:
@@ -100,3 +100,30 @@ utility_meter:
   monthly_family_room_heater_energy:
     source: sensor.family_room_wall_unit_power_consumption
     cycle: weekly
+
+notify:
+  - platform: ai_notify
+    name: ai_notify
+    api_key: !secret openai_api_key 
+    tts_service: "tts.google_translate_say"
+    default_media_player: "media_player.kitchen_home"
+    prompt_templates:
+      default: "Please rephrase the following message in a creative way: '{message}'"
+      ada: >
+        You will be talking to a 5yo. Make following message engaging and funny but still
+        convey the intent of the message, The idea is to not become boring: 
+        ---
+        '{message}'
+      formal: "Rephrase this message formally: '{message}'"
+
+template:
+  - sensor:
+      - name: Current Week Meal Trello List
+        state: >
+          {% set week_number = now().isocalendar().week %}
+          {% set lists = state_attr('sensor.trello_meal_lists', 'lists') %}
+          {% if lists %}
+            {{ lists[week_number % lists | length]['id'] }}
+          {% else %}
+            "Unknown"
+          {% endif %}

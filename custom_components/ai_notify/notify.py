@@ -54,12 +54,12 @@ class AINotifyService(BaseNotificationService):
 
     def send_message(self, message="", **kwargs):
         """Send a message to a user."""
-        data = kwargs.get("data", {})
+        data = kwargs.get("data", {}) or {}  # Ensure data is always a dictionary
         media_player = data.get("media_player", self.default_media_player)
         prompt_template_name = data.get("prompt_template", "default")
         prompt_template = self.prompt_templates.get(
             prompt_template_name,
-            "Please rephrase the following message in a creative way: '{message}'",
+            "Please rephrase the following message in a creative way: '{message}'"
         )
         tts_service = data.get("tts_service", self.tts_service)
 
@@ -85,10 +85,10 @@ class AINotifyService(BaseNotificationService):
 
         # Send the rephrased message using the specified TTS service
         self.hass.services.call(
-            "tts",
-            tts_service.split(".")[1],
+            'tts',
+            tts_service.split('.')[1],
             {
-                "entity_id": media_player,
-                "message": new_message,
-            },
+                'entity_id': media_player,
+                'message': new_message,
+            }
         )

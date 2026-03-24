@@ -1,7 +1,6 @@
 ---
 - platform: template
   switches:
-
     # bedroom_heating:
     #   friendly_name: Bedroom Heating
     #   value_template: "{{ is_state('climate.bedroom', 'heat') }}"
@@ -48,17 +47,17 @@
       friendly_name: Living Room Heating
       value_template: "{{ is_state('climate.living_room', 'heat') }}"
       turn_on:
-      - service: climate.turn_on
-        data:
-          entity_id: climate.living_room
-      - service: climate.set_hvac_mode
-        data:
-          entity_id: climate.living_room
-          hvac_mode: heat
-      - service: climate.set_temperature
-        data:
-          entity_id: climate.living_room
-          temperature: 20
+        - service: climate.turn_on
+          data:
+            entity_id: climate.living_room
+        - service: climate.set_hvac_mode
+          data:
+            entity_id: climate.living_room
+            hvac_mode: heat
+        - service: climate.set_temperature
+          data:
+            entity_id: climate.living_room
+            temperature: 20
       turn_off:
         service: climate.turn_off
         data:
@@ -75,3 +74,14 @@
         service: switch.toggle
         target:
           entity_id: switch.adas_room_light
+
+    broadcast_switch1:
+      friendly_name: "Broadcast Switch 1"
+      turn_on:
+        service: switch.turn_on
+        target:
+          entity_id: switch.broadcast_switch1
+      turn_off:
+        service: switch.turn_off
+        target:
+          entity_id: switch.broadcast_switch1

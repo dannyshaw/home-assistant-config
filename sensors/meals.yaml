@@ -1,0 +1,28 @@
+- platform: rest
+  name: Trello Lists
+  resource: "https://api.trello.com/1/boards/Jlat9GZV/lists"
+  method: GET
+  headers:
+    Authorization: !secret atlassian_auth
+  params:
+    key: !secret atlassian_key
+    token: !secret atlassian_token
+  value_template: "{{ value_json[0]['name'] }}"
+  json_attributes:
+    - lists
+
+- platform: rest
+  name: Weekly Meal Plan
+  resource_template: >
+    https://api.trello.com/1/lists/{{ states('sensor.current_week_meal_trello_list') }}/cards
+  method: GET
+  headers:
+    Authorization: !secret atlassian_auth
+  params:
+    key: !secret atlassian_key
+    token: !secret atlassian_token
+  value_template: >
+    {{ value_json | map(attribute='name') | join(', ') }}
+  json_attributes:
+    - cards
+
