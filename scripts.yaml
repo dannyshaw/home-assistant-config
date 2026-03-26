@@ -42,7 +42,6 @@ bedtime:
         entity_id: all
 
 toggle_adas_bed_light:
-  id: toggle_adas_bed_light
   alias: "Toggle Adas Bed Light"
   sequence:
     - service: light.toggle
