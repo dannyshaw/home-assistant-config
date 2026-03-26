@@ -1,3 +1,4 @@
+# PARKED: Trello-based weekly meal planning. Needs valid Trello/Atlassian API keys.
 - platform: rest
   name: Trello Lists
   resource: "https://api.trello.com/1/boards/Jlat9GZV/lists"

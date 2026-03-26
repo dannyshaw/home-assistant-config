@@ -1,4 +1,5 @@
 ---
+# PARKED: Bedroom heater power monitoring. Needs switch.bedroom_heater smart plug connected.
 - platform: template
   sensors:
     bedroom_heater_amps:

@@ -1,3 +1,4 @@
 ---
+# PARKED: Vehicle OBD tracking via Torque app. Needs Torque app configured on phone.
 - platform: torque
   email: !secret torque_email_config

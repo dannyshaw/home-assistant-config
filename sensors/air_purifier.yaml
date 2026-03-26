@@ -1,4 +1,5 @@
 ---
+# PARKED: Xiaomi air purifier sensors. Needs fan.xiaomi_miio_device on network.
 - platform: template
   sensors:
     air_purifier_speed:

@@ -28,6 +28,7 @@
       value_template: >
         {{ states('sensor.family_room_sensor_temperature') }}
 
+# PARKED: Beer/fermentation temperature monitoring. Needs ferm_fridge API accessible on network.
 - platform: rest
   name: Beer Temperature
   resource: !secret ferm_fridge_api
@@ -36,6 +37,7 @@
   unit_of_measurement: "°C"
   icon: "mdi:thermometer"
 
+# PARKED: Deck temperature from ferm_fridge sensor. Needs ferm_fridge API accessible on network.
 - platform: rest
   name: Deck Temperature
   resource: !secret ferm_fridge_api
