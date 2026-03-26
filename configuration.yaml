@@ -1,6 +1,10 @@
 ---
-# Configure a default setup of Home Assistant (frontend, api, etc)
+# --- Core ---
 default_config:
+system_health:
+ffmpeg:
+
+# --- UI ---
 lovelace:
   mode: yaml
   resources:
@@ -30,11 +34,17 @@ lovelace:
       type: module
     - url: /local/community/lovelace-clock-card/clock-card.js
       type: module
+
+# --- Auth & HTTP ---
 homeassistant:
   auth_providers:
     - type: homeassistant
+  # Note: AppDaemon (schedy_heating) is PARKED. Needs AppDaemon add-on running in HA.
+  # Config lives in config/appdaemon/ — not loaded via packages.
   packages: !include_dir_named packages
 http:
+
+# --- Includes ---
 sensor: !include_dir_merge_list sensors/
 binary_sensor: !include components/binary_sensor.yaml
 automation mine: !include_dir_merge_list automations
@@ -46,60 +56,67 @@ switch: !include components/switch.yaml
 mqtt: !include components/mqtt.yaml
 input_select: !include components/input_select.yaml
 input_boolean: !include components/input_boolean.yaml
-system_health:
+
+# --- TTS ---
 tts:
   - platform: google_translate
   - platform: amazon_polly
     aws_access_key_id: !secret aws_access_key
     aws_secret_access_key: !secret aws_secret_access_key
-ffmpeg:
 
+# --- Enables python_script: service calls from scripts/ directory ---
 python_script:
 
+# --- Recording ---
 recorder:
   purge_keep_days: 28
   auto_purge: true
 
-spotcast:
-  sp_dc: !secret spotify_dc
-  sp_key: !secret spotify_key
-  country: AU
-
+# --- Logging ---
 logger:
   default: warning
 
+# --- Climate & Energy ---
 utility_meter:
   central_heating_hours:
     source: switch.central_heating_power
     cycle: daily
 
-  daily_family_room_heater_energy:
+  daily_living_room_heater_energy:
     source: sensor.family_room_wall_unit_power_consumption
     cycle: daily
 
-  weekly_family_room_heater_energy:
+  weekly_living_room_heater_energy:
     source: sensor.family_room_wall_unit_power_consumption
     cycle: weekly
 
-  monthly_family_room_heater_energy:
+  monthly_living_room_heater_energy:
     source: sensor.family_room_wall_unit_power_consumption
     cycle: monthly
 
+# --- Notifications ---
 notify:
   - platform: ai_notify
     name: ai_notify
-    api_key: !secret openai_api_key 
+    api_key: !secret openai_api_key
     tts_service: "tts.google_translate_say"
     default_media_player: "media_player.kitchen_home"
     prompt_templates:
       default: "Please rephrase the following message in a creative way: '{message}'"
       ada: >
         You will be talking to a 7yo. Make following message engaging and funny but still
-        convey the intent of the message, The idea is to not become boring: 
+        convey the intent of the message, The idea is to not become boring:
         ---
         '{message}'
       formal: "Rephrase this message formally: '{message}'"
 
+# --- PARKED: Spotcast - Spotify casting. Needs re-auth to re-enable. ---
+spotcast:
+  sp_dc: !secret spotify_dc
+  sp_key: !secret spotify_key
+  country: AU
+
+# --- PARKED: Trello meal planning template sensor. Needs sensors/meals.yaml Trello API working. ---
 template:
   - sensor:
       - name: Current Week Meal Trello List

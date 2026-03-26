@@ -11,7 +11,7 @@
     seconds: 60
 
 - platform: generic_thermostat
-  name: Family Room Cooling
+  name: Living Room Cooling
   heater: switch.family_room_wall_unit
   target_sensor: sensor.family_room_sensor_temperature
   ac_mode: true
@@ -23,7 +23,7 @@
     seconds: 120
 
 - platform: generic_thermostat
-  name: Family Room Heating
+  name: Living Room Heating
   heater: switch.family_room_wall_unit
   target_sensor: sensor.family_room_sensor_temperature
   target_temp: 21.0
@@ -50,7 +50,7 @@
   max_temp: 25.0
 
 - platform: generic_thermostat
-  name: Studio
+  name: Office
   heater: switch.studio_heater_switch
   target_sensor: sensor.studio_temperature
   target_temp: 18.0
