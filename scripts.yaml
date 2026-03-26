@@ -13,9 +13,6 @@ turn_off_all_heaters:
         entity_id: switch.adas_room_heating
     - service: switch.turn_off
       data:
-        entity_id: switch.bedroom_heating
-    - service: switch.turn_off
-      data:
         entity_id: switch.living_room_heating
 
 heat_the_house:
@@ -24,9 +21,6 @@ heat_the_house:
     - service: switch.turn_on
       data:
         entity_id: switch.adas_room_heating
-    - service: switch.turn_on
-      data:
-        entity_id: switch.bedroom_heating
     - service: switch.turn_on
       data:
         entity_id: switch.living_room_heating

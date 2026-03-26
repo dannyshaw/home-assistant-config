@@ -99,7 +99,7 @@ utility_meter:
 
   monthly_family_room_heater_energy:
     source: sensor.family_room_wall_unit_power_consumption
-    cycle: weekly
+    cycle: monthly
 
 notify:
   - platform: ai_notify
@@ -110,7 +110,7 @@ notify:
     prompt_templates:
       default: "Please rephrase the following message in a creative way: '{message}'"
       ada: >
-        You will be talking to a 5yo. Make following message engaging and funny but still
+        You will be talking to a 7yo. Make following message engaging and funny but still
         convey the intent of the message, The idea is to not become boring: 
         ---
         '{message}'
