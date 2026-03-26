@@ -35,12 +35,8 @@ homeassistant:
     - type: homeassistant
   packages: !include_dir_named packages
 http:
-#stream:
-# android_ip_webcam: !include components/android_ip_webcam.yaml
 sensor: !include_dir_merge_list sensors/
 binary_sensor: !include components/binary_sensor.yaml
-# device_tracker: !include components/device_tracker.yaml
-# group: !include groups.yaml
 automation mine: !include_dir_merge_list automations
 automation: !include automations.yaml
 script: !include scripts.yaml
@@ -56,16 +52,7 @@ tts:
   - platform: amazon_polly
     aws_access_key_id: !secret aws_access_key
     aws_secret_access_key: !secret aws_secret_access_key
-# tuya:
-#   username: !secret email
-#   password: !secret tuya_password
-#   country_code: 61
-#   platform: "tuya"
 ffmpeg:
-# option removed
-# google:
-#   client_id: !secret google_api_client_id
-#   client_secret: !secret google_api_client_secret
 
 python_script:
 

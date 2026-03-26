@@ -40,50 +40,6 @@ bedtime:
     - service: light.turn_off
       data:
         entity_id: all
-# start_playlist_classical_sleep:
-#   alias: Play Classical Sleep
-#   sequence:
-#     - service: spotcast.start
-#       data:
-#         device_name: 'Living Room Mini'
-#         uri: 'spotify:user:spotify:playlist:37i9dQZF1DX8Sz1gsYZdwj'
-
-# start_playlist_wiggles:
-#   alias: Play Classical Sleep
-#   sequence:
-#     - service: spotcast.start
-#       data:
-#         device_name: 'Living Room Mini'
-#         uri: 'spotify:user:spotify:playlist:37i9dQZF1DWU4fmy0wzUd7'
-
-# start_lullabys_for_big_eyes:
-#   alias: Play Lullabys For Big Eyes
-#   sequence:
-#     - service: spotcast.start
-#       data:
-#         device_name: 'Living Room Mini'
-#         uri: 'spotify:album:6ZfFjWKVDa366Tb9K75zOl'
-
-# adas_toy_red_button:
-#   alias: Ada's Toy Red Button
-#   sequence:
-#     - service: script.turn_on
-#       data_template:
-#         entity_id: script.start_playlist_wiggles
-
-# adas_toy_blue_button:
-#   alias: Ada's Toy Blue Button
-#   sequence:
-#     - service: script.turn_on
-#       data_template:
-#         entity_id: script.start_playlist_classical_sleep
-
-# adas_toy_green_button:
-#   alias: Ada's Toy Green Button
-#   sequence:
-#     - service: script.turn_on
-#       data_template:
-#         entity_id: script.start_lullabys_for_big_eyes
 
 toggle_adas_bed_light:
   id: toggle_adas_bed_light
@@ -99,38 +55,3 @@ cycle_bed_light_color:
     - service: python_script.cycle_rgb_light
       data:
         entity_id: light.adas_cubby_lights
-    # - service: persistent_notification.create
-    #   data:
-    #     title: "Debug Info"
-    #     message: >
-    #       {% set colors = [
-    #           (255, 0, 0), (255, 85, 0), (128, 128, 0), (64, 191, 0), (0, 255, 0),
-    #           (0, 191, 64), (0, 128, 128), (0, 64, 191), (0, 0, 255), (64, 64, 255),
-    #           (128, 0, 255), (191, 0, 255), (255, 0, 255), (191, 64, 191), (128, 128, 128),
-    #           (64, 191, 64), (0, 255, 255), (64, 191, 255), (128, 128, 255), (191, 64, 255)
-    #       ] %}
-    #       {% set current_color = state_attr('light.adas_cubby_lights', 'rgb_color') %}
-    #       Current Color: {{ current_color }}
-    #       {% if current_color in colors %}
-    #         {% set next_color = colors[(colors.index(current_color) + 1) % colors|length] %}
-    #       {% else %}
-    #         {% set next_color = colors[0] %}
-    #       {% endif %}
-    #       Next Color: {{ next_color }}
-    # - service: light.turn_on
-    #   data:
-    #     entity_id: light.adas_cubby_lights
-    #     rgb_color: >
-    #       {% set colors = [
-    #           (255, 0, 0), (255, 85, 0), (128, 128, 0), (64, 191, 0), (0, 255, 0),
-    #           (0, 191, 64), (0, 128, 128), (0, 64, 191), (0, 0, 255), (64, 64, 255),
-    #           (128, 0, 255), (191, 0, 255), (255, 0, 255), (191, 64, 191), (128, 128, 128),
-    #           (64, 191, 64), (0, 255, 255), (64, 191, 255), (128, 128, 255), (191, 64, 255)
-    #       ] %}
-    #       {% set current_color = state_attr('light.adas_cubby_lights', 'rgb_color') %}
-    #       {% if current_color in colors %}
-    #         {% set next_color = colors[(colors.index(current_color) + 1) % colors|length] %}
-    #       {% else %}
-    #         {% set next_color = colors[0] %}
-    #       {% endif %}
-    #       {{ next_color }}

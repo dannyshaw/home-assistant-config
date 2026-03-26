@@ -33,15 +33,6 @@
   min_cycle_duration:
     seconds: 120
 
-# - platform: generic_thermostat
-#   name: Crystal Growing
-#   heater: switch.crystal_heater
-#   target_sensor: sensor.studio_temperature
-#   target_temp: 20.0
-#   min_temp: 18.0
-#   max_temp: 27.0
-#   away_temp: 24.0
-
 - platform: generic_thermostat
   name: Adas Room
   heater: switch.adas_room_heater
