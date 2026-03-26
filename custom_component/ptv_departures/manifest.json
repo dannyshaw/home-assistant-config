@@ -1,8 +1,0 @@
-{
-  "domain": "ptv_departures",
-  "name": "PTV Departures",
-  "documentation": "https://github.com/dannyshaw/ptv_departures/",
-  "dependencies": [],
-  "codeowners": [],
-  "requirements": ["python-dateutil==2.8.0"]
-}
