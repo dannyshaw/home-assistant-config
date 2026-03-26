@@ -10,7 +10,7 @@
 
 - platform: template
   sensors:
-    preferred_temperature:
+    outside_temperature:
       friendly_name: "Outside Temperature"
       unit_of_measurement: "°C"
       value_template: >
@@ -22,7 +22,7 @@
 
 - platform: template
   sensors:
-    preferred_temperature:
+    inside_temperature:
       friendly_name: "Inside Temperature"
       unit_of_measurement: "°C"
       value_template: >
