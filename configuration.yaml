@@ -6,7 +6,14 @@ ffmpeg:
 
 # --- UI ---
 lovelace:
-  mode: yaml
+  resource_mode: yaml
+  dashboards:
+    lovelace:
+      mode: yaml
+      filename: ui-lovelace.yaml
+      title: Overview
+      icon: mdi:view-dashboard
+      show_in_sidebar: true
   resources:
     - url: /local/community/lovelace-card-mod/card-mod.js
       type: module
@@ -56,7 +63,6 @@ automation: !include automations.yaml
 script: !include scripts.yaml
 frontend: !include components/frontend.yaml
 climate: !include components/climate.yaml
-switch: !include components/switch.yaml
 mqtt: !include components/mqtt.yaml
 input_select: !include components/input_select.yaml
 input_boolean: !include components/input_boolean.yaml
@@ -120,15 +126,4 @@ spotcast:
   sp_key: !secret spotify_key
   country: AU
 
-# --- PARKED: Trello meal planning template sensor. Needs sensors/meals.yaml Trello API working. ---
-template:
-  - sensor:
-      - name: Current Week Meal Trello List
-        state: >
-          {% set week_number = now().isocalendar().week %}
-          {% set lists = state_attr('sensor.trello_meal_lists', 'lists') %}
-          {% if lists %}
-            {{ lists[week_number % lists | length]['id'] }}
-          {% else %}
-            "Unknown"
-          {% endif %}
+template: !include components/template.yaml

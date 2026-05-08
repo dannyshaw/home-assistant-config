@@ -1,0 +1,192 @@
+---
+- sensor:
+    # PARKED: Trello meal planning - needs sensors/meals.yaml Trello API working.
+    - name: Current Week Meal Trello List
+      state: >
+        {% set week_number = now().isocalendar().week %}
+        {% set lists = state_attr('sensor.trello_meal_lists', 'lists') %}
+        {% if lists %}
+          {{ lists[week_number % lists | length]['id'] }}
+        {% else %}
+          "Unknown"
+        {% endif %}
+
+    # PARKED: Xiaomi air purifier - needs fan.xiaomi_miio_device on network.
+    - default_entity_id: sensor.air_purifier_speed
+      name: air_purifier_speed
+      state: "{{ states.fan.xiaomi_miio_device.attributes.speed }}"
+    - default_entity_id: sensor.air_purifier_temperature
+      name: air_purifier_temperature
+      state: "{{ states.fan.xiaomi_miio_device.attributes.temperature }}"
+      unit_of_measurement: "°C"
+      icon: mdi:thermometer
+    - default_entity_id: sensor.air_purifier_humidity
+      name: air_purifier_humidity
+      state: "{{ states.fan.xiaomi_miio_device.attributes.humidity }}"
+      unit_of_measurement: "%"
+      icon: mdi:water-percent
+    - default_entity_id: sensor.air_purifier_air_quality
+      name: air_purifier_air_quality
+      state: "{{ states.fan.xiaomi_miio_device.attributes.aqi }}"
+      unit_of_measurement: "aqi"
+      icon: mdi:air-filter
+
+    - default_entity_id: sensor.distance_danny_gem
+      name: "Distance - Danny to Gem"
+      unit_of_measurement: "km"
+      state: "{{ distance('device_tracker.pixel_6a', 'device_tracker.gemmas_phone') }}"
+
+    - default_entity_id: sensor.outside_temperature
+      name: "Outside Temperature"
+      unit_of_measurement: "°C"
+      state: >
+        {% if states('sensor.deck_temperature') not in ['unknown', 'unavailable'] %}
+          {{ states('sensor.deck_temperature') }}
+        {% else %}
+          {{ states('sensor.melbourne_temperature') }}
+        {% endif %}
+    - default_entity_id: sensor.inside_temperature
+      name: "Inside Temperature"
+      unit_of_measurement: "°C"
+      state: "{{ states('sensor.family_room_sensor_temperature') }}"
+
+    # PARKED: Bedroom heater power - needs switch.bedroom_heater smart plug.
+    - default_entity_id: sensor.bedroom_heater_amps
+      name: "{{ states.switch.bedroom_heater.name }} Current"
+      state: '{{ states.switch.bedroom_heater.attributes["current_a"] | float }}'
+      unit_of_measurement: "A"
+    - default_entity_id: sensor.bedroom_heater_watts
+      name: "{{ states.switch.bedroom_heater.name }} Current Consumption"
+      state: '{{ states.switch.bedroom_heater.attributes["current_power_w"] | float }}'
+      unit_of_measurement: "W"
+    - default_entity_id: sensor.bedroom_heater_total_kwh
+      name: "{{ states.switch.bedroom_heater.name }} Total Consumption"
+      state: '{{ states.switch.bedroom_heater.attributes["total_energy_kwh"] | float }}'
+      unit_of_measurement: "kWh"
+    - default_entity_id: sensor.bedroom_heater_volts
+      name: "{{ states.switch.bedroom_heater.name }} Voltage"
+      state: '{{ states.switch.bedroom_heater.attributes["voltage"] | float }}'
+      unit_of_measurement: "V"
+    - default_entity_id: sensor.bedroom_heater_today_kwh
+      name: "{{ states.switch.bedroom_heater.name }} Today's Consumption"
+      state: '{{ states.switch.bedroom_heater.attributes["today_energy_kwh"] | float }}'
+      unit_of_measurement: "kWh"
+
+    - default_entity_id: sensor.sun_relative_brightness
+      name: "Light brightness relative to sunrise"
+      unit_of_measurement: "%"
+      state: >-
+        {% set elevation = state_attr('sun.sun', 'elevation') %}
+        {% if elevation > 10 %} 1 {% elif elevation < 2 %} 0.02 {% else %} {{ elevation / 10 }} {% endif %}
+
+    - default_entity_id: sensor.hours_outside_per_day_gemma
+      name: "Hours out of house Gemma"
+      state: >
+        {% set value = state_attr("sensor.time_at_home_gemma", "value") %}
+        {% if value != None %}
+        {% set d, h, m = value.split() %}
+        {% set d, h, m = d[:-1] | int, h[:-1] | int, m[:-1] | int %}
+        {% set hours_outside = ((14 - d) * 86400 - h * 3600 - m * 60) / 3600 %}
+        {{ (hours_outside / 14) | round(1) }}
+        {% endif %}
+    - default_entity_id: sensor.hours_outside_per_day_danny
+      name: "Hours out of house Danny"
+      state: >
+        {% set value = state_attr("sensor.time_at_home_danny", "value") %}
+        {% if value != None %}
+        {% set d, h, m = value.split() %}
+        {% set d, h, m = d[:-1] | int, h[:-1] | int, m[:-1] | int %}
+        {% set hours_outside = ((14 - d) * 86400 - h * 3600 - m * 60) / 3600 %}
+        {{ (hours_outside / 14) | round(1) }}
+        {% endif %}
+    - default_entity_id: sensor.no_one_home
+      name: "No one home"
+      state: >
+        {{ "on" if not is_state("person.danny", "home")
+            and not is_state("person.gemma", "home") else "off" }}
+
+    - default_entity_id: sensor.next_sunrise
+      name: next_sunrise
+      state: >
+        {{ as_timestamp(state_attr('sun.sun', 'next_rising')) | timestamp_custom('%H:%M', True) }}
+    - default_entity_id: sensor.next_sunset
+      name: next_sunset
+      state: >
+        {{ as_timestamp(state_attr('sun.sun', 'next_setting')) | timestamp_custom('%H:%M', True) }}
+
+- binary_sensor:
+    - default_entity_id: binary_sensor.danny_headphones_on
+      name: Danny headphones on
+      state: >
+        {{ 'on' if '20:74:CF:EC:D5:76 (Aeropex by AfterShokz)' in state_attr('sensor.pixel_6a_bluetooth_connection', 'connected_paired_devices') else 'off' }}
+    - default_entity_id: binary_sensor.cooler_outside
+      name: Cooler Outside
+      state: "{{ states('sensor.adas_room_temperature')|float > states('sensor.outside_temp')|float }}"
+
+- switch:
+    - default_entity_id: switch.office_heating
+      name: Office Heating
+      state: "{{ is_state('climate.office', 'heat') }}"
+      turn_on:
+        service: climate.set_hvac_mode
+        data:
+          entity_id: climate.office
+          hvac_mode: heat
+      turn_off:
+        service: climate.set_hvac_mode
+        data:
+          entity_id: climate.office
+          hvac_mode: "off"
+    - default_entity_id: switch.adas_room_heating
+      name: "Ada's Room Heating"
+      state: "{{ is_state('climate.adas_room', 'heat') }}"
+      turn_on:
+        service: climate.set_hvac_mode
+        data:
+          entity_id: climate.adas_room
+          hvac_mode: heat
+      turn_off:
+        service: climate.set_hvac_mode
+        data:
+          entity_id: climate.adas_room
+          hvac_mode: "off"
+    - default_entity_id: switch.living_room_heating
+      name: Living Room Heating
+      state: "{{ is_state('climate.living_room', 'heat') }}"
+      turn_on:
+        - service: climate.turn_on
+          data:
+            entity_id: climate.living_room
+        - service: climate.set_hvac_mode
+          data:
+            entity_id: climate.living_room
+            hvac_mode: heat
+        - service: climate.set_temperature
+          data:
+            entity_id: climate.living_room
+            temperature: 20
+      turn_off:
+        service: climate.turn_off
+        data:
+          entity_id: climate.living_room
+    - default_entity_id: switch.adas_room_light_toggle
+      name: Adas Little Light Switch
+      state: "{{ is_state_attr('switch.adas_room_light', 'sensor_state', 'on') }}"
+      turn_on:
+        service: switch.toggle
+        target:
+          entity_id: switch.adas_room_light
+      turn_off:
+        service: switch.toggle
+        target:
+          entity_id: switch.adas_room_light
+    - default_entity_id: switch.broadcast_switch1
+      name: Broadcast Switch 1
+      turn_on:
+        service: switch.turn_on
+        target:
+          entity_id: switch.broadcast_switch1
+      turn_off:
+        service: switch.turn_off
+        target:
+          entity_id: switch.broadcast_switch1
