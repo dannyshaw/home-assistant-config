@@ -1,204 +1,121 @@
 from __future__ import annotations
 
 import logging
-from dataclasses import dataclass, fields
-from typing import Callable
+from collections.abc import Mapping
+from datetime import datetime
+from typing import Any
 
-from homeassistant.components.sensor import (
-    SensorDeviceClass,
-    SensorEntity,
-    SensorEntityDescription,
-)
+from homeassistant.components.sensor import SensorDeviceClass, SensorEntity
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import STATE_UNAVAILABLE
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .appliance_config import (
-    ApplianceConfiguration,
-    ApplianceFeature,
-    ApplianceFeatureBoundedOption,
-    ApplianceFeatureEnumOption,
-    ApplianceProgressFeature,
+from .appliance_controls import (
+    DebugControl,
+    EnumControl,
+    NumericControl,
+    StateAwareRemainingTimeControl,
+    SummedTimestampControl,
+    TimeControl,
+    generate_controls_from_config,
 )
 from .config_flow import EntryData
 from .const import DOMAIN
-from .helper import (
-    build_device_info,
-    build_entry_data,
-    clamp,
-    find_by_value,
-    icon_for_key,
-    is_air_conditioner,
-    unit_for_key,
-)
+from .entity import HomeWhizEntity
+from .helper import build_entry_data
 from .homewhiz import HomewhizCoordinator
 
 _LOGGER: logging.Logger = logging.getLogger(__package__)
 
 
-@dataclass
-class HomeWhizSensorEntityDescription(SensorEntityDescription):
-    value_fn: Callable[[bytearray], float | str | None] | None = None
-
-
-class EnumSensorEntityDescription(HomeWhizSensorEntityDescription):
-    def __init__(
-        self, key: str, options: list[ApplianceFeatureEnumOption], read_index: int
-    ):
-        self.key = key
-        self.icon = "mdi:state-machine"
-        self.enum_options = options
-        self.options = [option.strKey for option in options]
-        self._read_index = read_index
-        self.device_class = f"{DOMAIN}__{self.key}"
-
-    def value_fn(self, data):
-        value = clamp(data[self._read_index])
-        option = find_by_value(value, self.enum_options)
-        if option is None:
-            return None
-        return option.strKey
-
-
-class SubProgramBoundedSensorEntityDescription(HomeWhizSensorEntityDescription):
-    def __init__(
-        self, parent_key: str, bounds: ApplianceFeatureBoundedOption, read_index: int
-    ):
-        self.key = bounds.strKey if bounds.strKey else parent_key
-        self._bounds = bounds
-        self._read_index = read_index
-
-    def value_fn(self, data):
-        return clamp(data[self._read_index]) * self._bounds.factor
-
-    @property
-    def native_unit_of_measurement(self):
-        return unit_for_key(self.key)
-
-    @property
-    def icon(self):
-        return icon_for_key(self.key)
-
-
-class ProgressSensorEntityDescription(HomeWhizSensorEntityDescription):
-    def __init__(self, progress: ApplianceProgressFeature):
-        self.key = progress.strKey
-        self.icon = "mdi:clock-outline"
-        self.native_unit_of_measurement = "min"
-        self.device_class = SensorDeviceClass.DURATION
-        self._progress = progress
-
-    def value_fn(self, data):
-        hours = clamp(data[self._progress.hour.wifiArrayIndex])
-        minutes = (
-            clamp(data[self._progress.minute.wifiArrayIndex])
-            if self._progress.minute is not None
-            else 0
-        )
-        return hours * 60 + minutes
-
-
-def generate_sensor_descriptions_from_features(features: list[ApplianceFeature]):
-    result = []
-    for feature in features:
-        read_index = feature.wifiArrayIndex
-        if feature.boundedValues is not None:
-            for bounds in feature.boundedValues:
-                result.append(
-                    SubProgramBoundedSensorEntityDescription(
-                        feature.strKey, bounds, read_index
-                    )
-                )
-    return result
-
-
-def generate_sensor_descriptions_from_config(
-    config: ApplianceConfiguration,
-) -> list[HomeWhizSensorEntityDescription]:
-    _LOGGER.debug("Generating descriptions from config")
-    result = []
-    if config.deviceSubStates is not None:
-        _LOGGER.debug("Adding SUB_STATE EnumEntityDescription")
-        result.append(
-            EnumSensorEntityDescription(
-                "SUB_STATE",
-                config.deviceSubStates.subStates,
-                config.deviceSubStates.wifiArrayReadIndex,
-            )
-        )
-    result.extend(generate_sensor_descriptions_from_features(config.subPrograms))
-    if config.progressVariables is not None:
-        _LOGGER.debug("Adding config progress variables")
-        for field in fields(config.progressVariables):
-            feature = getattr(config.progressVariables, field.name)
-            if feature is not None:
-                result.append(
-                    ProgressSensorEntityDescription(feature),
-                )
-    if config.monitorings is not None:
-        _LOGGER.debug("Adding config monitorings")
-        result.extend(generate_sensor_descriptions_from_features(config.monitorings))
-
-    return result
-
-
-class HomeWhizSensorEntity(CoordinatorEntity[HomewhizCoordinator], SensorEntity):
-    _attr_has_entity_name = True
-
+class HomeWhizSensorEntity(HomeWhizEntity, SensorEntity):
     def __init__(
         self,
         coordinator: HomewhizCoordinator,
-        description: HomeWhizSensorEntityDescription,
-        entry: ConfigEntry,
+        control: TimeControl
+        | EnumControl
+        | NumericControl
+        | DebugControl
+        | SummedTimestampControl
+        | StateAwareRemainingTimeControl,
+        device_name: str,
         data: EntryData,
     ):
-        super().__init__(coordinator)
-        unique_name = entry.title
-        self._attr_unique_id = f"{unique_name}_{description.key}"
-        self._attr_device_info = build_device_info(unique_name, data)
-
-        self._localization = data.contents.localization
-        self.entity_description = description
-        self._value_fn = description.value_fn
+        super().__init__(coordinator, device_name, control.key, data)
+        self._control = control
+        if isinstance(control, (TimeControl, StateAwareRemainingTimeControl)):
+            self._attr_icon = "mdi:clock-outline"
+            self._attr_native_unit_of_measurement = "min"
+            self._attr_device_class = SensorDeviceClass.DURATION
+        elif isinstance(control, EnumControl):
+            self._attr_device_class = SensorDeviceClass.ENUM  # type:ignore
+            self._attr_options = list(self._control.options.values())  # type:ignore
+        elif isinstance(control, SummedTimestampControl):
+            self._attr_icon = "mdi:camera-timer"
+            self._attr_device_class = SensorDeviceClass.TIMESTAMP
 
     @property
-    def native_value(self) -> float | int | str | None:
-        """Return the state of the sensor."""
-        if not self.available:
-            return STATE_UNAVAILABLE
+    def extra_state_attributes(self) -> Mapping[str, Any] | None:  # type: ignore[override]
+        """Attribute to identify the origin of the data used"""
+        if isinstance(self._control, SummedTimestampControl):
+            return {
+                "sources": [
+                    x.my_entity_ids
+                    for x in self._control.sensors
+                    if hasattr(x, "my_entity_ids")
+                ]
+            }
+        return None
+
+    @property
+    def native_value(  # type: ignore[override]
+        self,
+    ) -> float | int | str | datetime | None:
+        _LOGGER.debug(
+            "Native value for entity %s, id: %s, info: %s, class:%s, is %s",
+            self.entity_key,
+            self._attr_unique_id,
+            self._attr_device_info,
+            self._attr_device_class,
+            self.coordinator.data,
+        )
+
         if self.coordinator.data is None:
             return None
-        return self._value_fn(self.coordinator.data)
-
-    @property
-    def available(self) -> bool:
-        return self.coordinator.is_connected
-
-    @property
-    def name(self) -> str | None:
-        key = self.entity_description.key
-        if key == "STATE":
-            return "State"
-        if key == "SUB_STATE":
-            return "Sub-state"
-        return self._localization.get(key, key)
+        return self._control.get_value(self.coordinator.data)
 
 
 async def async_setup_entry(
     hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback
 ) -> None:
     data = build_entry_data(entry)
-    if is_air_conditioner(data):
-        _LOGGER.debug("Appliance is AC, not adding Sensor entities")
-        return
     coordinator = hass.data[DOMAIN][entry.entry_id]
-    descriptions = generate_sensor_descriptions_from_config(data.contents.config)
-    _LOGGER.debug(f"Sensors: {[d.key for d in descriptions]}")
-    async_add_entities(
-        [
-            HomeWhizSensorEntity(coordinator, description, entry, data)
-            for description in descriptions
-        ]
+    controls = generate_controls_from_config(entry.entry_id, data.contents.config)
+    _LOGGER.debug("Generated controls: %s", controls)
+    sensor_controls = [
+        c
+        for c in controls
+        if isinstance(
+            c,
+            (
+                TimeControl,
+                EnumControl,
+                NumericControl,
+                DebugControl,
+                SummedTimestampControl,
+                StateAwareRemainingTimeControl,
+            ),
+        )
+    ]
+
+    _LOGGER.debug("Sensors: %s", [c.key for c in sensor_controls])
+
+    homewhiz_sensor_entities = [
+        HomeWhizSensorEntity(coordinator, control, entry.title, data)
+        for control in sensor_controls
+    ]
+    _LOGGER.debug(
+        "Entities: %s",
+        {entity.entity_key: entity for entity in homewhiz_sensor_entities},
     )
+    async_add_entities(homewhiz_sensor_entities)

@@ -5,7 +5,7 @@ import json
 import logging
 from dataclasses import dataclass
 from functools import reduce
-from typing import Optional
+from typing import Any
 
 import aiohttp
 from aiohttp import ContentTypeError
@@ -71,13 +71,13 @@ class ApplianceInfo:
     model: str
     applianceType: int
     platformType: str
-    applianceSerialNumber: str
+    applianceSerialNumber: str | None
     name: str
-    hsmId: Optional[str]
+    hsmId: str | None
     connectivity: str = "BT"
 
-    def is_bt(self):
-        return self == "BT" or self == "BASICBT"
+    def is_bt(self) -> bool:
+        return self.connectivity in {"BT", "BASICBT"}
 
 
 @dataclass
@@ -91,60 +91,93 @@ class ApplianceContents:
     localization: dict[str, str]
 
 
-def sign(key, msg):
+def sign(key: bytes, msg: str) -> bytes:
     return hmac.new(key, msg.encode("utf-8"), hashlib.sha256).digest()
 
 
-def getSignatureKey(key, date_stamp, regionName, serviceName):
+def get_signature_key(
+    key: str, date_stamp: str, region_name: str, service_name: str
+) -> bytes:
     kDate = sign(("AWS4" + key).encode("utf-8"), date_stamp)
-    kRegion = sign(kDate, regionName)
-    kService = sign(kRegion, serviceName)
+    kRegion = sign(kDate, region_name)
+    kService = sign(kRegion, service_name)
     kSigning = sign(kService, "aws4_request")
-    return kSigning
+    return kSigning  # noqa: RET504
 
 
-async def login(username: str, password: str):
+async def login(username: str, password: str) -> LoginResponse:
     request_parameters = {"password": password, "username": username}
 
-    async with aiohttp.ClientSession() as session:
-        async with session.post(
+    headers = {
+        "Content-Type": "application/json",
+        "User-Agent": "HomeWhiz/1.0",
+        "Accept": "application/json",
+    }
+
+    async with (
+        aiohttp.ClientSession() as session,
+        session.post(
             "https://api.arcelikiot.com/auth/login",
             json=request_parameters,
-        ) as response:
-            contents = await response.json()
-            if not contents["success"]:
-                _LOGGER.error(json.dumps(contents, indent=4))
-                raise LoginError(contents)
-            data = contents["data"]
-            return from_dict(LoginResponse, data["credentials"])
+            headers=headers,
+        ) as response,
+    ):
+        contents = await response.json()
+        if response.status != 200:
+            _LOGGER.error(
+                "Login failed with HTTP %d: %s",
+                response.status,
+                json.dumps(contents, indent=4),
+            )
+            raise LoginError(contents)
+        if "success" in contents and not contents["success"]:
+            _LOGGER.error(json.dumps(contents, indent=4))
+            raise LoginError(contents)
+        if "success" not in contents or "data" not in contents:
+            _LOGGER.error(
+                "Unexpected response format: %s",
+                json.dumps(contents, indent=4),
+            )
+            raise LoginError(contents)
+        data = contents["data"]
+        return from_dict(LoginResponse, data["credentials"])
 
 
-async def make_id_exchange_request(device_name: str):
+async def make_id_exchange_request(device_name: str) -> IdExchangeResponse:
     hsmid = device_name[4:]
-    _LOGGER.debug(f"hsmid: {hsmid}")
-    async with aiohttp.ClientSession() as session:
-        async with session.get(
+    headers = {
+        "User-Agent": "HomeWhiz/1.0",
+        "Accept": "application/json",
+    }
+    _LOGGER.debug("hsmid: %s", hsmid)
+    async with (
+        aiohttp.ClientSession() as session,
+        session.get(
             f"https://idexchange.arcelikiot.com/GetApplianceId?hsmid={hsmid}",
-        ) as response:
-            if not response.ok:
-                _LOGGER.error(await response.text())
-                raise RequestError()
-            contents = json.loads(await response.text())
-            return from_dict(IdExchangeResponse, contents)
+            headers=headers,
+        ) as response,
+    ):
+        if not response.ok:
+            _LOGGER.error(await response.text())
+            raise RequestError
+        contents = json.loads(await response.text())
+        return from_dict(IdExchangeResponse, contents)
 
 
-async def make_get_contents_request(contents: ContentsDescription):
-    async with aiohttp.ClientSession() as session:
-        async with session.get(
+async def make_get_contents_request(contents: ContentsDescription) -> Any:
+    async with (
+        aiohttp.ClientSession() as session,
+        session.get(
             f"https://s3-eu-west-1.amazonaws.com/procam-contents"
             f"/{contents.ctype}S/{contents.cid}"
             f"/v{contents.ver}"
             f"/{contents.cid}.{contents.lang}.json",
-        ) as response:
-            if not response.ok:
-                _LOGGER.error(await response.text())
-                raise RequestError()
-            return json.loads(await response.text())
+        ) as response,
+    ):
+        if not response.ok:
+            _LOGGER.error(await response.text())
+            raise RequestError
+        return json.loads(await response.text())
 
 
 async def make_api_get_request(
@@ -152,14 +185,15 @@ async def make_api_get_request(
     credentials: LoginResponse,
     canonical_uri: str,
     canonical_querystring: str = "",
-):
-    t = datetime.datetime.utcnow()
+) -> Any:
+    t = datetime.datetime.now(tz=datetime.UTC)
     amz_date = t.strftime("%Y%m%dT%H%M%SZ")
-    date_stamp = t.strftime("%Y%m%d")  # Date w/o time, used in credential scope
+    # Date w/o time, used in credential scope
+    date_stamp = t.strftime("%Y%m%d")
     canonical_headers = (
         f"host:{host}\n"
-        + f"x-amz-date:{amz_date}\n"
-        + f"x-amz-security-token:{credentials.sessionToken}\n"
+        f"x-amz-date:{amz_date}\n"
+        f"x-amz-security-token:{credentials.sessionToken}\n"
     )
     signed_headers = "host;x-amz-date;x-amz-security-token"
     payload_hash = hashlib.sha256(b"").hexdigest()
@@ -174,7 +208,7 @@ async def make_api_get_request(
     )
 
     _LOGGER.debug(
-        "Actual canonical request: {}".format(canonical_request.replace("\n", "\\n"))
+        "Actual canonical request: {}".format(canonical_request.replace("\n", "\\n"))  # noqa: G001
     )
 
     credential_scope = f"{date_stamp}/{REGION}/{SERVICE}/aws4_request"
@@ -186,7 +220,7 @@ async def make_api_get_request(
     )
 
     # Create the signing key using the function defined above.
-    signing_key = getSignatureKey(credentials.secretKey, date_stamp, REGION, SERVICE)
+    signing_key = get_signature_key(credentials.secretKey, date_stamp, REGION, SERVICE)
     signature = hmac.new(
         signing_key, string_to_sign.encode("utf-8"), hashlib.sha256
     ).hexdigest()
@@ -201,26 +235,37 @@ async def make_api_get_request(
         "x-amz-date": amz_date,
         "x-amz-security-token": (credentials.sessionToken),
         "Authorization": authorization_header,
+        "User-Agent": "HomeWhiz/1.0",
+        "Accept": "application/json",
     }
 
     async with aiohttp.ClientSession() as session:
-        async with session.get(
-            f"https://{host}{canonical_uri}?{canonical_querystring}", headers=headers
-        ) as response:
+        url = f"https://{host}{canonical_uri}"
+        if canonical_querystring:
+            url = f"{url}?{canonical_querystring}"
+        async with session.get(url, headers=headers) as response:
             try:
                 contents = await response.json()
-                if not contents["success"]:
+                if response.status != 200:
+                    _LOGGER.error(
+                        "API request failed with HTTP %d: %s",
+                        response.status,
+                        json.dumps(contents, indent=4),
+                    )
+                    raise RequestError(contents)
+                if "success" in contents and not contents["success"]:
                     _LOGGER.error(json.dumps(contents, indent=4))
                     raise RequestError(contents)
-                return contents
-            except ContentTypeError:
-                _LOGGER.error(await response.text())
-                raise RequestError(contents)
+                return contents  # noqa: TRY300
+            except ContentTypeError as err:
+                text = await response.text()
+                _LOGGER.error(text)
+                raise RequestError(text) from err
 
 
 async def fetch_contents_index(
-    credentials: LoginResponse, app_id: str, language="en-GB"
-):
+    credentials: LoginResponse, app_id: str, language: str = "en-GB"
+) -> ContentsIndexResponse:
     response = await make_api_get_request(
         host="api.arcelikiot.com",
         canonical_uri="/procam/contents",
@@ -235,34 +280,39 @@ async def fetch_contents_index(
     return from_dict(ContentsIndexResponse, response["data"])
 
 
-async def fetch_base_contents_index(credentials: LoginResponse, language: str):
+async def fetch_base_contents_index(
+    credentials: LoginResponse, language: str
+) -> ContentsIndexResponse:
     response = await make_api_get_request(
         host="api.arcelikiot.com",
         canonical_uri="/procam/contents/subtype",
         canonical_querystring=(
-            f"ctype=LOCALIZATION&"
-            f"lang={language}&"
-            f"subtype=NEW-HOMEWHIZ&"
-            f"testMode=false"
+            f"ctype=LOCALIZATION&lang={language}&subtype=NEW-HOMEWHIZ&testMode=false"
         ),
         credentials=credentials,
     )
     return from_dict(ContentsIndexResponse, response["data"])
 
 
-async def fetch_localizations(contents_index: ContentsIndexResponse):
+async def fetch_localizations(contents_index: ContentsIndexResponse) -> dict[str, str]:
     localization_contents = [
         content for content in contents_index.results if content.ctype == "LOCALIZATION"
     ]
     localizations = [
-        (await make_get_contents_request(localization))["localizations"]
+        {
+            key.lower(): value
+            for key, value in (await make_get_contents_request(localization))[
+                "localizations"
+            ].items()
+        }
         for localization in localization_contents
     ]
+
     return reduce(lambda a, b: a | b, localizations)
 
 
 async def fetch_appliance_contents(
-    credentials: LoginResponse, app_id: str, language="en-GB"
+    credentials: LoginResponse, app_id: str, language: str = "en-GB"
 ) -> ApplianceContents:
     contents_index = await fetch_contents_index(credentials, app_id, language)
     config_contents = [
@@ -279,7 +329,7 @@ async def fetch_appliance_contents(
     )
 
 
-async def fetch_appliance_infos(credentials: LoginResponse):
+async def fetch_appliance_infos(credentials: LoginResponse) -> list[ApplianceInfo]:
     resp = await make_api_get_request(
         "smarthome.arcelikiot.com",
         credentials,

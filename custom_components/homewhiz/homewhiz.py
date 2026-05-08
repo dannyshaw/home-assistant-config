@@ -1,20 +1,35 @@
+import abc
 import logging
+from abc import ABC
 from collections import defaultdict
+from dataclasses import dataclass
 
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 
 _LOGGER: logging.Logger = logging.getLogger(__package__)
 
 
-class HomewhizCoordinator(DataUpdateCoordinator[bytearray | None]):
-    def connect(self):
+@dataclass
+class Command:
+    index: int
+    value: int
+
+
+class HomewhizCoordinator(
+    ABC,
+    DataUpdateCoordinator[bytearray | None],  # type: ignore[type-arg]
+):
+    @abc.abstractmethod
+    async def connect(self) -> bool:
         pass
 
     @property
-    def is_connected(self):
-        return False
+    @abc.abstractmethod
+    def is_connected(self) -> bool:
+        pass
 
-    async def send_command(self, index: int, value: int):
+    @abc.abstractmethod
+    async def send_command(self, command: Command) -> None:
         pass
 
 
@@ -38,6 +53,8 @@ brand_name_by_code = defaultdict(
         16: "Lamona",
         17: "Teka",
         18: "Voltas Beko",
+        36: "Whirlpool",
+        39: "Bauknecht",
     },
 )
 
