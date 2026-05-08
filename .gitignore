@@ -16,3 +16,4 @@ plex.conf
 .google.token
 esphome/
 custom_components/places/json_sensors/
+.cache/
