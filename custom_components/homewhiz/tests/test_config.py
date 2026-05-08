@@ -1,10 +1,11 @@
 import json
-import os
+from pathlib import Path
 
 import pytest
 from dacite import from_dict
 
 from custom_components.homewhiz.appliance_config import ApplianceConfiguration
+from custom_components.homewhiz.appliance_controls import generate_controls_from_config
 
 file_names = [
     # Configs extracted from the original app
@@ -37,10 +38,9 @@ file_names = [
 
 
 @pytest.mark.parametrize("file_name", file_names)
-def test_all_configs(file_name: str):
-    dirname = os.path.dirname(__file__)
-    file_path = os.path.join(dirname, f"./fixtures/{file_name}")
-
-    with open(file_path) as file:
+def test_all_configs(file_name: str) -> None:
+    file_path = Path(__file__).parent / "fixtures" / file_name
+    with file_path.open() as file:
         json_content = json.load(file)
-        from_dict(ApplianceConfiguration, json_content)
+        config = from_dict(ApplianceConfiguration, json_content)
+        generate_controls_from_config("test_config", config)

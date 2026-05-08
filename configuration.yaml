@@ -43,6 +43,10 @@ homeassistant:
   # Config lives in config/appdaemon/ — not loaded via packages.
   packages: !include_dir_named packages
 http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 172.30.0.0/16
+    - 192.168.1.0/24
 
 # --- Includes ---
 sensor: !include_dir_merge_list sensors/
