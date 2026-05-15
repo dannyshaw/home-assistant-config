@@ -197,3 +197,28 @@
       uri: spotify:track:7vMeyV4cZSqFSHm6WIyVjB
       entity_id: media_player.kitchen_home
   mode: single
+- id: '1779055200000'
+  alias: Tesla arrives in driveway - unlock charger
+  description: When the Tesla joins home wifi AND GPS places it in the driveway,
+    release the cable lock and enable charging for 20 minutes, then disable.
+  triggers:
+  - trigger: state
+    entity_id: device_tracker.tesla
+    to: home
+  conditions:
+  - condition: state
+    entity_id: device_tracker.the_tesla_location
+    state: driveway
+  actions:
+  - action: button.press
+    target:
+      entity_id: button.charger_unlock
+  - action: switch.turn_on
+    target:
+      entity_id: switch.charger_charge_control
+  - delay:
+      minutes: 20
+  - action: switch.turn_off
+    target:
+      entity_id: switch.charger_charge_control
+  mode: restart
